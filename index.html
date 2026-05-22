@@ -3,141 +3,222 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>HyperPartner — два концепта лендинга</title>
-<meta name="description" content="Прототипы лендинга HyperPartner. Концепты A и C для сравнения.">
+<title>HyperPartner — два концепта</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;700;900&family=JetBrains+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@200;300;400;500;700&family=JetBrains+Mono:wght@400;500;700&display=swap">
 <link rel="stylesheet" href="shared/tokens.css">
 <style>
   body { padding: 0; }
-  .root-wrap { min-height: 100vh; display: flex; flex-direction: column; padding: 40px 24px; }
-  .root-head { max-width: 1100px; margin: 0 auto 60px; width: 100%; }
-  .root-head .hp-logo { color: var(--hp-teal); margin-bottom: 32px; font-size: 22px; }
+  .root { min-height: 100vh; display: flex; flex-direction: column; padding: 48px 32px; }
+  .root-head { max-width: 1200px; margin: 0 auto 80px; width: 100%; }
+  .root-head .hp-logo { color: var(--ink); margin-bottom: 40px; font-size: 18px; }
   .root-head h1 {
-    font-size: clamp(36px, 5vw, 64px); font-weight: 200;
-    line-height: 1.05; letter-spacing: -0.03em;
-    color: var(--hp-teal); margin-bottom: 16px;
+    font-family: var(--f-display);
+    font-size: clamp(36px, 5vw, 80px);
+    font-weight: var(--w-light); line-height: 0.98;
+    letter-spacing: -0.035em;
+    color: var(--ink);
+    margin-bottom: 18px;
   }
-  .root-head h1 b { font-weight: 900; }
+  .root-head h1 b { font-weight: var(--w-bold); }
   .root-head p {
-    font-size: 17px; color: var(--hp-muted); line-height: 1.55;
-    max-width: 640px;
+    font-size: 17px; color: var(--ink-soft); line-height: 1.55;
+    max-width: 640px; font-weight: var(--w-thin);
   }
   .root-cards {
-    max-width: 1100px; margin: 0 auto; width: 100%;
+    max-width: 1200px; margin: 0 auto; width: 100%;
     display: grid; grid-template-columns: 1fr 1fr; gap: 24px;
   }
   .root-card {
-    background: var(--hp-white);
-    border: 1px solid var(--hp-line);
-    border-radius: 24px;
-    padding: 32px; display: block;
-    transition: all 0.35s var(--ease-out);
-    color: var(--hp-teal);
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 20px;
+    padding: 36px;
+    display: flex; flex-direction: column; gap: 18px;
+    transition: all 0.4s var(--ease);
+    color: var(--ink);
+    min-height: 540px;
   }
   .root-card:hover {
+    border-color: var(--ink);
     transform: translateY(-4px);
-    box-shadow: 0 24px 48px -20px rgba(20, 58, 58, 0.18);
-    border-color: transparent;
   }
   .root-card-tag {
-    display: inline-block;
-    font-family: var(--hp-font-mono);
-    font-size: 11px; letter-spacing: 0.08em;
-    text-transform: uppercase;
-    background: var(--hp-cream-warm);
-    padding: 5px 12px; border-radius: 100px;
-    color: var(--hp-teal); margin-bottom: 28px;
+    align-self: flex-start;
+    font-family: var(--f-mono);
+    font-size: 10.5px; font-weight: var(--w-med);
+    letter-spacing: 0.12em; text-transform: uppercase;
+    padding: 6px 12px; border-radius: 999px;
+    background: var(--bg-2); color: var(--ink-muted);
   }
+  .root-card-hero {
+    width: 100%; aspect-ratio: 16/10;
+    background: var(--bg-2);
+    border: 1px dashed var(--line-strong);
+    border-radius: 12px;
+    margin-bottom: 8px;
+    display: flex; align-items: center; justify-content: center;
+    position: relative; overflow: hidden;
+    background-image:
+      repeating-linear-gradient(45deg, transparent 0 12px, rgba(15, 15, 15, 0.025) 12px 13px);
+  }
+  .root-card-hero-c { display: flex; align-items: center; justify-content: space-between; padding: 18px; gap: 8px; background-image: none; background: var(--bg-2); }
+  .root-card-hero-c::before, .root-card-hero-c::after { content: ''; }
+  .root-card-hero-c svg { width: 38%; height: 85%; }
+  .root-card-hero-c .root-ch-chaos {
+    width: 28%; height: 75%;
+    background:
+      repeating-linear-gradient(45deg, transparent 0 6px, rgba(15, 15, 15, 0.06) 6px 7px);
+    border-radius: 4px;
+    position: relative;
+  }
+  .root-card-hero-c .root-ch-chaos::after {
+    content: ''; position: absolute; inset: 16px;
+    background:
+      linear-gradient(90deg, rgba(15, 15, 15, 0.4) 22%, transparent 22% 32%, rgba(15, 15, 15, 0.4) 32% 42%, transparent 42%);
+    opacity: 0.3;
+  }
+  .root-card-hero-c .root-ch-ribbons {
+    width: 32%; height: 75%;
+    display: flex; flex-direction: column; gap: 8px; justify-content: space-around;
+  }
+  .root-card-hero-c .root-ch-ribbons span {
+    height: 6px; background: var(--ink); border-radius: 3px;
+  }
+  .root-card-hero-c .root-ch-ribbons span:nth-child(2) { background: var(--peach); }
+  .root-card-hero-c .root-ch-ribbons span:nth-child(3) { background: var(--sage-deep); }
+  .root-card-hero-c .root-ch-ribbons span:nth-child(4) { background: var(--ink-muted); height: 4px; }
+
+  .root-card-hero-a { padding: 18px; background-image: none; background: var(--bg-2); display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr; gap: 8px; }
+  .root-card-hero-a .root-mini {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    box-shadow: 0 4px 12px rgba(15,15,15,0.05);
+    position: relative;
+  }
+  .root-card-hero-a .root-mini::after {
+    content: ''; position: absolute; inset: 6px;
+    background: linear-gradient(135deg, transparent 60%, var(--peach) 60% 65%, transparent 65%);
+    opacity: 0.4; border-radius: 3px;
+  }
+  .root-card-hero-a .root-mini:nth-child(1) { transform: rotate(-2deg); }
+  .root-card-hero-a .root-mini:nth-child(2) { background: var(--ink); transform: rotate(2deg); }
+  .root-card-hero-a .root-mini:nth-child(2)::after { background: linear-gradient(135deg, transparent 60%, var(--peach) 60% 65%, transparent 65%); opacity: 0.6; }
+  .root-card-hero-a .root-mini:nth-child(3) { transform: rotate(1deg); }
+  .root-card-hero-a .root-mini:nth-child(4) { transform: rotate(-1deg); }
+
   .root-card h2 {
-    font-size: 32px; font-weight: 600;
-    letter-spacing: -0.02em; margin-bottom: 14px;
-    color: var(--hp-teal);
+    font-family: var(--f-display);
+    font-size: 30px; font-weight: var(--w-light);
+    letter-spacing: -0.025em; color: var(--ink);
   }
+  .root-card h2 b { font-weight: var(--w-bold); }
   .root-card p {
-    font-size: 15px; line-height: 1.55;
-    color: var(--hp-teal-soft); margin-bottom: 28px;
+    font-size: 14.5px; line-height: 1.6;
+    color: var(--ink-soft); font-weight: var(--w-thin);
   }
   .root-card-features {
-    display: flex; flex-direction: column; gap: 10px;
-    font-size: 13.5px; color: var(--hp-teal-soft);
-    margin-bottom: 28px;
+    display: flex; flex-direction: column; gap: 8px;
+    font-size: 13px;
+    color: var(--ink-soft);
+    margin-bottom: auto;
   }
   .root-card-features div {
     padding-left: 14px; position: relative;
   }
   .root-card-features div::before {
     content: ''; position: absolute;
-    left: 0; top: 8px;
-    width: 6px; height: 1px;
-    background: var(--hp-teal);
+    left: 0; top: 9px;
+    width: 7px; height: 1px;
+    background: var(--peach);
   }
   .root-card-cta {
     display: inline-flex; align-items: center; gap: 10px;
-    padding: 14px 24px; border-radius: 100px;
-    background: var(--hp-teal); color: var(--hp-cream);
-    font-weight: 500; font-size: 15px;
+    align-self: flex-start;
+    padding: 14px 22px;
+    border-radius: 999px;
+    background: var(--ink); color: var(--bg);
+    font-family: var(--f-mono);
+    font-size: 11px; font-weight: var(--w-med);
+    letter-spacing: 0.1em; text-transform: uppercase;
+    margin-top: 8px;
+    transition: all 0.2s;
   }
-  .root-card-c { background: var(--hp-teal); color: var(--hp-peach); }
-  .root-card-c h2 { color: var(--hp-peach); }
-  .root-card-c p { color: rgba(244, 212, 184, 0.8); }
-  .root-card-c .root-card-tag { background: rgba(244, 212, 184, 0.15); color: var(--hp-peach); }
-  .root-card-c .root-card-features { color: rgba(244, 212, 184, 0.85); }
-  .root-card-c .root-card-features div::before { background: var(--hp-peach); }
-  .root-card-c .root-card-cta { background: var(--hp-peach); color: var(--hp-teal); }
+  .root-card-cta:hover { background: var(--ink-soft); transform: translateY(-1px); }
   .root-note {
-    max-width: 1100px; margin: 60px auto 0; width: 100%;
-    padding-top: 32px; border-top: 1px solid var(--hp-line);
-    font-size: 13px; color: var(--hp-muted);
+    max-width: 1200px; margin: 80px auto 0; width: 100%;
+    padding-top: 28px; border-top: 1px solid var(--line);
+    font-family: var(--f-mono);
+    font-size: 11px;
+    letter-spacing: 0.04em;
+    color: var(--ink-muted);
+    line-height: 1.6;
   }
   @media (max-width: 768px) {
+    .root { padding: 32px 20px; }
     .root-cards { grid-template-columns: 1fr; }
+    .root-head { margin-bottom: 48px; }
   }
 </style>
 </head>
 <body>
-<div class="root-wrap">
+<div class="root">
   <header class="root-head">
     <a class="hp-logo" href="#">
       <svg class="hp-logo-mark" viewBox="0 0 26 26"><path d="M2 0 L9 0 L18 13 L9 26 L2 26 L11 13 Z M11 0 L18 0 L26 13 L18 26 L11 26 L20 13 Z"/></svg>
       <span>HYPERPARTNER</span>
     </a>
-    <h1>Два <b>концепта лендинга</b> для сравнения</h1>
-    <p>Прототипы построены на одних и тех же данных и блоках, но раскрывают позиционирование HyperPartner с разных сторон. Цвета и логотип — фирменные. Тексты — содержательные, без воды. Mobile-вёрстка работает.</p>
+    <h1>Два <b>концепта</b> лендинга.</h1>
+    <p>Два рабочих прототипа — один продукт, два разных визуальных языка. Палитра и логотип фирменные. Плейсхолдеры под видео/иллюстрации/скринкасты — видны и подписаны.</p>
   </header>
 
   <section class="root-cards">
     <a class="root-card" href="a/">
-      <div class="root-card-tag">Концепт A</div>
-      <h2>HyperPlatform Live</h2>
-      <p>Сайт = живая мини-демонстрация платформы. В hero — узлы платформы и потоки данных в движении, тиккер реальных операций. Каждая секция «оживает» как окно дашборда.</p>
-      <div class="root-card-features">
-        <div>Подача — premium-dashboard, как Linear/Stripe/Vercel</div>
-        <div>Визуальное доказательство компетенции вместо рассказа</div>
-        <div>Калькулятор работает как живая панель аналитика</div>
-        <div>Отдельная секция «Инсайт-дашборд» с AI-диалогом</div>
+      <div class="root-card-tag">Концепт A · HyperPlatform</div>
+      <div class="root-card-hero root-card-hero-a">
+        <div class="root-mini"></div>
+        <div class="root-mini"></div>
+        <div class="root-mini"></div>
+        <div class="root-mini"></div>
       </div>
-      <span class="root-card-cta">Открыть концепт A →</span>
+      <h2>Цех ваших <b>цифровых сотрудников</b></h2>
+      <p>Карточки продукта в перспективе — KPI, инсайт, чарт, агент в работе. Сайт = коллаж работающей платформы.</p>
+      <div class="root-card-features">
+        <div>UI-collage в 3D-перспективе с mouse-parallax</div>
+        <div>Три акта: модули → оркестратор → дашборд</div>
+        <div>Калькулятор + AI-диалог инсайтов</div>
+      </div>
+      <span class="root-card-cta">Открыть A →</span>
     </a>
 
-    <a class="root-card root-card-c" href="c/">
-      <div class="root-card-tag">Концепт C</div>
-      <h2>Конвейер 24/7</h2>
-      <p>Метафора: хаос на входе → порядок на выходе. Разрозненные карточки задач (письма, звонки, сканы) попадают в портал HyperPlatform и выходят упорядоченно по 4 лентам: CRM, отчёт, аналитика, SMS клиенту.</p>
-      <div class="root-card-features">
-        <div>Сильный визуальный wow с первого экрана</div>
-        <div>Фирменные диагонали становятся инфраструктурой</div>
-        <div>Калькулятор — диспетчерская «вашего цеха»</div>
-        <div>Дашборд как «тот же конвейер для решений руководителя»</div>
+    <a class="root-card" href="c/">
+      <div class="root-card-tag">Концепт C · Конвейер</div>
+      <div class="root-card-hero root-card-hero-c">
+        <div class="root-ch-chaos"></div>
+        <svg viewBox="0 0 100 130" fill="none">
+          <path d="M10 10 L32 10 L62 65 L32 120 L10 120 L40 65 Z" fill="#E8A878"/>
+          <path d="M40 10 L62 10 L90 65 L62 120 L40 120 L68 65 Z" fill="#0F0F0F"/>
+        </svg>
+        <div class="root-ch-ribbons">
+          <span></span><span></span><span></span><span></span>
+        </div>
       </div>
-      <span class="root-card-cta">Открыть концепт C →</span>
+      <h2>Хаос на входе. <b>Порядок на выходе.</b></h2>
+      <p>Гигантский chevron из логотипа становится порталом. Карточки задач буквально влетают в него и выходят упорядоченно по 4 лентам.</p>
+      <div class="root-card-features">
+        <div>Chevron-сцена с реальной GSAP-физикой карточек</div>
+        <div>Три такта: поток → платформа → результат</div>
+        <div>Калькулятор как «диспетчерская» + дашборд</div>
+      </div>
+      <span class="root-card-cta">Открыть C →</span>
     </a>
   </section>
 
-  <div class="root-note">
-    Палитра — из вашего логотипа (deep teal #143A3A + персиковый #F4D4B8) с пастельной кремовой основой. Шрифт Inter Light/Bold. Цифры в калькуляторе — реалистичные (~уровня вашего шаблона КП). Instead of demo placeholders, всё содержательное.
-  </div>
+  <p class="root-note">
+    Палитра: off-white #F8F8F5 · black #0F0F0F · sage #C8D5C8 · peach #E8A878 (rare-accent). Шрифты: Space Grotesk + Inter + JetBrains Mono. Стек: чистый HTML/CSS/JS + GSAP. Mobile-portrait работает. Тексты — не финальные, разметка под наполнение.
+  </p>
 </div>
 </body>
 </html>
