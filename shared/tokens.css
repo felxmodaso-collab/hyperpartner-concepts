@@ -1,0 +1,163 @@
+/* HyperPartner brand tokens — общие для всех 3 прототипов */
+:root {
+  /* Палитра — из лого + пастель от Mahadeva */
+  --hp-teal: #143A3A;
+  --hp-teal-soft: #224B4B;
+  --hp-teal-fog: #2D5757;
+  --hp-peach: #F4D4B8;
+  --hp-peach-soft: #FAE5D2;
+  --hp-peach-deep: #E8B998;
+  --hp-mint: #BDD8C9;
+  --hp-cream: #FAF6F0;
+  --hp-cream-warm: #F5EFE5;
+  --hp-white: #FFFFFF;
+  --hp-ink: #1A2828;
+  --hp-muted: #6B7878;
+  --hp-line: rgba(20, 58, 58, 0.08);
+  --hp-line-strong: rgba(20, 58, 58, 0.16);
+
+  /* Шрифт */
+  --hp-font: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  --hp-font-mono: 'JetBrains Mono', 'SF Mono', Menlo, monospace;
+
+  /* Размеры */
+  --hp-radius-sm: 8px;
+  --hp-radius: 16px;
+  --hp-radius-lg: 24px;
+
+  /* Easing */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: var(--hp-font);
+  font-weight: 300;
+  color: var(--hp-ink);
+  background: var(--hp-cream);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  overflow-x: hidden;
+}
+a { color: inherit; text-decoration: none; }
+button { font-family: inherit; cursor: pointer; border: none; background: none; color: inherit; }
+img, svg { display: block; max-width: 100%; }
+
+/* Логотип */
+.hp-logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 900;
+  letter-spacing: -0.02em;
+  font-size: 20px;
+}
+.hp-logo-mark {
+  width: 26px; height: 26px;
+  flex-shrink: 0;
+}
+.hp-logo-mark path { fill: currentColor; }
+
+/* Универсальные кнопки */
+.hp-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 24px;
+  border-radius: 100px;
+  font-weight: 500;
+  font-size: 15px;
+  transition: all 0.3s var(--ease-out);
+  white-space: nowrap;
+}
+.hp-btn-primary {
+  background: var(--hp-teal);
+  color: var(--hp-cream);
+}
+.hp-btn-primary:hover {
+  background: var(--hp-ink);
+  transform: translateY(-1px);
+}
+.hp-btn-ghost {
+  border: 1px solid var(--hp-line-strong);
+  color: var(--hp-teal);
+}
+.hp-btn-ghost:hover {
+  border-color: var(--hp-teal);
+  background: var(--hp-white);
+}
+
+/* Контейнер */
+.hp-container {
+  width: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+/* Полоса навигации между прототипами */
+.hp-protobar {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--hp-teal);
+  color: var(--hp-cream);
+  border-radius: 100px;
+  padding: 8px;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 12px;
+  z-index: 100;
+  box-shadow: 0 12px 32px rgba(20, 58, 58, 0.2);
+}
+.hp-protobar a {
+  padding: 8px 16px;
+  border-radius: 100px;
+  opacity: 0.6;
+  transition: all 0.2s;
+}
+.hp-protobar a.active, .hp-protobar a:hover {
+  background: var(--hp-peach);
+  color: var(--hp-teal);
+  opacity: 1;
+  font-weight: 600;
+}
+
+/* Typography helpers */
+.hp-h1 {
+  font-size: clamp(40px, 6vw, 88px);
+  font-weight: 200;
+  line-height: 1.02;
+  letter-spacing: -0.03em;
+  color: var(--hp-teal);
+}
+.hp-h1 b {
+  font-weight: 900;
+  color: var(--hp-teal);
+}
+.hp-h2 {
+  font-size: clamp(32px, 4.5vw, 56px);
+  font-weight: 300;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  color: var(--hp-teal);
+}
+.hp-h2 b { font-weight: 800; }
+.hp-eyebrow {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--hp-muted);
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  .hp-protobar { font-size: 11px; }
+  .hp-protobar a { padding: 6px 12px; }
+}
