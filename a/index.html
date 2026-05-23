@@ -27,132 +27,88 @@
       <a href="#insights">Инсайты</a>
       <a href="#case">Кейс</a>
     </nav>
-    <a href="#cta" class="hp-btn hp-btn-dark">Запросить демо</a>
+    <a href="#cta" class="hp-btn hp-btn-peach">Запросить демо</a>
   </div>
 </header>
 
 <!-- HERO -->
 <section class="a-hero">
-  <div class="a-hero-top hp-container">
-    <div class="hp-eyebrow"><span class="hp-pulse"></span> HyperPlatform · 7 042 ассистента сейчас в работе</div>
-    <div class="a-hero-meta hp-mono">сегодня · 14:22 МСК</div>
+  <div class="a-hero-corners">
+    <span class="hp-mono">HYPERPARTNER</span>
+    <span class="hp-mono">DEPARTMENT IMPACT · 2026</span>
   </div>
 
-  <div class="a-hero-grid hp-container">
+  <div class="a-hero-inner hp-container">
     <div class="a-hero-text">
+      <div class="hp-eyebrow"><span class="hp-pulse"></span> цех цифровых сотрудников</div>
       <h1 class="a-h1">
         <span class="a-h1-thin">Не платформа.</span>
         <span class="a-h1-bold">Цех ваших <em>цифровых сотрудников</em>.</span>
       </h1>
       <p class="hp-lede">
-        HyperPlatform — оркестратор RPA, AI и аналитики. Внедряется как продукт, не как услуга.
-        Видна в работе, измерима в результатах.
+        Каждый отдел получает своего ассистента. Вы видите эффект цифрами,
+        а не презентациями.
       </p>
       <div class="a-hero-cta">
-        <a href="#roi" class="hp-btn hp-btn-dark">Посчитать ROI</a>
+        <a href="#roi" class="hp-btn hp-btn-peach">Посчитать ROI</a>
         <a href="#story" class="hp-btn hp-btn-ghost">Как устроена</a>
       </div>
     </div>
 
-    <!-- 3D-сцена: коллаж UI-фрагментов в перспективе -->
     <div class="a-stage" id="stage" aria-hidden="true">
+      <div class="a-stage-aurora"></div>
       <div class="a-stage-grid"></div>
-      <div class="a-stage-layer" data-depth="0.6">
-        <!-- KPI card (lifted) -->
-        <div class="a-ui a-ui-kpi" style="--tx:8%; --ty:6%; --rot:-2deg;">
-          <div class="a-ui-head hp-mono"><span class="hp-pulse"></span> live</div>
-          <div class="a-ui-kpi-row">
-            <div><span class="hp-mono">выручка нед.</span><b>+12,4%</b></div>
-            <div><span class="hp-mono">отток</span><b>2,1%</b></div>
-          </div>
-          <svg viewBox="0 0 200 36" class="a-ui-spark">
-            <polyline points="0,28 24,24 48,20 72,22 96,16 120,12 144,14 168,8 200,6"
-              fill="none" stroke="#0F0F0F" stroke-width="1.5"/>
-          </svg>
+      <div class="a-stage-layer" id="layer">
+
+        <div class="a-card" style="--tx:6%; --ty:6%; --rot:-3deg;" data-depth="0.5">
+          <span class="a-card-dept hp-mono">Бухгалтерия</span>
+          <b class="a-card-num">−65%</b>
+          <span class="a-card-meta">времени на счета</span>
         </div>
 
-        <!-- Insight pill -->
-        <div class="a-ui a-ui-insight" style="--tx:72%; --ty:2%; --rot:3deg;">
-          <span class="a-ui-tag hp-mono">инсайт</span>
-          <div class="a-ui-insight-text">
-            Резерв на складе кончится через <b>14 дней</b>.
-            Рекомендую +23% к заказу.
-          </div>
+        <div class="a-card" style="--tx:42%; --ty:0%; --rot:2deg;" data-depth="0.7">
+          <span class="a-card-dept hp-mono">Отдел продаж</span>
+          <b class="a-card-num">+18%</b>
+          <span class="a-card-meta">конверсия в оплату</span>
         </div>
 
-        <!-- Chart card -->
-        <div class="a-ui a-ui-chart" style="--tx:62%; --ty:34%; --rot:-3deg;">
-          <div class="a-ui-head hp-mono">закупки · 30 дней</div>
-          <svg viewBox="0 0 220 100" class="a-ui-chart-svg">
-            <defs>
-              <linearGradient id="a-area" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0%" stop-color="#E8A878" stop-opacity="0.55"/>
-                <stop offset="100%" stop-color="#E8A878" stop-opacity="0"/>
-              </linearGradient>
-            </defs>
-            <path d="M0 70 L30 65 L60 60 L90 55 L120 45 L150 35 L180 22 L220 12 L220 100 L0 100 Z" fill="url(#a-area)"/>
-            <polyline points="0,70 30,65 60,60 90,55 120,45 150,35 180,22 220,12" fill="none" stroke="#0F0F0F" stroke-width="1.6"/>
-            <circle cx="220" cy="12" r="3" fill="#0F0F0F"/>
-          </svg>
+        <div class="a-card" style="--tx:78%; --ty:8%; --rot:-1deg;" data-depth="0.55">
+          <span class="a-card-dept hp-mono">HR</span>
+          <b class="a-card-num">−70%</b>
+          <svg viewBox="0 0 80 20" class="a-card-spark"><polyline points="0,16 10,14 20,11 30,12 40,8 50,6 60,4 70,3 80,2" fill="none" stroke="#BDD8C9" stroke-width="1.5"/></svg>
+          <span class="a-card-meta">скрининг кандидатов</span>
         </div>
 
-        <!-- Agent status -->
-        <div class="a-ui a-ui-agent" style="--tx:4%; --ty:52%; --rot:2deg;">
-          <div class="a-ui-agent-head">
-            <span class="a-ui-agent-dot"></span>
-            <span class="hp-mono">агент #1284 · OCR</span>
-          </div>
-          <div class="a-ui-agent-rows">
-            <div class="a-ui-agent-row"><span class="hp-mono">обработано · день</span><b>847</b></div>
-            <div class="a-ui-agent-row"><span class="hp-mono">точность</span><b>99,2%</b></div>
-            <div class="a-ui-agent-row"><span class="hp-mono">uptime</span><b>99,98%</b></div>
-          </div>
+        <div class="a-card" style="--tx:14%; --ty:42%; --rot:1deg;" data-depth="0.8">
+          <span class="a-card-dept hp-mono">Клиент-сервис</span>
+          <b class="a-card-num">−25%</b>
+          <span class="a-card-meta">ФОТ при росте KPI</span>
         </div>
 
-        <!-- Big counter -->
-        <div class="a-ui a-ui-counter" style="--tx:32%; --ty:64%; --rot:-1deg;">
-          <span class="hp-mono">сегодня обработано</span>
-          <b class="a-counter" id="counter">1 247 833</b>
-          <span class="hp-mono">операций · 6 продуктов</span>
+        <div class="a-card" style="--tx:70%; --ty:48%; --rot:-2deg;" data-depth="0.65">
+          <span class="a-card-dept hp-mono">Маркетинг</span>
+          <b class="a-card-num">×3,2</b>
+          <span class="a-card-meta">окупаемость кампаний</span>
         </div>
 
-        <!-- Tag chips -->
-        <div class="a-ui a-ui-stack" style="--tx:80%; --ty:78%; --rot:4deg;">
-          <span class="a-ui-stack-tag">RPA</span>
-          <span class="a-ui-stack-tag">OCR</span>
-          <span class="a-ui-stack-tag">NLP</span>
-          <span class="a-ui-stack-tag">Neo4j</span>
+        <div class="a-card" style="--tx:0%; --ty:78%; --rot:-2deg;" data-depth="0.5">
+          <span class="a-card-dept hp-mono">Логистика</span>
+          <b class="a-card-num">+4,1×</b>
+          <span class="a-card-meta">пропускная способность</span>
         </div>
+
+        <div class="a-card a-card-featured" style="--tx:36%; --ty:62%; --rot:1deg;" data-depth="0.9">
+          <span class="a-card-dept hp-mono">Итого</span>
+          <b class="a-card-num">8 760 ч/год</b>
+          <span class="a-card-meta">высвобождено от рутины</span>
+        </div>
+
       </div>
-
-      <div class="a-stage-floor"></div>
     </div>
   </div>
 </section>
 
-<!-- TICKER -->
-<section class="a-ticker">
-  <div class="a-ticker-track">
-    <span>NEO4J</span><span class="a-tick-sep">·</span>
-    <span>PYTHON</span><span class="a-tick-sep">·</span>
-    <span>OPENAI</span><span class="a-tick-sep">·</span>
-    <span>CLAUDE</span><span class="a-tick-sep">·</span>
-    <span>SHERPA · RPA</span><span class="a-tick-sep">·</span>
-    <span>TENSORFLOW</span><span class="a-tick-sep">·</span>
-    <span>POSTGRES</span><span class="a-tick-sep">·</span>
-    <span>KAFKA</span><span class="a-tick-sep">·</span>
-    <span>NEO4J</span><span class="a-tick-sep">·</span>
-    <span>PYTHON</span><span class="a-tick-sep">·</span>
-    <span>OPENAI</span><span class="a-tick-sep">·</span>
-    <span>CLAUDE</span><span class="a-tick-sep">·</span>
-    <span>SHERPA · RPA</span><span class="a-tick-sep">·</span>
-    <span>TENSORFLOW</span><span class="a-tick-sep">·</span>
-    <span>POSTGRES</span><span class="a-tick-sep">·</span>
-    <span>KAFKA</span><span class="a-tick-sep">·</span>
-  </div>
-</section>
-
-<!-- STORY: 3 acts -->
+<!-- STORY -->
 <section class="a-story" id="story">
   <div class="hp-container a-story-head">
     <div class="hp-eyebrow">как устроена</div>
@@ -162,42 +118,42 @@
   <div class="a-act hp-container" data-act="01">
     <div class="a-act-text">
       <span class="a-act-num">01</span>
-      <h3 class="hp-h3">Каждый ассистент — модуль</h3>
-      <p class="hp-lede">Сборка под процесс: один ассистент = одна задача. RPA, OCR, агент, парсер, аналитик.</p>
+      <h3 class="hp-h3">Ассистент = модуль</h3>
+      <p class="hp-lede">Один ассистент — одна задача. RPA, OCR, агент, парсер, аналитик.</p>
       <ul class="a-act-tags">
         <li>RPA</li><li>OCR</li><li>NLP</li><li>parser</li><li>scheduler</li>
       </ul>
     </div>
-    <div class="a-act-media hp-media" style="aspect-ratio: 16/10;">
-      <span class="hp-media-label">схема · граф модулей HyperPlatform · 16:10</span>
+    <div class="a-act-media a-media-img" style="aspect-ratio: 16/10;">
+      <img src="../assets/illustration-flow.jpg" alt="" >
     </div>
   </div>
 
   <div class="a-act a-act-reverse hp-container" data-act="02">
     <div class="a-act-text">
       <span class="a-act-num">02</span>
-      <h3 class="hp-h3">Оркестратор — мозг</h3>
-      <p class="hp-lede">Маршрутизирует задачи, балансирует нагрузку, мониторит SLA, реагирует на сбои.</p>
+      <h3 class="hp-h3">Оркестратор = мозг</h3>
+      <p class="hp-lede">Маршрутизирует задачи, балансирует нагрузку, мониторит SLA.</p>
       <ul class="a-act-tags">
         <li>queue</li><li>SLA</li><li>auto-retry</li><li>fallback</li>
       </ul>
     </div>
-    <div class="a-act-media hp-media" style="aspect-ratio: 16/10;">
-      <span class="hp-media-label">video · оркестратор в работе · 16:10</span>
+    <div class="a-act-media a-media-img" style="aspect-ratio: 16/10;">
+      <img src="../assets/process-screencast.jpg" alt="" >
     </div>
   </div>
 
   <div class="a-act hp-container" data-act="03">
     <div class="a-act-text">
       <span class="a-act-num">03</span>
-      <h3 class="hp-h3">Дашборд — лицо</h3>
+      <h3 class="hp-h3">Дашборд = лицо</h3>
       <p class="hp-lede">Вы видите каждого ассистента, каждую операцию, ROI в реальном времени.</p>
       <ul class="a-act-tags">
         <li>live KPI</li><li>alerts</li><li>AI-чат</li><li>экспорт</li>
       </ul>
     </div>
-    <div class="a-act-media hp-media" style="aspect-ratio: 16/10;">
-      <span class="hp-media-label">скринкаст · live-дашборд · 16:10</span>
+    <div class="a-act-media a-media-img" style="aspect-ratio: 16/10;">
+      <img src="../assets/dashboard-result.jpg" alt="" >
     </div>
   </div>
 </section>
@@ -206,7 +162,7 @@
 <section class="a-solutions" id="solutions">
   <div class="hp-container a-sol-head">
     <div class="hp-eyebrow">три направления</div>
-    <h2 class="hp-h2">Что строим под ваш кейс.</h2>
+    <h2 class="hp-h2">Под три типа боли.</h2>
   </div>
   <div class="hp-container a-sol-grid">
     <article class="a-sol">
@@ -268,7 +224,7 @@
       </div>
     </div>
     <div class="a-roi-result">
-      <div class="a-roi-result-head hp-mono">результат — упаковка</div>
+      <div class="a-roi-result-head hp-mono">упаковка результата</div>
       <div class="a-roi-pack">
         <div class="a-roi-pack-row">
           <div class="a-roi-cell"><span class="hp-mono">годовая экономия</span><b id="resSave">15,6 млн ₽</b></div>
@@ -279,7 +235,7 @@
           <div class="a-roi-cell"><span class="hp-mono">освобождено часов</span><b id="resHours">61 776</b></div>
         </div>
       </div>
-      <a href="#cta" class="hp-btn hp-btn-dark a-roi-cta">Получить точный расчёт</a>
+      <a href="#cta" class="hp-btn hp-btn-peach a-roi-cta">Получить точный расчёт</a>
     </div>
   </div>
 </section>
@@ -291,8 +247,8 @@
     <h2 class="hp-h2">Спросите данные — <em>ответят данные</em>.</h2>
   </div>
   <div class="hp-container a-ins-grid">
-    <div class="hp-media a-ins-media" style="aspect-ratio: 16/10;">
-      <span class="hp-media-label">live dashboard · скринкаст-демо · 16:10</span>
+    <div class="a-ins-media a-media-img" style="aspect-ratio: 16/10;">
+      <img src="../assets/dashboard-result.jpg" alt="" >
     </div>
     <aside class="a-ins-side">
       <div class="a-ins-side-head hp-mono">AI-диалог с данными</div>
@@ -318,8 +274,8 @@
     <h2 class="hp-h2">Логистика, <em>200 заказов/день</em>.</h2>
   </div>
   <div class="hp-container a-case-grid">
-    <div class="hp-media a-case-media" style="aspect-ratio: 4/5;">
-      <span class="hp-media-label">photo · кадр со склада · 4:5</span>
+    <div class="a-case-media a-media-img" style="aspect-ratio: 4/5;">
+      <img src="../assets/case-warehouse.jpg" alt="" >
     </div>
     <div class="a-case-text">
       <p class="a-case-quote">
@@ -339,14 +295,12 @@
 <section class="a-cta" id="cta">
   <div class="hp-container">
     <div class="a-cta-card">
-      <div class="a-cta-stripe" aria-hidden="true">
-        <span></span><span></span><span></span>
-      </div>
+      <div class="a-cta-glow"></div>
       <div class="a-cta-text">
         <div class="hp-eyebrow">следующий шаг</div>
         <h2 class="hp-h2">30 минут — мы&nbsp;покажем платформу <em>на&nbsp;ваших&nbsp;данных</em>.</h2>
         <div class="a-cta-actions">
-          <a href="mailto:hi@hyperpartner.ru" class="hp-btn hp-btn-dark">Запросить демо</a>
+          <a href="mailto:hi@hyperpartner.ru" class="hp-btn hp-btn-peach">Запросить демо</a>
           <a href="#roi" class="hp-btn hp-btn-ghost">Сначала калькулятор</a>
         </div>
       </div>
@@ -360,7 +314,7 @@
       <svg viewBox="0 0 26 26" class="hp-logo-mark"><path d="M2 0 L9 0 L18 13 L9 26 L2 26 L11 13 Z M11 0 L18 0 L26 13 L18 26 L11 26 L20 13 Z"/></svg>
       <span>HYPERPARTNER</span>
     </a>
-    <span class="hp-mono a-footer-meta">© 2026 · 400+ внедрений · 9 лет</span>
+    <span class="hp-mono a-footer-meta">© 2026 · 7 042 ассистента · 9 лет</span>
   </div>
 </footer>
 

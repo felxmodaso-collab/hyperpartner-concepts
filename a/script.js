@@ -1,5 +1,5 @@
 /* ==========================================================
-   A v3 · editorial light · UI collage hero + parallax
+   A v4 · dark premium · UI collage with mouse-parallax
    ========================================================== */
 
 (() => {
@@ -7,64 +7,49 @@
     if (!window.gsap) { return setTimeout(init, 40); }
     const { gsap } = window;
     if (window.ScrollTrigger) gsap.registerPlugin(window.ScrollTrigger);
-    runHeroParallax();
-    runCounter();
+    runHero();
     runROI();
     runEntrance();
-    runStoryScroll();
+    runParallax();
   };
 
-  // === Mouse-parallax 3D collage ===
-  function runHeroParallax() {
+  function runHero() {
+    const { gsap } = window;
     const stage = document.getElementById('stage');
     if (!stage) return;
-    const uis = stage.querySelectorAll('.a-ui');
-    if (!uis.length) return;
-    // assign random depth + initial float
-    uis.forEach((el, i) => {
-      const depth = 0.6 + Math.random() * 0.6;
-      el.dataset.depth = depth;
-      // gentle bobbing
-      window.gsap.to(el, {
-        y: '+=' + (Math.random() * 12 - 6),
+    const cards = stage.querySelectorAll('.a-card');
+    if (!cards.length) return;
+
+    // gentle bobbing
+    cards.forEach((el, i) => {
+      gsap.to(el, {
+        y: '+=' + (Math.random() * 14 - 7),
         rotation: '+=' + (Math.random() * 1.6 - 0.8),
         duration: 4 + Math.random() * 3,
         ease: 'sine.inOut',
-        yoyo: true,
-        repeat: -1,
+        yoyo: true, repeat: -1,
       });
     });
+
+    // mouse parallax
     let mx = 0, my = 0, tx = 0, ty = 0;
     stage.addEventListener('mousemove', (e) => {
       const r = stage.getBoundingClientRect();
       mx = (e.clientX - r.left) / r.width - 0.5;
       my = (e.clientY - r.top) / r.height - 0.5;
     });
+    stage.addEventListener('mouseleave', () => { mx = 0; my = 0; });
     function raf() {
       tx += (mx - tx) * 0.06;
       ty += (my - ty) * 0.06;
-      uis.forEach((el) => {
-        const d = +el.dataset.depth;
-        el.style.setProperty('--mx', (tx * 22 * d) + 'px');
-        el.style.setProperty('--my', (ty * 18 * d) + 'px');
+      cards.forEach((el) => {
+        const d = +el.dataset.depth || 0.7;
+        el.style.setProperty('--mx', (tx * 26 * d) + 'px');
+        el.style.setProperty('--my', (ty * 22 * d) + 'px');
       });
       requestAnimationFrame(raf);
     }
     raf();
-    // Apply --mx/--my as additional transform
-    const styleEl = document.createElement('style');
-    styleEl.textContent = `.a-ui { transform: rotate(var(--rot)) translate(var(--mx, 0), var(--my, 0)) !important; }`;
-    document.head.appendChild(styleEl);
-  }
-
-  function runCounter() {
-    const el = document.getElementById('counter');
-    if (!el) return;
-    let val = 1247833;
-    setInterval(() => {
-      val += Math.floor(Math.random() * 9) + 2;
-      el.textContent = val.toLocaleString('ru-RU').replace(/,/g, ' ');
-    }, 1300);
   }
 
   function runROI() {
@@ -116,30 +101,26 @@
     const { gsap } = window;
     const tl = gsap.timeline({ defaults: { ease: 'power3.out', duration: 0.9 } });
     tl.from('.a-nav', { y: -30, opacity: 0, duration: 0.6 })
-      .from('.a-hero-top', { y: 12, opacity: 0 }, '-=0.3')
-      .from('.a-h1-thin', { y: 30, opacity: 0 }, '-=0.4')
-      .from('.a-h1-bold', { y: 30, opacity: 0 }, '-=0.7')
-      .from('.a-hero-text .hp-lede', { y: 20, opacity: 0 }, '-=0.6')
-      .from('.a-hero-cta .hp-btn', { y: 20, opacity: 0, stagger: 0.1 }, '-=0.55')
-      .from('.a-stage', { scale: 0.96, opacity: 0, duration: 1.1 }, '-=0.9')
-      .from('.a-ui', { y: 18, opacity: 0, stagger: 0.08, duration: 0.7 }, '-=0.7');
+      .from('.a-hero-corners > *', { opacity: 0, stagger: 0.08, duration: 0.5 }, '-=0.3')
+      .from('.a-hero-text .hp-eyebrow', { y: 16, opacity: 0 }, '-=0.3')
+      .from('.a-h1-thin', { y: 30, opacity: 0 }, '-=0.5')
+      .from('.a-h1-bold', { y: 30, opacity: 0 }, '-=0.65')
+      .from('.a-hero-text .hp-lede', { y: 20, opacity: 0 }, '-=0.55')
+      .from('.a-hero-cta .hp-btn', { y: 18, opacity: 0, stagger: 0.08 }, '-=0.5')
+      .from('.a-stage', { scale: 0.96, duration: 1.1 }, '-=1.0');
+    // Cards: subtle stagger без opacity (видимы всегда — fullPage screenshot safe)
+    gsap.from('.a-card', { y: 24, duration: 0.8, stagger: 0.07, ease: 'power2.out', delay: 0.6 });
   }
 
-  function runStoryScroll() {
+  function runParallax() {
     if (!window.ScrollTrigger) return;
     const { gsap } = window;
     gsap.utils.toArray('.a-act-media, .a-ins-media, .a-case-media').forEach((el) => {
       gsap.fromTo(el,
-        { y: 20 },
+        { y: 24 },
         {
-          y: -20,
-          ease: 'none',
-          scrollTrigger: {
-            trigger: el,
-            start: 'top bottom',
-            end: 'bottom top',
-            scrub: 1,
-          }
+          y: -24, ease: 'none',
+          scrollTrigger: { trigger: el, start: 'top bottom', end: 'bottom top', scrub: 1 }
         }
       );
     });

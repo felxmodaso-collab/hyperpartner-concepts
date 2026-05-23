@@ -15,7 +15,6 @@
 </head>
 <body>
 
-<!-- NAV -->
 <header class="c-nav">
   <div class="c-nav-inner">
     <a class="hp-logo" href="../">
@@ -28,112 +27,93 @@
       <a href="#insights">Дашборд</a>
       <a href="#case">Кейс</a>
     </nav>
-    <a href="#cta" class="hp-btn hp-btn-dark">Запросить демо</a>
+    <a href="#cta" class="hp-btn hp-btn-peach">Запросить демо</a>
   </div>
 </header>
 
 <!-- HERO -->
 <section class="c-hero">
-  <div class="c-hero-top hp-container">
-    <div class="hp-eyebrow"><span class="hp-pulse"></span> цифровой конвейер · 24/7</div>
-    <div class="c-hero-meta">
-      <span class="hp-mono">scroll ↓</span>
-    </div>
+  <!-- Top labels (corner mono captions) -->
+  <div class="c-hero-corners">
+    <span class="hp-mono c-corner-tl">HYPERPARTNER</span>
+    <span class="hp-mono c-corner-tr">ENTERPRISE · AI/RPA</span>
+    <span class="hp-mono c-corner-bl">v2.5 / 2026</span>
+    <span class="hp-mono c-corner-br">INTELLIGENT AUTOMATION</span>
   </div>
 
-  <!-- The big chevron stage -->
+  <!-- STAGE -->
   <div class="c-stage" id="stage" aria-hidden="true">
-    <div class="c-stage-chaos" id="chaos"></div>
+    <div class="c-stage-glow"></div>
+    <div class="c-stage-grid"></div>
 
-    <div class="c-stage-portal" id="portal">
-      <svg viewBox="0 0 380 520" class="c-portal-svg">
+    <div class="c-chaos" id="chaos"></div>
+
+    <div class="c-portal" id="portal">
+      <svg viewBox="0 0 480 600" class="c-portal-svg">
         <defs>
-          <linearGradient id="c-arr-1" x1="0" y1="0" x2="1" y2="1">
-            <stop offset="0%" stop-color="#F8E0CC"/>
+          <linearGradient id="cv-back" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.95"/>
+            <stop offset="100%" stop-color="#F4ECDD" stop-opacity="1"/>
+          </linearGradient>
+          <linearGradient id="cv-front" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#F2C9A5"/>
             <stop offset="100%" stop-color="#E8A878"/>
           </linearGradient>
-          <linearGradient id="c-arr-2" x1="0" y1="0" x2="1" y2="1">
-            <stop offset="0%" stop-color="#0F0F0F"/>
-            <stop offset="100%" stop-color="#2A2A2A"/>
-          </linearGradient>
-          <radialGradient id="c-halo" cx="50%" cy="50%" r="55%">
-            <stop offset="0%" stop-color="#C8D5C8" stop-opacity="0.45"/>
-            <stop offset="60%" stop-color="#C8D5C8" stop-opacity="0.08"/>
-            <stop offset="100%" stop-color="#C8D5C8" stop-opacity="0"/>
+          <radialGradient id="cv-halo" cx="50%" cy="50%" r="60%">
+            <stop offset="0%" stop-color="#E8A878" stop-opacity="0.65"/>
+            <stop offset="45%" stop-color="#E8A878" stop-opacity="0.18"/>
+            <stop offset="100%" stop-color="#E8A878" stop-opacity="0"/>
           </radialGradient>
+          <filter id="cv-glow" x="-50%" y="-50%" width="200%" height="200%">
+            <feGaussianBlur stdDeviation="14" result="blur"/>
+            <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+          </filter>
         </defs>
-        <circle cx="190" cy="260" r="220" fill="url(#c-halo)" class="c-portal-halo"/>
-        <!-- Back chevron (peach, recessed) -->
-        <path d="M30 30 L110 30 L220 260 L110 490 L30 490 L140 260 Z"
-              fill="url(#c-arr-1)" opacity="0.85" class="c-portal-back"/>
-        <!-- Front chevron (deep ink) -->
-        <path d="M150 30 L230 30 L350 260 L230 490 L150 490 L270 260 Z"
-              fill="url(#c-arr-2)" class="c-portal-front"/>
-        <!-- Inner pulse -->
-        <circle cx="240" cy="260" r="5" fill="#FFFFFF" class="c-portal-pulse"/>
+        <circle cx="240" cy="300" r="280" fill="url(#cv-halo)" class="c-portal-halo"/>
+        <!-- Back chevron (cream) -->
+        <path d="M40 40 L150 40 L260 300 L150 560 L40 560 L150 300 Z"
+              fill="url(#cv-back)" filter="url(#cv-glow)" class="c-portal-back" opacity="0.92"/>
+        <!-- Front chevron (peach) -->
+        <path d="M180 40 L290 40 L420 300 L290 560 L180 560 L300 300 Z"
+              fill="url(#cv-front)" filter="url(#cv-glow)" class="c-portal-front"/>
+        <!-- Burst pulse -->
+        <circle cx="260" cy="300" r="6" fill="#FFFFFF" class="c-portal-pulse"/>
       </svg>
-      <div class="c-portal-label">
-        <span class="hp-pulse"></span>
-        <span>HyperPlatform · processing</span>
-      </div>
     </div>
 
-    <div class="c-stage-ribbons" id="ribbons">
+    <div class="c-ribbons" id="ribbons">
       <div class="c-ribbon" data-out="crm">
         <span class="c-ribbon-tag">→ CRM</span>
-        <div class="c-ribbon-line"></div>
         <div class="c-ribbon-track"></div>
       </div>
       <div class="c-ribbon" data-out="report">
         <span class="c-ribbon-tag">→ Отчёт</span>
-        <div class="c-ribbon-line c-ribbon-line-peach"></div>
         <div class="c-ribbon-track"></div>
       </div>
       <div class="c-ribbon" data-out="bi">
         <span class="c-ribbon-tag">→ Аналитика</span>
-        <div class="c-ribbon-line c-ribbon-line-sage"></div>
         <div class="c-ribbon-track"></div>
       </div>
       <div class="c-ribbon" data-out="sms">
         <span class="c-ribbon-tag">→ SMS</span>
-        <div class="c-ribbon-line c-ribbon-line-ink"></div>
         <div class="c-ribbon-track"></div>
       </div>
     </div>
   </div>
 
-  <!-- Hero headline overlay (anchored bottom-left over the stage) -->
+  <!-- Headline below stage -->
   <div class="c-hero-bottom hp-container">
-    <h1 class="c-h1">
-      <span class="c-h1-line"><span class="c-mark">Хаос</span> на входе.</span>
-      <span class="c-h1-line c-h1-bold">Порядок на выходе.</span>
-    </h1>
-    <div class="c-hero-cta-row">
-      <a href="#roi" class="hp-btn hp-btn-dark">Посчитать ROI</a>
+    <div class="c-hero-text">
+      <div class="hp-eyebrow"><span class="hp-pulse"></span> 7 042 ассистента сейчас в работе</div>
+      <h1 class="c-h1">
+        <span>Хаос на входе.</span>
+        <span class="c-h1-bold">Порядок на&nbsp;выходе.</span>
+      </h1>
+    </div>
+    <div class="c-hero-cta">
+      <a href="#roi" class="hp-btn hp-btn-peach">Посчитать ROI</a>
       <a href="#story" class="hp-btn hp-btn-ghost">Как это работает</a>
     </div>
-  </div>
-</section>
-
-<!-- TICKER (industrial belt) -->
-<section class="c-ticker">
-  <div class="c-ticker-track">
-    <span>NEO4J</span><span class="c-tick-sep">·</span>
-    <span>PYTHON</span><span class="c-tick-sep">·</span>
-    <span>OPENAI</span><span class="c-tick-sep">·</span>
-    <span>CLAUDE</span><span class="c-tick-sep">·</span>
-    <span>SHERPA · RPA</span><span class="c-tick-sep">·</span>
-    <span>TENSORFLOW</span><span class="c-tick-sep">·</span>
-    <span>POSTGRES</span><span class="c-tick-sep">·</span>
-    <span>KAFKA</span><span class="c-tick-sep">·</span>
-    <span>NEO4J</span><span class="c-tick-sep">·</span>
-    <span>PYTHON</span><span class="c-tick-sep">·</span>
-    <span>OPENAI</span><span class="c-tick-sep">·</span>
-    <span>CLAUDE</span><span class="c-tick-sep">·</span>
-    <span>SHERPA · RPA</span><span class="c-tick-sep">·</span>
-    <span>TENSORFLOW</span><span class="c-tick-sep">·</span>
-    <span>POSTGRES</span><span class="c-tick-sep">·</span>
-    <span>KAFKA</span><span class="c-tick-sep">·</span>
   </div>
 </section>
 
@@ -148,27 +128,27 @@
     <div class="c-act-text">
       <span class="c-act-num">01</span>
       <h3 class="hp-h3">Поток источников</h3>
-      <p class="hp-lede">Десятки каналов, форматов и людей. Каждое — потенциальная задача.</p>
+      <p class="hp-lede">Десятки каналов, форматов, людей. Каждое — потенциальная задача.</p>
       <ul class="c-act-tags">
-        <li>email</li><li>звонки</li><li>чаты</li><li>сканы</li><li>CRM-заявки</li><li>выгрузки</li>
+        <li>email</li><li>звонки</li><li>чаты</li><li>сканы</li><li>заявки</li><li>выгрузки</li>
       </ul>
     </div>
-    <div class="c-act-media hp-media" style="aspect-ratio: 4/3;">
-      <span class="hp-media-label">illustration · поток источников · 4:3</span>
+    <div class="c-act-media c-media-img" style="aspect-ratio: 16/9;">
+      <img src="../assets/illustration-flow.jpg" alt="" >
     </div>
   </div>
 
   <div class="c-act c-act-reverse hp-container" data-act="02">
     <div class="c-act-text">
       <span class="c-act-num">02</span>
-      <h3 class="hp-h3">Платформа упорядочивает</h3>
-      <p class="hp-lede">HyperPlatform читает, классифицирует, валидирует, дополняет данными из ваших систем.</p>
+      <h3 class="hp-h3">HyperPlatform упорядочивает</h3>
+      <p class="hp-lede">Читает, классифицирует, валидирует, дополняет данными из ваших систем.</p>
       <ul class="c-act-tags">
         <li>OCR</li><li>NLP</li><li>RPA</li><li>правила</li><li>агенты</li>
       </ul>
     </div>
-    <div class="c-act-media hp-media" style="aspect-ratio: 16/9;">
-      <span class="hp-media-label">video loop · процесс HyperPlatform · 16:9</span>
+    <div class="c-act-media c-media-img" style="aspect-ratio: 16/9;">
+      <img src="../assets/process-screencast.jpg" alt="" >
     </div>
   </div>
 
@@ -181,24 +161,23 @@
         <li>CRM</li><li>BI</li><li>dashboards</li><li>SMS · TG</li><li>отчёты</li>
       </ul>
     </div>
-    <div class="c-act-media hp-media" style="aspect-ratio: 16/9;">
-      <span class="hp-media-label">dashboard mockup · готовый результат · 16:9</span>
+    <div class="c-act-media c-media-img" style="aspect-ratio: 16/9;">
+      <img src="../assets/dashboard-result.jpg" alt="" >
     </div>
   </div>
 </section>
 
-<!-- 3 SOLUTIONS -->
+<!-- SOLUTIONS -->
 <section class="c-solutions" id="solutions">
   <div class="hp-container c-sol-head">
     <div class="hp-eyebrow">три направления</div>
     <h2 class="hp-h2">Под три типа боли.</h2>
   </div>
-
   <div class="hp-container c-sol-grid">
     <article class="c-sol">
       <div class="c-sol-num hp-mono">01</div>
       <div class="hp-media c-sol-media" style="aspect-ratio: 1/1;">
-        <span class="hp-media-label">icon · RPA · 1:1</span>
+        <span class="hp-media-label">icon · RPA</span>
       </div>
       <h3 class="hp-h3">Автоматизация рутины</h3>
       <p class="hp-lede">Цифровой ассистент повторяет за человеком в любых системах.</p>
@@ -206,7 +185,7 @@
     <article class="c-sol c-sol-accent">
       <div class="c-sol-num hp-mono">02</div>
       <div class="hp-media c-sol-media" style="aspect-ratio: 1/1;">
-        <span class="hp-media-label">icon · персонализация · 1:1</span>
+        <span class="hp-media-label">icon · персонализация</span>
       </div>
       <h3 class="hp-h3">Гиперперсонализация клиентов</h3>
       <p class="hp-lede">Звонок → транскрибация → персональное предложение в SMS за минуты.</p>
@@ -214,44 +193,34 @@
     <article class="c-sol">
       <div class="c-sol-num hp-mono">03</div>
       <div class="hp-media c-sol-media" style="aspect-ratio: 1/1;">
-        <span class="hp-media-label">icon · аналитика · 1:1</span>
+        <span class="hp-media-label">icon · аналитика</span>
       </div>
       <h3 class="hp-h3">Предиктивная аналитика</h3>
-      <p class="hp-lede">Дашборд + AI-диалог с данными. Решения голосом данных, не догадок.</p>
+      <p class="hp-lede">Дашборд + AI-диалог с данными. Решения голосом данных.</p>
     </article>
   </div>
 </section>
 
-<!-- ROI CALCULATOR -->
+<!-- ROI -->
 <section class="c-roi" id="roi">
   <div class="hp-container c-roi-head">
     <div class="hp-eyebrow">диспетчерская</div>
-    <h2 class="hp-h2">Сколько <em>вернёт</em> вам конвейер.</h2>
+    <h2 class="hp-h2">Сколько <em>вернёт</em> платформа.</h2>
   </div>
-
   <div class="hp-container c-roi-grid">
     <div class="c-roi-panel">
       <div class="c-roi-panel-head hp-mono">пульт <span class="hp-pulse"></span></div>
       <div class="c-field">
         <label class="hp-mono">сотрудников</label>
-        <div class="c-slider">
-          <input type="range" id="empCount" min="10" max="500" step="10" value="120">
-          <output id="empCountOut">120</output>
-        </div>
+        <div class="c-slider"><input type="range" id="empCount" min="10" max="500" step="10" value="120"><output id="empCountOut">120</output></div>
       </div>
       <div class="c-field">
         <label class="hp-mono">часов рутины · день</label>
-        <div class="c-slider">
-          <input type="range" id="empHours" min="1" max="6" step="0.5" value="3">
-          <output id="empHoursOut">3 ч</output>
-        </div>
+        <div class="c-slider"><input type="range" id="empHours" min="1" max="6" step="0.5" value="3"><output id="empHoursOut">3 ч</output></div>
       </div>
       <div class="c-field">
         <label class="hp-mono">стоимость часа</label>
-        <div class="c-slider">
-          <input type="range" id="empRate" min="500" max="3500" step="100" value="900">
-          <output id="empRateOut">900 ₽</output>
-        </div>
+        <div class="c-slider"><input type="range" id="empRate" min="500" max="3500" step="100" value="900"><output id="empRateOut">900 ₽</output></div>
       </div>
       <div class="c-field">
         <label class="hp-mono">отрасль</label>
@@ -263,32 +232,19 @@
         </div>
       </div>
     </div>
-
     <div class="c-roi-result">
-      <div class="c-roi-result-head hp-mono">упаковка результата</div>
+      <div class="c-roi-result-head hp-mono">результат — упаковка</div>
       <div class="c-roi-pack">
         <div class="c-roi-pack-row">
-          <div class="c-roi-cell">
-            <span class="hp-mono">годовая экономия</span>
-            <b id="resSave">15,6 млн ₽</b>
-          </div>
-          <div class="c-roi-cell">
-            <span class="hp-mono">окупаемость</span>
-            <b id="resPayback">7,4 мес</b>
-          </div>
+          <div class="c-roi-cell"><span class="hp-mono">годовая экономия</span><b id="resSave">15,6 млн ₽</b></div>
+          <div class="c-roi-cell"><span class="hp-mono">окупаемость</span><b id="resPayback">7,4 мес</b></div>
         </div>
         <div class="c-roi-pack-row">
-          <div class="c-roi-cell">
-            <span class="hp-mono">ROI за год</span>
-            <b id="resRoi">+61%</b>
-          </div>
-          <div class="c-roi-cell">
-            <span class="hp-mono">освобождено часов</span>
-            <b id="resHours">61 776</b>
-          </div>
+          <div class="c-roi-cell"><span class="hp-mono">ROI за год</span><b id="resRoi">+61%</b></div>
+          <div class="c-roi-cell"><span class="hp-mono">освобождено часов</span><b id="resHours">61 776</b></div>
         </div>
       </div>
-      <a href="#cta" class="hp-btn hp-btn-dark c-roi-cta">Получить точный расчёт</a>
+      <a href="#cta" class="hp-btn hp-btn-peach c-roi-cta">Получить точный расчёт</a>
     </div>
   </div>
 </section>
@@ -297,12 +253,11 @@
 <section class="c-insights" id="insights">
   <div class="hp-container c-ins-head">
     <div class="hp-eyebrow">аналитический поток</div>
-    <h2 class="hp-h2">Тот же конвейер — <em>для решений</em>.</h2>
+    <h2 class="hp-h2">Тот же поток — <em>для решений</em>.</h2>
   </div>
-
   <div class="hp-container c-ins-grid">
-    <div class="hp-media c-ins-media" style="aspect-ratio: 16/10;">
-      <span class="hp-media-label">live dashboard · скринкаст-демо · 16:10</span>
+    <div class="c-ins-media c-media-img" style="aspect-ratio: 16/10;">
+      <img src="../assets/dashboard-result.jpg" alt="" >
     </div>
     <aside class="c-ins-side">
       <div class="c-ins-side-head hp-mono">AI-диалог с данными</div>
@@ -327,10 +282,9 @@
     <div class="hp-eyebrow">конкретный кейс</div>
     <h2 class="hp-h2">Логистика, <em>200 заказов/день</em>.</h2>
   </div>
-
   <div class="hp-container c-case-grid">
-    <div class="hp-media c-case-media" style="aspect-ratio: 4/5;">
-      <span class="hp-media-label">photo · команда · кадр со склада · 4:5</span>
+    <div class="c-case-media c-media-img" style="aspect-ratio: 4/5;">
+      <img src="../assets/case-warehouse.jpg" alt="" >
     </div>
     <div class="c-case-text">
       <p class="c-case-quote">
@@ -350,14 +304,12 @@
 <section class="c-cta" id="cta">
   <div class="hp-container">
     <div class="c-cta-card">
-      <div class="c-cta-stripe" aria-hidden="true">
-        <span></span><span></span><span></span>
-      </div>
+      <div class="c-cta-glow"></div>
       <div class="c-cta-text">
         <div class="hp-eyebrow">следующий шаг</div>
-        <h2 class="hp-h2">30 минут — и&nbsp;вы&nbsp;увидите конвейер <em>на&nbsp;своих&nbsp;данных</em>.</h2>
+        <h2 class="hp-h2">30 минут — и&nbsp;вы&nbsp;увидите платформу <em>на&nbsp;своих&nbsp;данных</em>.</h2>
         <div class="c-cta-actions">
-          <a href="mailto:hi@hyperpartner.ru" class="hp-btn hp-btn-dark">Запросить демо</a>
+          <a href="mailto:hi@hyperpartner.ru" class="hp-btn hp-btn-peach">Запросить демо</a>
           <a href="#roi" class="hp-btn hp-btn-ghost">Сначала калькулятор</a>
         </div>
       </div>
@@ -371,7 +323,7 @@
       <svg viewBox="0 0 26 26" class="hp-logo-mark"><path d="M2 0 L9 0 L18 13 L9 26 L2 26 L11 13 Z M11 0 L18 0 L26 13 L18 26 L11 26 L20 13 Z"/></svg>
       <span>HYPERPARTNER</span>
     </a>
-    <span class="hp-mono c-footer-meta">© 2026 · RPA · OCR · AI · BI · 9 лет</span>
+    <span class="hp-mono c-footer-meta">© 2026 · 9 лет · 400+ внедрений</span>
   </div>
 </footer>
 

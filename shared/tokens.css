@@ -1,32 +1,35 @@
 /* ==========================================================
-   HyperPartner · Design System v3
-   Editorial light · sage cool · peach warm rare-accent
-   Reference: Fleurs Maison / Forma Bureau / Stripe Press
+   HyperPartner · Design System v4
+   Dark premium editorial — sidewave/slash/dovetail/sentinel
    ========================================================== */
 
 :root {
-  /* Surface */
-  --bg: #F8F8F5;
-  --bg-2: #F2F1EC;
-  --bg-3: #EBE9E1;
-  --surface: #FFFFFF;
-  --paper: #FDFCF8;
+  /* Surface — deep dark */
+  --bg: #060606;
+  --bg-2: #0E0E0E;
+  --bg-3: #161616;
+  --surface: #1A1A1A;
+  --surface-2: #232323;
+  --surface-card: #F4ECDD;
 
-  /* Ink */
-  --ink: #0F0F0F;
-  --ink-soft: #2A2A2A;
-  --ink-muted: #6E6E6A;
-  --ink-faint: #A4A39E;
-  --line: #E4E2DA;
-  --line-strong: #C9C6BD;
+  /* Ink — cream-warm on dark */
+  --ink: #F4ECDD;
+  --ink-soft: rgba(244, 236, 221, 0.78);
+  --ink-muted: rgba(244, 236, 221, 0.55);
+  --ink-faint: rgba(244, 236, 221, 0.35);
+  --line: rgba(244, 236, 221, 0.08);
+  --line-strong: rgba(244, 236, 221, 0.18);
 
-  /* Accents — точечно, никогда не доминируют */
-  --sage: #C8D5C8;          /* холодный — статусы, scoring, sparkline cool */
-  --sage-deep: #98AC98;
-  --peach: #E8A878;         /* тёплый — warm accent, highlights */
+  /* Brand accents */
+  --teal: #143A3A;
+  --teal-deep: #0A2222;
+  --teal-glow: #1F5454;
+  --peach: #E8A878;
   --peach-soft: #F2C9A5;
-  --peach-pale: #F8E0CC;
-  --brand-teal: #143A3A;    /* deep accent — rare, для CTA-фона/sparkline warm */
+  --peach-glow: #FFB988;
+  --cream: #F4ECDD;
+  --sage: #BDD8C9;
+  --sage-deep: #8FA89A;
 
   /* Type */
   --f-display: 'Space Grotesk', 'Inter', sans-serif;
@@ -58,122 +61,126 @@ body {
   overflow-x: hidden;
   min-height: 100vh;
 }
+/* subtle global noise */
+body::after {
+  content: ''; position: fixed; inset: 0; pointer-events: none; z-index: 999;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.4'/%3E%3C/svg%3E");
+  opacity: 0.04;
+  mix-blend-mode: overlay;
+}
 a { color: inherit; text-decoration: none; }
 button { font: inherit; cursor: pointer; border: 0; background: none; color: inherit; }
 img, svg { display: block; max-width: 100%; }
-::selection { background: var(--peach); color: var(--ink); }
+::selection { background: var(--peach); color: var(--bg); }
 
 /* ===== UNIVERSAL ===== */
-
 .hp-container {
   width: 100%;
-  max-width: 1320px;
+  max-width: 1380px;
   margin: 0 auto;
   padding: 0 32px;
 }
 
-/* Mono micro-text — labels, eyebrows, UI */
 .hp-mono {
   font-family: var(--f-mono);
   font-size: 11px;
   font-weight: var(--w-med);
-  letter-spacing: 0.12em;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
 }
 .hp-eyebrow {
   font-family: var(--f-mono);
   font-size: 11px;
   font-weight: var(--w-med);
-  letter-spacing: 0.16em;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
   color: var(--ink-muted);
+  display: inline-flex; align-items: center; gap: 10px;
 }
 
-/* Typography scale */
 .hp-h1 {
   font-family: var(--f-display);
-  font-size: clamp(48px, 8vw, 132px);
+  font-size: clamp(44px, 6vw, 92px);
   font-weight: var(--w-light);
-  line-height: 0.92;
+  line-height: 1.0;
   letter-spacing: -0.04em;
   color: var(--ink);
 }
 .hp-h2 {
   font-family: var(--f-display);
-  font-size: clamp(36px, 5.5vw, 84px);
+  font-size: clamp(36px, 5vw, 72px);
   font-weight: var(--w-light);
-  line-height: 0.96;
+  line-height: 1.02;
   letter-spacing: -0.035em;
   color: var(--ink);
 }
 .hp-h3 {
   font-family: var(--f-display);
-  font-size: clamp(22px, 2.2vw, 32px);
+  font-size: clamp(22px, 2.2vw, 30px);
   font-weight: var(--w-med);
-  line-height: 1.1;
+  line-height: 1.15;
   letter-spacing: -0.02em;
   color: var(--ink);
 }
 .hp-lede {
   font-family: var(--f-body);
-  font-size: 17px;
+  font-size: 16.5px;
   font-weight: var(--w-thin);
   line-height: 1.55;
   color: var(--ink-soft);
 }
 
-/* Buttons */
 .hp-btn {
   display: inline-flex; align-items: center; gap: 10px;
   padding: 16px 28px;
   border-radius: 999px;
   font-family: var(--f-mono);
-  font-size: 12px;
+  font-size: 11.5px;
   font-weight: var(--w-med);
-  letter-spacing: 0.08em;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
   transition: all 0.3s var(--ease);
   white-space: nowrap;
   border: 1px solid transparent;
 }
-.hp-btn-dark { background: var(--ink); color: var(--bg); }
-.hp-btn-dark:hover { background: var(--ink-soft); transform: translateY(-1px); }
+.hp-btn-peach { background: var(--peach); color: var(--bg); }
+.hp-btn-peach:hover { background: var(--peach-soft); transform: translateY(-1px); box-shadow: 0 16px 32px -8px rgba(232, 168, 120, 0.35); }
+.hp-btn-cream { background: var(--cream); color: var(--bg); }
+.hp-btn-cream:hover { background: #FFFFFF; }
 .hp-btn-ghost {
-  color: var(--ink); border-color: var(--line-strong);
+  color: var(--ink);
+  border-color: var(--line-strong);
 }
-.hp-btn-ghost:hover { border-color: var(--ink); background: var(--surface); }
-.hp-btn-light { background: var(--bg); color: var(--ink); }
-.hp-btn-light:hover { background: var(--surface); }
+.hp-btn-ghost:hover { border-color: var(--ink); background: rgba(244, 236, 221, 0.05); }
 
-/* Visible media placeholder — explicit "вот тут будет медиа" */
+/* Media placeholder */
 .hp-media {
   position: relative;
   background: var(--bg-2);
   border: 1px dashed var(--line-strong);
-  border-radius: 12px;
+  border-radius: 14px;
   overflow: hidden;
   display: flex; align-items: center; justify-content: center;
   text-align: center;
-  color: var(--ink-faint);
-  font-family: var(--f-mono);
-  font-size: 11px;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
 }
 .hp-media::before {
   content: '';
   position: absolute; inset: 0;
   background-image:
-    repeating-linear-gradient(45deg, transparent 0 12px, rgba(15, 15, 15, 0.025) 12px 13px);
+    repeating-linear-gradient(45deg, transparent 0 14px, rgba(244, 236, 221, 0.025) 14px 15px);
   pointer-events: none;
 }
 .hp-media-label {
   position: relative; z-index: 2;
   display: inline-flex; align-items: center; gap: 10px;
   padding: 8px 16px;
-  background: var(--paper);
+  background: var(--bg-3);
   border: 1px solid var(--line);
   border-radius: 999px;
+  font-family: var(--f-mono);
+  font-size: 10.5px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
   color: var(--ink-muted);
 }
 .hp-media-label::before {
@@ -181,15 +188,15 @@ img, svg { display: block; max-width: 100%; }
   width: 6px; height: 6px;
   border-radius: 50%;
   background: var(--peach);
+  flex-shrink: 0;
 }
 
-/* Logo */
 .hp-logo {
   display: inline-flex; align-items: center; gap: 10px;
   font-family: var(--f-display);
   font-weight: var(--w-bold);
   font-size: 15px;
-  letter-spacing: 0.02em;
+  letter-spacing: 0.04em;
   color: var(--ink);
 }
 .hp-logo-mark {
@@ -197,21 +204,21 @@ img, svg { display: block; max-width: 100%; }
   fill: currentColor;
 }
 
-/* Live pulse */
 .hp-pulse {
+  display: inline-block;
   width: 7px; height: 7px;
   border-radius: 50%;
-  background: var(--sage-deep);
-  box-shadow: 0 0 0 0 rgba(152, 172, 152, 0.6);
+  background: var(--sage);
+  box-shadow: 0 0 0 0 rgba(189, 216, 201, 0.7);
   animation: hp-pulse 1.8s ease-out infinite;
+  flex-shrink: 0;
 }
 @keyframes hp-pulse {
-  0% { box-shadow: 0 0 0 0 rgba(152, 172, 152, 0.6); }
-  70% { box-shadow: 0 0 0 9px rgba(152, 172, 152, 0); }
-  100% { box-shadow: 0 0 0 0 rgba(152, 172, 152, 0); }
+  0% { box-shadow: 0 0 0 0 rgba(189, 216, 201, 0.6); }
+  70% { box-shadow: 0 0 0 9px rgba(189, 216, 201, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(189, 216, 201, 0); }
 }
 
-/* Reduced motion */
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
     animation-duration: 0.01ms !important;
