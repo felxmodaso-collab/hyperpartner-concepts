@@ -1,9 +1,14 @@
-/* V2 production · Seamless dual-video atomic swap (Fleurs trick) + GSAP intro */
+/* V2 production · Seamless dual-video atomic swap (Fleurs trick) + GSAP intro
+   + number counter + magnetic CTAs + live-activity auto-highlight + scroll hint
+*/
 (() => {
   const init = () => {
     if (!window.gsap) return setTimeout(init, 40);
     runSeamlessLoop();
     runIntro();
+    runCounter();
+    runMagnetic();
+    runLiveActivity();
   };
 
   /* ---------- SEAMLESS DUAL-VIDEO LOOP ----------
@@ -82,7 +87,75 @@
       .to('.h1 .bold', { opacity: 1, duration: 0.55 }, 1.6)
       .to('.lede', { opacity: 1, duration: 0.55 }, 1.8)
       .to('.btn-peach, .btn-ghost', { opacity: 1, duration: 0.45, stagger: 0.08 }, 1.95)
-      .to('.back-tests', { opacity: 1, duration: 0.4 }, 2.2);
+      .to('.back-tests', { opacity: 1, duration: 0.4 }, 2.2)
+      .to('.scroll-hint', { opacity: 1, duration: 0.6 }, 2.5);
+  }
+
+  /* ---------- COUNTER (animated number) ---------- */
+  function runCounter() {
+    const el = document.getElementById('counter');
+    if (!el) return;
+    const target = 7042;
+    const obj = { v: 6950 };
+    window.gsap.to(obj, {
+      v: target,
+      duration: 1.6,
+      delay: 1.4,
+      ease: 'power2.out',
+      onUpdate: () => {
+        const n = Math.round(obj.v);
+        el.textContent = n.toLocaleString('ru-RU').replace(/,/g, ' ');
+      },
+      onComplete: () => {
+        // Slow live drift after intro
+        let v = target;
+        setInterval(() => {
+          v += Math.floor(Math.random() * 3) + 1;
+          el.textContent = v.toLocaleString('ru-RU').replace(/,/g, ' ');
+        }, 4200);
+      }
+    });
+  }
+
+  /* ---------- MAGNETIC CTAs (desktop only) ---------- */
+  function runMagnetic() {
+    if (window.matchMedia('(max-width: 900px), (pointer: coarse)').matches) return;
+    const { gsap } = window;
+    document.querySelectorAll('.magnetic').forEach((el) => {
+      const STRENGTH = 0.35;
+      const MAX = 14;
+      el.addEventListener('mousemove', (e) => {
+        const r = el.getBoundingClientRect();
+        const dx = (e.clientX - (r.left + r.width / 2)) * STRENGTH;
+        const dy = (e.clientY - (r.top + r.height / 2)) * STRENGTH;
+        gsap.to(el, {
+          x: Math.max(-MAX, Math.min(MAX, dx)),
+          y: Math.max(-MAX, Math.min(MAX, dy)),
+          duration: 0.4, ease: 'power3.out',
+        });
+      });
+      el.addEventListener('mouseleave', () => {
+        gsap.to(el, { x: 0, y: 0, duration: 0.7, ease: 'elastic.out(1, 0.45)' });
+      });
+    });
+  }
+
+  /* ---------- LIVE ACTIVITY (auto-highlight targets) ---------- */
+  function runLiveActivity() {
+    const items = [...document.querySelectorAll('.targets a')];
+    if (!items.length) return;
+    let userTouched = false;
+    document.querySelector('.targets')?.addEventListener('mouseenter', () => { userTouched = true; });
+    document.querySelector('.targets')?.addEventListener('touchstart', () => { userTouched = true; }, { passive: true });
+    function tick() {
+      if (!userTouched) {
+        const el = items[Math.floor(Math.random() * items.length)];
+        el.classList.add('is-live');
+        setTimeout(() => el.classList.remove('is-live'), 850);
+      }
+      setTimeout(tick, 1200 + Math.random() * 1400);
+    }
+    setTimeout(tick, 2600);
   }
 
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
