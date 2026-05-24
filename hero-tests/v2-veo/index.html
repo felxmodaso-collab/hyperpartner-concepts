@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>V2 · Veo Loop — HyperPartner Hero</title>
+<title>V2 · HyperPartner Hero — Production</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;700&family=Inter:wght@200;300;500&family=JetBrains+Mono:wght@400;500;700&display=swap">
@@ -13,13 +13,21 @@
 </head>
 <body>
 
-<video id="bg" autoplay loop muted playsinline preload="auto">
-  <source src="bg.mp4" type="video/mp4">
-</video>
+<!-- Dual <video> seamless loop trick (Fleurs-style atomic swap) -->
+<div class="bg-wrap">
+  <video class="bg bg-a" autoplay muted playsinline preload="auto">
+    <source src="bg-cropped.mp4" type="video/mp4">
+  </video>
+  <video class="bg bg-b" muted playsinline preload="auto">
+    <source src="bg-cropped.mp4" type="video/mp4">
+  </video>
+</div>
 
-<div class="overlay"></div>
+<!-- Subtle vignette to anchor edges -->
+<div class="vignette"></div>
 
-<header class="hero-nav">
+<!-- NAV -->
+<header class="nav">
   <a class="logo" href="../">
     <svg viewBox="0 0 26 26"><path d="M2 0 L9 0 L18 13 L9 26 L2 26 L11 13 Z M11 0 L18 0 L26 13 L18 26 L11 26 L20 13 Z" fill="currentColor"/></svg>
     <span>HYPERPARTNER</span>
@@ -30,22 +38,42 @@
     <a href="#">Кейс</a>
     <a href="#">Связаться</a>
   </nav>
-  <a href="#" class="btn">Запросить демо</a>
+  <a href="#" class="btn-cta">Запросить демо</a>
 </header>
 
+<!-- LABELS as real clickable buttons -->
+<aside class="targets" aria-label="Куда HyperPlatform направляет данные">
+  <div class="targets-eyebrow">→ Куда летит результат</div>
+  <ul>
+    <li><a href="#crm" data-i="0"><span class="t-i">01</span><span class="t-n">CRM</span></a></li>
+    <li><a href="#report" data-i="1"><span class="t-i">02</span><span class="t-n">Отчёт</span></a></li>
+    <li><a href="#dashboard" data-i="2"><span class="t-i">03</span><span class="t-n">Дашборд</span></a></li>
+    <li><a href="#sms" data-i="3"><span class="t-i">04</span><span class="t-n">SMS</span></a></li>
+    <li><a href="#analytics" data-i="4"><span class="t-i">05</span><span class="t-n">Аналитика</span></a></li>
+    <li><a href="#export" data-i="5"><span class="t-i">06</span><span class="t-n">Экспорт</span></a></li>
+    <li><a href="#db" data-i="6"><span class="t-i">07</span><span class="t-n">База</span></a></li>
+    <li><a href="#notify" data-i="7"><span class="t-i">08</span><span class="t-n">Уведомление</span></a></li>
+    <li><a href="#stats" data-i="8"><span class="t-i">09</span><span class="t-n">Статистика</span></a></li>
+    <li><a href="#archive" data-i="9"><span class="t-i">10</span><span class="t-n">Архив</span></a></li>
+  </ul>
+</aside>
+
+<!-- Corner mono captions -->
 <div class="corners">
-  <span class="c-tl">HYPERPARTNER</span>
-  <span class="c-tr">ENTERPRISE · AI/RPA</span>
-  <span class="c-bl">CHAOS TO ORDER</span>
-  <span class="c-br">v2 · Veo Loop · 2026</span>
+  <span class="c-bl">CHAOS · ORDER</span>
+  <span class="c-br">v2 · LOOP · 2026</span>
 </div>
 
+<!-- HERO TEXT -->
 <section class="hero-text">
   <div class="eyebrow"><span class="dot"></span> 7 042 ассистента сейчас в работе</div>
   <h1 class="h1">
     <span class="thin">Хаос на входе.</span>
     <span class="bold">Порядок на&nbsp;выходе.</span>
   </h1>
+  <p class="lede">
+    HyperPlatform ловит всё, что прилетает в&nbsp;компанию — письма, звонки, заявки, сканы — и&nbsp;раскладывает по&nbsp;вашим системам. Без участия оператора.
+  </p>
   <div class="cta">
     <a href="#" class="btn-peach">Посчитать ROI</a>
     <a href="#" class="btn-ghost">Как это работает</a>
