@@ -29,14 +29,15 @@ body::after {
   mix-blend-mode: overlay;
 }
 
-/* L1: WebGL canvas — left chaos particles */
-#webgl-bg {
+/* L1: video background (reversed Grok) */
+#bg {
   position: fixed;
   inset: 0;
   width: 100%;
   height: 100%;
+  object-fit: cover;
   z-index: 1;
-  display: block;
+  opacity: 0;
 }
 
 /* L2: SVG stage — chevron + curves + labels */

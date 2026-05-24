@@ -8,15 +8,16 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;700&family=Inter:wght@200;300;500&family=JetBrains+Mono:wght@400;500;700&display=swap">
 <link rel="stylesheet" href="style.css">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/0.158.0/three.min.js" defer></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/MotionPathPlugin.min.js" defer></script>
 <script src="script.js" defer></script>
 </head>
 <body>
 
-<!-- LAYER 1: WebGL canvas (left chaos) -->
-<canvas id="webgl-bg"></canvas>
+<!-- LAYER 1: Reversed Grok video background -->
+<video id="bg" autoplay loop muted playsinline preload="auto">
+  <source src="bg.mp4" type="video/mp4">
+</video>
 
 <!-- LAYER 2: SVG stage (chevron + curves + particles on curves + labels) -->
 <svg class="stage" id="stage" viewBox="0 0 1920 1080" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
