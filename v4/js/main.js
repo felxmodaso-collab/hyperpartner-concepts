@@ -36,7 +36,23 @@
     initCardTilt();       // 3D mouse-tilt on cards (desktop)
     initScrollVelocity(); // subtle rotation on fast scroll
     initScrollState();    // toggle body.is-scrolling for perf-pause meshes
+    initSectionDividers();// cinematic brand-pattern wipes между секциями
   };
+
+  // ====== Section dividers — IntersectionObserver reveal ======
+  function initSectionDividers() {
+    const dividers = $$('.section-divider');
+    if (!dividers.length) return;
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('is-revealed');
+          io.unobserve(e.target);
+        }
+      });
+    }, { rootMargin: '-15% 0px -15% 0px', threshold: 0.1 });
+    dividers.forEach(d => io.observe(d));
+  }
 
   // ====== Scroll state — pause heavy bg animations during scroll ======
   function initScrollState() {

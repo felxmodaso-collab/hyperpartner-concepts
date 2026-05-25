@@ -268,6 +268,76 @@ html, body {
   transition: background-color .55s var(--ease-out), color .55s var(--ease-out);
 }
 
+/* ============== SECTION DIVIDERS — cinematic brand-pattern wipes ============== */
+/* Anton Wave3: cinematic transitions между секциями.
+   Каждый divider = diagonal chevron-strip clip из brand-pattern, scroll-tied reveal. */
+.section-divider {
+  position: relative;
+  height: clamp(120px, 16vh, 200px);
+  overflow: hidden;
+  z-index: 5;
+  pointer-events: none;
+  background: var(--c-teal);
+}
+.section-divider::before,
+.section-divider::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    100deg,
+    transparent 0%,
+    transparent 20%,
+    var(--c-peach) 22%, var(--c-peach) 24%,
+    transparent 24.5%,
+    transparent 38%,
+    var(--c-cream) 40%, var(--c-cream) 42%,
+    transparent 42.5%,
+    transparent 60%,
+    var(--c-peach) 62%, var(--c-peach) 65%,
+    transparent 65.5%
+  );
+  opacity: 0.12;
+  transform: translateY(0) skewY(-3deg);
+  transform-origin: 0 0;
+}
+.section-divider::after {
+  background: linear-gradient(
+    280deg,
+    transparent 0%,
+    transparent 30%,
+    var(--c-peach-light) 32%, var(--c-peach-light) 34%,
+    transparent 34.5%,
+    transparent 55%,
+    var(--c-sage) 57%, var(--c-sage) 59%,
+    transparent 59.5%
+  );
+  opacity: 0.10;
+  transform: translateY(0) skewY(2deg);
+}
+.section-divider.is-revealed::before {
+  animation: divider-sweep-a 1.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+.section-divider.is-revealed::after {
+  animation: divider-sweep-b 1.6s cubic-bezier(0.16, 1, 0.3, 1) forwards 0.15s;
+}
+@keyframes divider-sweep-a {
+  0% { transform: translateX(-100%) skewY(-3deg); opacity: 0; }
+  60% { opacity: 0.18; }
+  100% { transform: translateX(0) skewY(-3deg); opacity: 0.12; }
+}
+@keyframes divider-sweep-b {
+  0% { transform: translateX(120%) skewY(2deg); opacity: 0; }
+  60% { opacity: 0.15; }
+  100% { transform: translateX(0) skewY(2deg); opacity: 0.10; }
+}
+/* Wedge для transitions между light↔dark sections — diagonal cut */
+.section-divider-wedge {
+  height: clamp(60px, 10vh, 120px);
+  background: linear-gradient(to bottom, var(--bg-section) 0, var(--bg-main) 100%);
+  clip-path: polygon(0 0, 100% 0, 100% 50%, 0 100%);
+}
+
 /* ============== ANIMATED GRADIENT MESH — global переливающийся overlay ============== */
 /* Subtle conic mesh over brand teal: peach + sage whispers drift across viewport.
    Position: fixed (тончает с scroll, не jitter). Blur 100px = soft, low-FPS impact.
