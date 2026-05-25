@@ -744,13 +744,19 @@
       const sId = current?.dataset.section;
       let isDark = sId === 'hero' || sId === 'stack' || sId === 'cta';
       if (theme === 'B') isDark = true;
-      if (theme === 'C' && current) {
-        // hybrid alternation — check computed bg
+      if ((theme === 'C' || theme === 'D') && current) {
+        // hybrid alternation (Theme C: teal↔cream, Theme D: white↔teal-insert)
         const cs = window.getComputedStyle(current);
         const bgColor = cs.backgroundColor;
-        // crude: if rgb sum < 300, it's dark
         const rgb = bgColor.match(/\d+/g)?.slice(0, 3).map(Number);
         if (rgb) isDark = rgb.reduce((a, b) => a + b, 0) < 300;
+      }
+      if (theme === 'D') {
+        // Default Theme D = light; only insert sections (cases/stack/testimonials) — dark
+        const darkSections = ['cases', 'stack', 'testimonials'];
+        isDark = darkSections.includes(sId);
+        // Hero in D остаётся dark (video bg)
+        if (sId === 'hero') isDark = true;
       }
       nav.setAttribute('data-nav-over', isDark ? 'dark' : 'light');
     };

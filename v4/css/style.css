@@ -206,6 +206,58 @@ html:not([data-theme="C"]) .section--alt {
   background: var(--bg-section);
 }
 
+/* ============== THEME D — WHITE PAPER (light variant, teal вставки) ============== */
+/* Anton feedback: основной фон белый, deep teal как accent вставки */
+html[data-theme="D"] {
+  --bg-main: var(--c-white);
+  --bg-alt: var(--c-teal);
+  --bg-surface: var(--c-cream-bright);
+  --bg-elevated: rgba(20,58,58,0.03);
+  --bg-section: var(--c-cream);
+  --bg-section-deep: var(--c-teal);
+  --text-main: var(--c-teal);
+  --text-soft: rgba(20,58,58,0.78);
+  --text-muted: rgba(20,58,58,0.5);
+  --text-warm: var(--c-teal);
+  --text-on-alt: var(--c-cream);
+  --text-soft-alt: rgba(244,236,221,0.72);
+  --accent: var(--c-peach-deep);                            /* darker peach на белом для контраста */
+  --accent-hover: var(--c-peach-2);
+  --accent-2: var(--c-sage-deep);
+  --border: rgba(20,58,58,0.10);
+  --border-strong: rgba(184,126,72,0.45);
+  --shadow-card: 0 4px 16px rgba(20,58,58,0.06);
+}
+
+/* Theme D DARK insert-sections (teal вставки между белыми секциями) */
+html[data-theme="D"] .section-cases,
+html[data-theme="D"] .section-stack,
+html[data-theme="D"] .section-testimonials {
+  background: var(--c-teal);
+  color: var(--c-cream);
+  --bg-surface: var(--c-teal-3);
+  --bg-elevated: var(--c-teal-4);
+  --text-main: var(--c-cream);
+  --text-soft: rgba(244,236,221,0.78);
+  --text-muted: rgba(244,236,221,0.55);
+  --border: rgba(244,236,221,0.10);
+  --border-strong: rgba(232,168,120,0.45);
+  --shadow-card: 0 12px 36px rgba(0,0,0,0.45);
+  --accent: var(--c-peach);                                 /* peach lighter на тёмном insert */
+}
+
+/* Theme D — mesh лёгкий и теплее, не голубой */
+html[data-theme="D"] .gradient-mesh {
+  opacity: 0.35;
+}
+html[data-theme="D"] .gradient-mesh::before,
+html[data-theme="D"] .gradient-mesh::after {
+  background:
+    radial-gradient(ellipse 60% 50% at 22% 28%, rgba(232,168,120,0.45), transparent 65%),
+    radial-gradient(ellipse 55% 45% at 78% 72%, rgba(189,216,201,0.35), transparent 65%);
+  filter: blur(80px) saturate(140%);
+}
+
 /* ============== RESET / BASE ============== */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 *::selection { background: var(--accent); color: var(--c-bg); }
@@ -221,12 +273,15 @@ html, body {
    Position: fixed (тончает с scroll, не jitter). Blur 100px = soft, low-FPS impact.
    Auto-disabled на reduced-motion и mobile (perf). */
 .gradient-mesh {
+  /* Fixed поверх ВСЕГО (выше section backgrounds). Mix-blend = "просвечивает"
+     через любую секцию: dark stays dark + warm peach glow drifts поверх. */
   position: fixed;
   inset: -20% -20% -20% -20%;
-  z-index: 0;
+  z-index: 80;                               /* выше sections, ниже nav (z-100) и cursor */
   pointer-events: none;
   overflow: hidden;
   opacity: 0.55;
+  mix-blend-mode: screen;                    /* "просвечивает" cases/stack/testimonials */
 }
 .gradient-mesh::before,
 .gradient-mesh::after {
@@ -271,12 +326,12 @@ html, body {
   .gradient-mesh::after { display: none; }                /* single layer mobile */
 }
 
-/* Theme C light sections — mesh hidden там (cream paper не нуждается в glow) */
-html[data-theme="C"] .section-directions .gradient-mesh,
-html[data-theme="C"] .section-steps .gradient-mesh,
-html[data-theme="C"] .section-roi .gradient-mesh,
-html[data-theme="C"] .section-security .gradient-mesh,
-html[data-theme="C"] .section-cta .gradient-mesh { display: none; }
+/* На light themes mesh-mix-blend screen даёт overexpose — переключаемся на multiply для cohesion */
+html[data-theme="D"] .gradient-mesh,
+html[data-theme="C"] .gradient-mesh {
+  mix-blend-mode: multiply;
+  opacity: 0.4;
+}
 body {
   font-family: var(--f-body);
   font-weight: var(--w-light);
@@ -848,19 +903,17 @@ html.has-custom-cursor, html.has-custom-cursor * { cursor: none !important; }
   }
 }
 
-/* ============== HERO PILLS — CONCEPT-07 OUTBOUND LABELS ============== */
-/* 10 pill-labels восстанавливают концепт-07: справа от шеврона выходят curves
-   (часть видео-фона) и заканчиваются конкретными результатами платформы. */
+/* ============== HERO PILLS — каждая привязана к концу curve в видео ============== */
+/* Anton feedback 2026-05-25: pills должны быть **каждая у своей дорожки**, а не stack.
+   Использую absolute positioning по top % — для каждой curve в концепт-07.
+   Curves расходятся от chevron-portal к right edge на разной высоте — pills "висят" на их концах. */
 .hero-pills {
   position: absolute;
   z-index: 6;
   right: var(--pad-x);
-  top: 50%;
-  transform: translateY(-50%);
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  width: 200px;
+  top: clamp(7rem, 12vh, 9rem);              /* верх — под nav */
+  bottom: clamp(2rem, 5vh, 4rem);            /* низ — над scroll-hint */
+  width: 220px;
   pointer-events: auto;
 }
 .hero-pills-eyebrow {
@@ -868,58 +921,74 @@ html.has-custom-cursor, html.has-custom-cursor * { cursor: none !important; }
   font-size: 0.625rem;
   letter-spacing: var(--ls-wide);
   text-transform: uppercase;
-  color: rgba(244,236,221,0.65);
-  margin-bottom: 6px;
+  color: rgba(244,236,221,0.7);
+  position: absolute;
+  top: 0;
+  right: 0;
   display: flex;
   align-items: center;
   gap: 8px;
 }
 .hero-pills-eyebrow::before {
   content: '';
-  width: 16px;
+  width: 18px;
   height: 1px;
   background: var(--accent);
 }
 .hero-pill {
+  /* Position absolute с top по var(--i) (0..9) — каждая на своей curve */
+  position: absolute;
+  right: 0;
+  top: calc(2.2rem + var(--i) * 9.5%);       /* 2.2rem отступ от eyebrow; 9.5% step × 10 pills */
+
   display: inline-flex;
   align-items: center;
-  gap: 9px;
-  padding: 8px 16px 8px 12px;
+  gap: 10px;
+  padding: 9px 18px 9px 14px;
   border-radius: 999px;
-  border: 1px solid rgba(232,168,120,0.45);              /* gold hairline */
-  background: rgba(20,58,58,0.5);
-  backdrop-filter: blur(10px) saturate(140%);
-  -webkit-backdrop-filter: blur(10px) saturate(140%);
+  /* Усиленный контраст Anton 2026-05-25 */
+  border: 1.5px solid rgba(232,168,120,0.85);                 /* solid peach hairline, было 0.45 */
+  background: rgba(20,58,58,0.78);                            /* почти solid, было 0.5 — readable on bright video */
+  backdrop-filter: blur(14px) saturate(160%);
+  -webkit-backdrop-filter: blur(14px) saturate(160%);
   font-family: var(--f-mono);
-  font-size: 0.6875rem;
-  letter-spacing: 0.06em;
+  font-weight: 600;
+  font-size: 0.7rem;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: var(--c-pearl-bright);
+  color: var(--c-cream);
+  text-shadow: 0 1px 8px rgba(20,58,58,0.8);                  /* glow halo around text for legibility on video */
   white-space: nowrap;
   cursor: default;
-  transition: border-color .4s var(--ease-out), background .4s var(--ease-out), transform .4s var(--ease-out), box-shadow .4s var(--ease-out), color .4s var(--ease-out);
+  transition: all .4s var(--ease-out);
   opacity: 0;
   transform: translateX(20px);
+  box-shadow: 0 4px 16px rgba(20,58,58,0.4), 0 0 0 1px rgba(232,168,120,0.15);
 }
 .hero-pill.is-revealed {
   opacity: 1;
   transform: translateX(0);
 }
 .hero-pill:hover {
-  border-color: var(--c-gold);
-  background: rgba(232,168,120,0.16);
-  color: var(--c-gold-light);
-  transform: translateX(-4px);
-  box-shadow: 0 0 24px rgba(232,168,120,0.32);
+  border-color: var(--c-peach-light);
+  background: rgba(232,168,120,0.85);
+  color: var(--c-teal-deep);
+  transform: translateX(-6px);
+  box-shadow: 0 8px 28px rgba(232,168,120,0.55), 0 0 0 1px var(--c-peach-light);
+  text-shadow: none;
 }
 .hero-pill::before {
   content: '';
-  width: 5px;
-  height: 5px;
+  width: 7px;                                                  /* было 5px */
+  height: 7px;
   border-radius: 50%;
-  background: var(--c-gold);
+  background: var(--accent);
   flex-shrink: 0;
-  box-shadow: 0 0 10px rgba(232,168,120,0.7), 0 0 4px rgba(242,213,193,0.9);
+  box-shadow: 0 0 14px rgba(232,168,120,0.9), 0 0 5px rgba(242,213,193,1);
+}
+.hero-pill:hover::before {
+  background: var(--c-teal-deep);
+  box-shadow: 0 0 8px rgba(20,58,58,0.4);
 }
 
 /* ============== PHOTO GLOW — neon pearl halo под фото ============== */
@@ -986,20 +1055,22 @@ html.has-custom-cursor, html.has-custom-cursor * { cursor: none !important; }
   .photo-glow::before { animation: none; }
 }
 
-/* Tablet — pills compact horizontal under content */
+/* Tablet — pills compact horizontal wrap under hero (NOT absolute по curves — viewport too narrow) */
 @media (max-width: 1100px) and (min-width: 901px) {
   .hero-pills {
     position: relative;
     inset: auto;
-    transform: none;
+    top: auto; bottom: auto;
     width: 100%;
     max-width: 720px;
+    margin: 2rem auto 0;
+    display: flex;
     flex-direction: row;
     flex-wrap: wrap;
     gap: 8px;
-    margin: 2rem auto 0;
   }
-  .hero-pills-eyebrow { width: 100%; }
+  .hero-pill { position: relative !important; top: auto !important; right: auto !important; }
+  .hero-pills-eyebrow { position: relative; width: 100%; top: auto; right: auto; }
 }
 
 /* Mobile — horizontal scroll-snap row, all 10 visible via swipe */
@@ -1007,11 +1078,12 @@ html.has-custom-cursor, html.has-custom-cursor * { cursor: none !important; }
   .hero-pills {
     position: relative;
     inset: auto;
-    transform: none;
+    top: auto; bottom: auto;
     width: 100vw;
     margin-left: calc(var(--pad-x) * -1);
     margin-right: calc(var(--pad-x) * -1);
     padding: 0 var(--pad-x);
+    display: flex;
     flex-direction: row;
     gap: 8px;
     overflow-x: auto;
@@ -1026,6 +1098,9 @@ html.has-custom-cursor, html.has-custom-cursor * { cursor: none !important; }
   }
   .hero-pills::-webkit-scrollbar { display: none; }
   .hero-pill {
+    position: relative !important;
+    top: auto !important;
+    right: auto !important;
     scroll-snap-align: start;
     flex-shrink: 0;
   }
@@ -1033,6 +1108,7 @@ html.has-custom-cursor, html.has-custom-cursor * { cursor: none !important; }
     position: absolute;
     top: -1.5rem;
     left: var(--pad-x);
+    right: auto;
     margin: 0;
   }
 }
@@ -1611,25 +1687,30 @@ html.has-custom-cursor, html.has-custom-cursor * { cursor: none !important; }
   font-weight: 700;
 }
 
-/* Hotspots */
+/* Hotspots — усиленный контраст Anton 2026-05-25 */
 .mockup-hotspot {
   position: absolute;
-  width: 22px; height: 22px;
+  width: 32px; height: 32px;                                  /* было 22 — крупнее */
   border-radius: 50%;
   background: var(--accent);
   cursor: help;
   transform: translate(-50%, -50%);
-  box-shadow: 0 0 0 0 color-mix(in oklab, var(--accent) 60%, transparent);
+  /* Strong border + dark inner ring для visibility на любом mockup */
+  border: 3px solid var(--c-cream-bright);
+  box-shadow:
+    0 0 0 2px var(--c-teal-deep),                              /* dark outer ring */
+    0 0 0 5px rgba(232,168,120,0.5),                           /* peach pulse base */
+    0 8px 24px rgba(20,58,58,0.5);                             /* lift shadow */
   animation: hotspot-pulse 2.4s var(--ease-out) infinite;
 }
 .mockup-hotspot::before {
   content: '+';
   position: absolute; inset: 0;
   display: flex; align-items: center; justify-content: center;
-  color: var(--c-bg);
-  font-family: var(--f-mono);
-  font-weight: 700;
-  font-size: 1rem;
+  color: var(--c-teal-deep);
+  font-family: var(--f-display);
+  font-weight: 900;                                            /* было 700 */
+  font-size: 1.5rem;                                           /* было 1rem — крупнее */
   line-height: 1;
 }
 .mockup-hotspot::after {
@@ -1659,9 +1740,24 @@ html.has-custom-cursor, html.has-custom-cursor * { cursor: none !important; }
   transform: translateX(-50%) translateY(-2px);
 }
 @keyframes hotspot-pulse {
-  0% { box-shadow: 0 0 0 0 color-mix(in oklab, var(--accent) 60%, transparent); }
-  70% { box-shadow: 0 0 0 14px color-mix(in oklab, var(--accent) 0%, transparent); }
-  100% { box-shadow: 0 0 0 0 color-mix(in oklab, var(--accent) 0%, transparent); }
+  0% {
+    box-shadow:
+      0 0 0 2px var(--c-teal-deep),
+      0 0 0 5px rgba(232,168,120,0.6),
+      0 8px 24px rgba(20,58,58,0.5);
+  }
+  70% {
+    box-shadow:
+      0 0 0 2px var(--c-teal-deep),
+      0 0 0 22px rgba(232,168,120,0),
+      0 8px 24px rgba(20,58,58,0.5);
+  }
+  100% {
+    box-shadow:
+      0 0 0 2px var(--c-teal-deep),
+      0 0 0 5px rgba(232,168,120,0),
+      0 8px 24px rgba(20,58,58,0.5);
+  }
 }
 
 /* Employees direction: 4 floating cards composition */
