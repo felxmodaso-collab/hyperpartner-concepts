@@ -162,77 +162,30 @@
     const stepCards = $$('.step-card');
     const stepPath = $('.steps-path');
 
-    if (stepsSection && stepCards.length && !window.matchMedia('(max-width: 900px)').matches) {
-      // initial state
-      gsap.set(stepCards, { opacity: 0.12, y: 40, scale: 0.94, filter: 'blur(2px)' });
-      const pathLen = stepPath?.getTotalLength?.() || 1000;
-      if (stepPath) gsap.set(stepPath, { strokeDasharray: pathLen, strokeDashoffset: pathLen });
-
-      // Single master ScrollTrigger — pin + scrub controls ALL animations
-      // FIXES:
-      //   start: 'top top' — pin engages immediately when section top hits viewport top
-      //   end: '+=' + 100*total + '%' — full pin range, last card has space to reveal
-      //   scrub: 0.5 — sharp response (true sometimes drops frames on Lenis)
-      //   pinType: 'transform' — more stable than default 'fixed' on long pins
-      //   phase math: cards revealed by progress 0.85, last 15% = dramatic pause
-      ScrollTrigger.create({
-        trigger: stepsSection,
-        start: 'top top',
-        end: '+=' + (stepCards.length * 100) + '%',
-        pin: true,
-        pinSpacing: true,
-        pinType: 'transform',
-        scrub: 0.5,
-        invalidateOnRefresh: true,
-        onUpdate: (self) => {
-          const p = self.progress;
-          const total = stepCards.length;
-
-          // Path draws synchronously with progress
-          if (stepPath) {
-            stepPath.style.strokeDashoffset = String(pathLen * (1 - p));
-          }
-
-          // Phase math: card i starts at progress (i/total)*0.85, length 0.85/total*1.3
-          // Last card (i=total-1) phase: start=0.708, len=0.184 → at p=1.0, clamped=1.58 → revealed
-          // Last 15% (p > 0.85) = all cards full, dramatic pause before unpin
-          stepCards.forEach((card, i) => {
-            const phaseStart = (i / total) * 0.85;
-            const phaseLen = (0.85 / total) * 1.3;
-            const local = (p - phaseStart) / phaseLen;
-            const clamped = Math.max(0, Math.min(1.5, local));
-
-            const op = Math.min(1, 0.12 + clamped * 0.88);
-            const y = 40 - Math.min(1, clamped) * 40;
-            const sc = 0.94 + Math.min(1, clamped) * 0.06;
-            const blur = Math.max(0, 2 - clamped * 2);
-
-            card.style.opacity = String(op);
-            card.style.transform = `translateY(${y}px) scale(${sc})`;
-            card.style.filter = blur > 0.05 ? `blur(${blur.toFixed(1)}px)` : '';
-
-            // Active glow: card is "current" while it's revealing
-            const isActive = clamped > 0.5 && clamped < 1.2;
-            card.classList.toggle('is-current', isActive);
-          });
-        }
-      });
-    } else if (stepCards.length) {
-      // mobile fallback: simple stagger reveal
-      stepCards.forEach((step) => {
+    // Steps — natural per-card reveal БЕЗ pin (Anton 2026-05-25: pin = "сначала анимация, потом scroll").
+    // Same behavior на desktop и mobile: each card fades+slides in on its own trigger.
+    if (stepCards.length) {
+      stepCards.forEach((step, i) => {
         const fromLeft = step.classList.contains('step-pos-l');
+        const isMobile = window.matchMedia('(max-width: 900px)').matches;
         gsap.from(step, {
-          scrollTrigger: { trigger: step, start: 'top 85%', once: true },
-          opacity: 0, x: fromLeft ? -60 : 60, scale: 0.95,
-          duration: 0.85, ease: EOUT
+          scrollTrigger: { trigger: step, start: 'top 88%', once: true },
+          opacity: 0,
+          x: isMobile ? 0 : (fromLeft ? -50 : 50),
+          y: isMobile ? 30 : 0,
+          duration: 0.7,
+          ease: EOUT,
         });
       });
-      // Mobile: simple path draw
+      // Path draws as user scrolls past steps section — light scrub, no pin
       if (stepPath) {
         const len = stepPath.getTotalLength?.() || 1000;
         gsap.set(stepPath, { strokeDasharray: len, strokeDashoffset: len });
         ScrollTrigger.create({
-          trigger: '.steps-list', start: 'top 80%', end: 'bottom 30%', scrub: 1,
+          trigger: '.steps-list',
+          start: 'top 70%',
+          end: 'bottom 40%',
+          scrub: 0.8,
           onUpdate: (self) => { stepPath.style.strokeDashoffset = String(len * (1 - self.progress)); }
         });
       }
@@ -614,45 +567,11 @@
     update();
   }
 
-  // ====== HERO EXIT — natural scroll-linked fade (NO pin, NO scroll-jacking) ======
-  // Anton's feedback 2026-05-25: pin делал "сначала анимация, потом scroll" — невыносимо.
-  // Решение: scrub без pin. Hero fades по мере того как пользователь scroll'ит,
-  // без блокировки реального скролла. Effect = natural parallax fade.
-  function initHeroExit() {
-    if (reducedMotion) return;
-    const { gsap, ScrollTrigger } = window;
-    if (!ScrollTrigger) return;
-    const hero = $('.hero');
-    if (!hero) return;
-    if (window.matchMedia('(max-width: 900px)').matches) return;
-
-    const videoWrap = $('.hero-video-wrap');
-    const heroContent = $('.hero-content');
-    const heroPills = $('.hero-pills');
-
-    ScrollTrigger.create({
-      trigger: hero,
-      start: 'top top',
-      end: 'bottom top',     // fade завершается когда hero полностью прокручен
-      scrub: 0.6,            // small smoothing, не блокирует
-      // NO pin — реальный scroll идёт всегда natural
-      onUpdate: (self) => {
-        const p = self.progress;
-        if (videoWrap) {
-          videoWrap.style.opacity = String(1 - p * 0.5);
-          videoWrap.style.transform = `scale(${1 + p * 0.04})`;
-        }
-        if (heroContent) {
-          heroContent.style.opacity = String(Math.max(0, 1 - p * 1.2));
-          heroContent.style.transform = `translateY(${p * -24}px)`;
-        }
-        if (heroPills) {
-          heroPills.style.opacity = String(Math.max(0, 1 - p * 1.4));
-          heroPills.style.transform = `translateY(calc(-50% + ${p * -16}px))`;
-        }
-      },
-    });
-  }
+  // ====== HERO EXIT — disabled (Anton 2026-05-25 "все дергается") ======
+  // Не пишем JS-driven .style.transform по scroll event. Hero просто прокручивается natural.
+  // Если позже понадобится exit-fade — реализовывать через CSS @scroll-timeline или
+  // batch gsap.quickSetter, НЕ direct .style writes (они вызывают judder с Lenis lerp).
+  function initHeroExit() { /* intentionally empty */ }
 
   // ====== THEME SWITCHER ======
   function initTheme() {
