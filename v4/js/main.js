@@ -35,7 +35,20 @@
     initParallax();       // mockup parallax inside directions
     initCardTilt();       // 3D mouse-tilt on cards (desktop)
     initScrollVelocity(); // subtle rotation on fast scroll
+    initScrollState();    // toggle body.is-scrolling for perf-pause meshes
   };
+
+  // ====== Scroll state — pause heavy bg animations during scroll ======
+  function initScrollState() {
+    let timer = null;
+    const onScroll = () => {
+      document.body.classList.add('is-scrolling');
+      clearTimeout(timer);
+      timer = setTimeout(() => document.body.classList.remove('is-scrolling'), 180);
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    if (window.lenis) window.lenis.on('scroll', onScroll);
+  }
 
   // ====== SCROLL CHOREOGRAPHY — master timelines per section ======
   // Easings:
@@ -212,23 +225,29 @@
       if (marq) tl.from(marq, { opacity: 0, scaleX: 0.7, transformOrigin: 'left', duration: 0.9, ease: EOUT }, '-=0.5');
     }
 
-    // Stack layers — single master timeline + parallax-like rotation
+    // Stack — domino reveal: каждый layer прилетает с perspective tilt + glow
     const stackSec = $('.section-stack');
     if (stackSec) {
-      const rows = $$('.layer-row');
-      const logos = $$('.lg-pill');
+      const layers = $$('.sl');
+      const logos = $$('.sl-real, .sl-l');
       const tl = gsap.timeline({
         scrollTrigger: { trigger: stackSec, start: 'top 72%', once: true },
         defaults: { ease: EOUT }
       });
-      tl.from(rows, {
-        opacity: 0, x: (i) => i % 2 === 0 ? -50 : 50, rotationZ: (i) => i % 2 === 0 ? -1.5 : 1.5,
-        duration: 0.85, stagger: 0.07
-      }, 0);
-      tl.from(logos, {
-        opacity: 0, y: 20, scale: 0.7, rotationZ: () => gsap.utils.random(-6, 6),
-        duration: 0.6, stagger: { each: 0.04, from: 'random' }, ease: EBACK
-      }, '-=0.4');
+      if (layers.length) {
+        gsap.set(layers, { opacity: 0, y: 60, rotateX: 25, transformPerspective: 1800, transformOrigin: '50% 100%' });
+        tl.to(layers, {
+          opacity: 1, y: 0, rotateX: (i) => 8 - i * 2,    // итог = stagger 8/6/4/2/0/-2deg
+          duration: 1.0, stagger: 0.12, ease: EIO,
+          clearProps: 'opacity'                              // дать CSS hover transform работать
+        }, 0);
+      }
+      if (logos.length) {
+        tl.from(logos, {
+          opacity: 0, scale: 0.6, rotationZ: () => gsap.utils.random(-8, 8),
+          duration: 0.55, stagger: { each: 0.03, from: 'random' }, ease: EBACK
+        }, '-=0.55');
+      }
     }
 
     // Security cards — single master timeline с overlap + depth
@@ -553,18 +572,55 @@
     compute();
   }
 
-  // ====== CASES CAROUSEL PROGRESS ======
+  // ====== CASES CAROUSEL — progress + wheel hijack + keyboard + buttons ======
   function initCarouselProgress() {
     const track = $('.cases-track');
     const fill = $('.cp-fill');
-    if (!track || !fill) return;
+    if (!track) return;
+
     const update = () => {
+      if (!fill) return;
       const max = track.scrollWidth - track.clientWidth;
       const pct = max > 0 ? (track.scrollLeft / max) * 100 : 0;
       fill.style.width = `${Math.max(8, Math.min(100, pct))}%`;
     };
     track.addEventListener('scroll', update, { passive: true });
     update();
+
+    // ===== Wheel hijack — vertical wheel maps to horizontal scrollLeft =====
+    // Anton 2026-05-25: "невозможно проскроллить" cases section. Default browser
+    // не маппит wheel в horizontal scroll, Lenis ест wheel events. Hijack только
+    // когда carousel занимает большую часть viewport (hover'ы / fully visible).
+    let wheelLocked = false;
+    track.addEventListener('wheel', (e) => {
+      const rect = track.getBoundingClientRect();
+      // только когда track full-visible vertically
+      if (rect.top > 100 || rect.bottom < window.innerHeight - 100) return;
+
+      const max = track.scrollWidth - track.clientWidth;
+      const dx = e.deltaY !== 0 ? e.deltaY : e.deltaX;
+      const nextScroll = track.scrollLeft + dx;
+      const isAtStart = track.scrollLeft <= 0 && dx < 0;
+      const isAtEnd = track.scrollLeft >= max && dx > 0;
+      if (isAtStart || isAtEnd) return;  // освобождаем wheel для body scroll
+
+      e.preventDefault();
+      track.scrollLeft = nextScroll;
+    }, { passive: false });
+
+    // ===== Arrow buttons (← →) =====
+    const prev = $('.cases-arrow-prev');
+    const next = $('.cases-arrow-next');
+    const cardW = () => track.querySelector('.case-card')?.getBoundingClientRect().width + 16 || 540;
+    prev?.addEventListener('click', () => track.scrollBy({ left: -cardW(), behavior: 'smooth' }));
+    next?.addEventListener('click', () => track.scrollBy({ left: cardW(), behavior: 'smooth' }));
+
+    // Keyboard nav когда focused
+    track.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight') track.scrollBy({ left: cardW(), behavior: 'smooth' });
+      if (e.key === 'ArrowLeft')  track.scrollBy({ left: -cardW(), behavior: 'smooth' });
+    });
+    track.setAttribute('tabindex', '0');
   }
 
   // ====== HERO EXIT — disabled (Anton 2026-05-25 "все дергается") ======

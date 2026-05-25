@@ -273,15 +273,22 @@ html, body {
    Position: fixed (тончает с scroll, не jitter). Blur 100px = soft, low-FPS impact.
    Auto-disabled на reduced-motion и mobile (perf). */
 .gradient-mesh {
-  /* Fixed поверх ВСЕГО (выше section backgrounds). Mix-blend = "просвечивает"
-     через любую секцию: dark stays dark + warm peach glow drifts поверх. */
+  /* Anton 2026-05-25: judder при scroll. mix-blend + animation = heavy compositor work.
+     Решение: убран mix-blend-mode (compositor cost), reduce z-index, pause animation
+     when body has .is-scrolling class (JS toggle on scroll). */
   position: fixed;
   inset: -20% -20% -20% -20%;
-  z-index: 80;                               /* выше sections, ниже nav (z-100) и cursor */
+  z-index: 80;
   pointer-events: none;
   overflow: hidden;
-  opacity: 0.55;
-  mix-blend-mode: screen;                    /* "просвечивает" cases/stack/testimonials */
+  opacity: 0.45;
+  /* mix-blend-mode removed — главный source judder */
+  contain: strict;                           /* containment isolation для paint */
+  will-change: opacity;
+}
+.is-scrolling .gradient-mesh::before,
+.is-scrolling .gradient-mesh::after {
+  animation-play-state: paused;              /* pause heavy keyframes на scroll */
 }
 .gradient-mesh::before,
 .gradient-mesh::after {
@@ -326,11 +333,10 @@ html, body {
   .gradient-mesh::after { display: none; }                /* single layer mobile */
 }
 
-/* На light themes mesh-mix-blend screen даёт overexpose — переключаемся на multiply для cohesion */
+/* На light themes mesh снижен — без mix-blend для perf */
 html[data-theme="D"] .gradient-mesh,
 html[data-theme="C"] .gradient-mesh {
-  mix-blend-mode: multiply;
-  opacity: 0.4;
+  opacity: 0.3;
 }
 body {
   font-family: var(--f-body);
@@ -1148,24 +1154,25 @@ html.has-custom-cursor, html.has-custom-cursor * { cursor: none !important; }
 .ht-switcher {
   position: relative;
   display: inline-flex;
-  align-items: center;
-  padding: 4px;
-  background: rgba(244,236,221,0.06);
-  border: 1px solid rgba(244,236,221,0.15);
+  align-items: stretch;
+  padding: 5px;
+  background: rgba(244,236,221,0.08);
+  border: 1px solid rgba(244,236,221,0.18);
   border-radius: 999px;
   backdrop-filter: blur(14px) saturate(180%);
   -webkit-backdrop-filter: blur(14px) saturate(180%);
-  align-self: flex-start;
+  align-self: center;
 }
 .ht-track {
   position: absolute;
-  top: 4px; bottom: 4px;
-  left: 4px;
-  width: calc(50% - 4px);
+  top: 5px; bottom: 5px;
+  left: 5px;
+  width: calc(50% - 5px);
   background: var(--accent);
   border-radius: 999px;
   transition: transform .55s var(--ease-back);
   z-index: 1;
+  box-shadow: 0 4px 16px rgba(232,168,120,0.35), inset 0 1px 0 rgba(255,255,255,0.25);
 }
 .hero-toggle[data-toggle-state="benefits"] .ht-track {
   transform: translateX(100%);
@@ -1173,25 +1180,37 @@ html.has-custom-cursor, html.has-custom-cursor * { cursor: none !important; }
 .ht-tab {
   position: relative;
   z-index: 2;
-  padding: 10px 18px;
+  padding: 12px 22px;
   font-family: var(--f-display);
   font-weight: var(--w-bold);
   font-size: 0.875rem;
-  letter-spacing: -0.005em;
-  color: rgba(244,236,221,0.7);
+  letter-spacing: 0;
+  color: rgba(244,236,221,0.75);
   transition: color .35s var(--ease-out);
   display: inline-flex;
-  align-items: baseline;
-  gap: 6px;
+  align-items: center;
+  gap: 8px;
   white-space: nowrap;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  /* fix Anton 2026-05-25: text "До · Ручной хаос" overlap fixed via solid contrast */
 }
-.ht-tab.is-active { color: var(--c-bg); }
+.ht-tab.is-active { color: var(--c-teal-deep); }   /* solid almost-black на peach background */
+.ht-tab.is-active .ht-tab-l { opacity: 0.65; color: var(--c-teal-deep); }
 .ht-tab-l {
   font-family: var(--f-mono);
-  font-size: 0.6875rem;
-  letter-spacing: 0.12em;
+  font-weight: 700;
+  font-size: 0.625rem;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
-  opacity: 0.7;
+  opacity: 0.55;
+  transition: opacity .35s, color .35s;
+}
+.ht-tab-s {
+  font-family: var(--f-display);
+  font-weight: 700;
+  font-size: 0.875rem;
 }
 
 .ht-stage {
@@ -1905,22 +1924,68 @@ html.has-custom-cursor, html.has-custom-cursor * { cursor: none !important; }
 }
 .cases-header {
   margin-bottom: clamp(3rem, 6vh, 5rem);
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 2rem;
 }
+.cases-nav {
+  display: flex;
+  gap: 8px;
+  flex-shrink: 0;
+}
+.cases-arrow {
+  width: 52px; height: 52px;
+  border-radius: 999px;
+  background: rgba(20, 58, 58, 0.5);
+  border: 1.5px solid rgba(232, 168, 120, 0.55);
+  color: var(--c-cream);
+  cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  transition: all .35s var(--ease-out);
+  backdrop-filter: blur(8px);
+}
+.cases-arrow svg { width: 22px; height: 22px; }
+.cases-arrow:hover {
+  background: var(--accent);
+  color: var(--c-teal-deep);
+  border-color: var(--accent);
+  transform: scale(1.05);
+  box-shadow: 0 0 24px rgba(232, 168, 120, 0.5);
+}
+.cases-arrow:active { transform: scale(0.96); }
+
+@media (max-width: 768px) {
+  .cases-header { flex-direction: column; align-items: flex-start; gap: 1rem; }
+  .cases-arrow { width: 44px; height: 44px; }
+  .cases-arrow svg { width: 18px; height: 18px; }
+}
+
 .cases-track {
   display: grid;
   grid-auto-flow: column;
   grid-auto-columns: clamp(320px, 38vw, 520px);
   gap: 1.25rem;
   overflow-x: auto;
+  overflow-y: hidden;
   scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
   padding-inline: var(--pad-x);
   padding-bottom: 2rem;
   scrollbar-width: none;
   -webkit-overflow-scrolling: touch;
+  /* outline когда focused через keyboard nav */
+  outline: none;
+}
+.cases-track:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 6px;
+  border-radius: 4px;
 }
 .cases-track::-webkit-scrollbar { display: none; }
 .case-card {
   scroll-snap-align: start;
+  scroll-snap-stop: always;
   display: flex; flex-direction: column;
   gap: 1.25rem;
   padding: clamp(1.75rem, 2.5vw, 2.5rem);
