@@ -13,8 +13,8 @@
 <link rel="preload" as="image" href="assets/hero-desktop-poster.jpg" media="(min-width:769px)" fetchpriority="high">
 <link rel="preload" as="image" href="assets/hero-mobile-poster.jpg" media="(max-width:768px)" fetchpriority="high">
 
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,200..800&family=Inter:wght@200;300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&display=swap">
-<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,200..800&family=JetBrains+Mono:wght@400;500;700&family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&display=swap">
+<link rel="stylesheet" href="css/style.css?v=final">
 
 <!-- Inline critical CSS for loading screen to avoid FOUC -->
 <style>
@@ -28,7 +28,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/Flip.min.js" defer></script>
 <script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js" defer></script>
-<script src="js/main.js" defer></script>
+<script src="js/main.js?v=final" defer></script>
 </head>
 <body>
 
@@ -186,76 +186,20 @@
     </ul>
   </div>
 
-  <!-- HERO TOGGLE — centerpiece interactive widget -->
-  <div class="hero-toggle" data-toggle-state="chaos" aria-label="Переключатель состояния: хаос / автоматизация">
-    <div class="ht-switcher" role="tablist">
-      <span class="ht-track"></span>
-      <button class="ht-tab is-active" type="button" data-toggle-target="chaos" role="tab" aria-selected="true">
-        <span class="ht-tab-l">До</span><span class="ht-tab-s">Ручной хаос</span>
-      </button>
-      <button class="ht-tab" type="button" data-toggle-target="benefits" role="tab" aria-selected="false">
-        <span class="ht-tab-l">После</span><span class="ht-tab-s">Цифровые сотрудники</span>
-      </button>
-    </div>
-
-    <div class="ht-stage">
-      <!-- 6 chaos cards (pain) — финальные тексты от Gemini, привязаны к 3 направлениям -->
-      <ul class="ht-cards ht-cards-chaos" data-stage="chaos">
-        <li class="ht-card ht-card-pain" style="--i:0" data-cat="employees">
-          <svg class="ht-card-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="9" cy="8" r="3"/><circle cx="17" cy="8" r="2.5"/><path d="M3 20c0-3 2.7-5 6-5s6 2 6 5"/><path d="M15 19c0-2 1.8-3.5 4-3.5s4 1.5 4 3.5"/></svg>
-          <h4 class="ht-card-h">Раздутый штат</h4>
-        </li>
-        <li class="ht-card ht-card-pain" style="--i:1" data-cat="personalization">
-          <svg class="ht-card-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="8" r="4"/><path d="M5 21c1-4 4-6 7-6s6 2 7 6"/><path d="M17 4l4 4M21 4l-4 4" stroke-linecap="round"/></svg>
-          <h4 class="ht-card-h">Уход клиентов</h4>
-        </li>
-        <li class="ht-card ht-card-pain" style="--i:2" data-cat="analytics">
-          <svg class="ht-card-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 3v18h18"/><path d="M7 17l4-4 3 3 5-7" stroke-linecap="round"/><path d="M19 9l-5 7-3-3-4 4" stroke-dasharray="2 2" opacity=".5"/></svg>
-          <h4 class="ht-card-h">Решения вслепую</h4>
-        </li>
-        <li class="ht-card ht-card-pain" style="--i:3" data-cat="employees">
-          <svg class="ht-card-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 2l9 5v6c0 5-3.5 8.5-9 9-5.5-.5-9-4-9-9V7l9-5z"/><path d="M12 8v4M12 16v.5" stroke-linecap="round"/></svg>
-          <h4 class="ht-card-h">Ошибки</h4>
-        </li>
-        <li class="ht-card ht-card-pain" style="--i:4" data-cat="personalization">
-          <svg class="ht-card-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.5" fill="currentColor"/><path d="M12 1v3M12 20v3M1 12h3M20 12h3" stroke-linecap="round"/></svg>
-          <h4 class="ht-card-h">Шаблонность</h4>
-        </li>
-        <li class="ht-card ht-card-pain" style="--i:5" data-cat="analytics">
-          <svg class="ht-card-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="13" r="8"/><path d="M9 11c0-2 1.5-3 3-3s3 1 3 3" stroke-linecap="round"/><circle cx="12" cy="15" r=".8" fill="currentColor"/><path d="M5 5l2 2M19 5l-2 2" stroke-linecap="round"/></svg>
-          <h4 class="ht-card-h">Гадания</h4>
-        </li>
-      </ul>
-
-      <!-- 6 benefit cards -->
-      <ul class="ht-cards ht-cards-benefits" data-stage="benefits" hidden>
-        <li class="ht-card ht-card-gain" style="--i:0" data-cat="employees">
-          <svg class="ht-card-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="5" y="7" width="14" height="12" rx="2"/><circle cx="9" cy="13" r="1.2" fill="currentColor"/><circle cx="15" cy="13" r="1.2" fill="currentColor"/><path d="M9 17h6M12 4v3M8 4v2M16 4v2"/></svg>
-          <h4 class="ht-card-h">24/7 без штата</h4>
-        </li>
-        <li class="ht-card ht-card-gain" style="--i:1" data-cat="personalization">
-          <svg class="ht-card-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="9" r="4"/><path d="M5 21c1-4 4-6 7-6s6 2 7 6"/><path d="M17 7l2 2 3-4" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          <h4 class="ht-card-h">Сегмент = 1</h4>
-        </li>
-        <li class="ht-card ht-card-gain" style="--i:2" data-cat="analytics">
-          <svg class="ht-card-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 3v18h18"/><path d="M7 17l4-7 3 3 6-9" stroke-linecap="round" stroke-linejoin="round"/><path d="M17 4h4v4" stroke-linecap="round"/></svg>
-          <h4 class="ht-card-h">AI-прогноз</h4>
-        </li>
-        <li class="ht-card ht-card-gain" style="--i:3" data-cat="employees">
-          <svg class="ht-card-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 2l9 5v6c0 5-3.5 8.5-9 9-5.5-.5-9-4-9-9V7l9-5z"/><path d="M8 12l3 3 5-6" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          <h4 class="ht-card-h">Ноль ошибок</h4>
-        </li>
-        <li class="ht-card ht-card-gain" style="--i:4" data-cat="personalization">
-          <svg class="ht-card-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="5" width="14" height="10" rx="2"/><path d="M7 19l3-4M14 19l-3-4"/><rect x="8" y="8" width="4" height="1.5" fill="currentColor"/><rect x="8" y="11" width="6" height="1.5" fill="currentColor"/></svg>
-          <h4 class="ht-card-h">Контекст диалога</h4>
-        </li>
-        <li class="ht-card ht-card-gain" style="--i:5" data-cat="analytics">
-          <svg class="ht-card-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="2"/><rect x="6" y="14" width="3" height="4" fill="currentColor"/><rect x="11" y="10" width="3" height="8" fill="currentColor"/><rect x="16" y="6" width="3" height="12" fill="currentColor"/></svg>
-          <h4 class="ht-card-h">Дашборды + AI</h4>
-        </li>
-      </ul>
-    </div>
-  </div>
+  <!-- HERO PILLS — 10 концепт-07 outbound labels, привязаны к концам curves в видео -->
+  <aside class="hero-pills" aria-label="Куда летит результат">
+    <span class="hero-pills-eyebrow">Куда летит результат</span>
+    <span class="hero-pill" style="--i:0">CRM</span>
+    <span class="hero-pill" style="--i:1">Отчёт</span>
+    <span class="hero-pill" style="--i:2">Дашборд</span>
+    <span class="hero-pill" style="--i:3">SMS</span>
+    <span class="hero-pill" style="--i:4">Аналитика</span>
+    <span class="hero-pill" style="--i:5">Экспорт</span>
+    <span class="hero-pill" style="--i:6">База</span>
+    <span class="hero-pill" style="--i:7">Уведомление</span>
+    <span class="hero-pill" style="--i:8">Статистика</span>
+    <span class="hero-pill" style="--i:9">Архив</span>
+  </aside>
 
   <div class="hero-scroll-hint" aria-hidden="true">
     <span>scroll</span>
@@ -277,6 +221,78 @@
 ============================================================= -->
 <section class="section section-directions" id="directions" data-section="directions">
   <div class="container">
+
+    <!-- HERO TOGGLE — bridge "проблема → 3 направления" -->
+    <div class="hero-toggle" data-toggle-state="chaos" aria-label="Переключатель состояния: хаос / автоматизация">
+      <div class="ht-switcher" role="tablist">
+        <span class="ht-track"></span>
+        <button class="ht-tab is-active" type="button" data-toggle-target="chaos" role="tab" aria-selected="true">
+          <span class="ht-tab-l">До</span><span class="ht-tab-s">Ручной хаос</span>
+        </button>
+        <button class="ht-tab" type="button" data-toggle-target="benefits" role="tab" aria-selected="false">
+          <span class="ht-tab-l">После</span><span class="ht-tab-s">Цифровые сотрудники</span>
+        </button>
+      </div>
+
+      <div class="ht-stage">
+        <!-- 6 chaos cards (pain) — финальные тексты, привязаны к 3 направлениям -->
+        <ul class="ht-cards ht-cards-chaos" data-stage="chaos">
+          <li class="ht-card ht-card-pain" style="--i:0" data-cat="employees">
+            <svg class="ht-card-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="9" cy="8" r="3"/><circle cx="17" cy="8" r="2.5"/><path d="M3 20c0-3 2.7-5 6-5s6 2 6 5"/><path d="M15 19c0-2 1.8-3.5 4-3.5s4 1.5 4 3.5"/></svg>
+            <h4 class="ht-card-h">Раздутый штат</h4>
+          </li>
+          <li class="ht-card ht-card-pain" style="--i:1" data-cat="personalization">
+            <svg class="ht-card-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="8" r="4"/><path d="M5 21c1-4 4-6 7-6s6 2 7 6"/><path d="M17 4l4 4M21 4l-4 4" stroke-linecap="round"/></svg>
+            <h4 class="ht-card-h">Уход клиентов</h4>
+          </li>
+          <li class="ht-card ht-card-pain" style="--i:2" data-cat="analytics">
+            <svg class="ht-card-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 3v18h18"/><path d="M7 17l4-4 3 3 5-7" stroke-linecap="round"/><path d="M19 9l-5 7-3-3-4 4" stroke-dasharray="2 2" opacity=".5"/></svg>
+            <h4 class="ht-card-h">Решения вслепую</h4>
+          </li>
+          <li class="ht-card ht-card-pain" style="--i:3" data-cat="employees">
+            <svg class="ht-card-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 2l9 5v6c0 5-3.5 8.5-9 9-5.5-.5-9-4-9-9V7l9-5z"/><path d="M12 8v4M12 16v.5" stroke-linecap="round"/></svg>
+            <h4 class="ht-card-h">Ошибки</h4>
+          </li>
+          <li class="ht-card ht-card-pain" style="--i:4" data-cat="personalization">
+            <svg class="ht-card-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.5" fill="currentColor"/><path d="M12 1v3M12 20v3M1 12h3M20 12h3" stroke-linecap="round"/></svg>
+            <h4 class="ht-card-h">Шаблонность</h4>
+          </li>
+          <li class="ht-card ht-card-pain" style="--i:5" data-cat="analytics">
+            <svg class="ht-card-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="13" r="8"/><path d="M9 11c0-2 1.5-3 3-3s3 1 3 3" stroke-linecap="round"/><circle cx="12" cy="15" r=".8" fill="currentColor"/><path d="M5 5l2 2M19 5l-2 2" stroke-linecap="round"/></svg>
+            <h4 class="ht-card-h">Гадания</h4>
+          </li>
+        </ul>
+
+        <!-- 6 benefit cards -->
+        <ul class="ht-cards ht-cards-benefits" data-stage="benefits" hidden>
+          <li class="ht-card ht-card-gain" style="--i:0" data-cat="employees">
+            <svg class="ht-card-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="5" y="7" width="14" height="12" rx="2"/><circle cx="9" cy="13" r="1.2" fill="currentColor"/><circle cx="15" cy="13" r="1.2" fill="currentColor"/><path d="M9 17h6M12 4v3M8 4v2M16 4v2"/></svg>
+            <h4 class="ht-card-h">24/7 без штата</h4>
+          </li>
+          <li class="ht-card ht-card-gain" style="--i:1" data-cat="personalization">
+            <svg class="ht-card-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="9" r="4"/><path d="M5 21c1-4 4-6 7-6s6 2 7 6"/><path d="M17 7l2 2 3-4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <h4 class="ht-card-h">Сегмент = 1</h4>
+          </li>
+          <li class="ht-card ht-card-gain" style="--i:2" data-cat="analytics">
+            <svg class="ht-card-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 3v18h18"/><path d="M7 17l4-7 3 3 6-9" stroke-linecap="round" stroke-linejoin="round"/><path d="M17 4h4v4" stroke-linecap="round"/></svg>
+            <h4 class="ht-card-h">AI-прогноз</h4>
+          </li>
+          <li class="ht-card ht-card-gain" style="--i:3" data-cat="employees">
+            <svg class="ht-card-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 2l9 5v6c0 5-3.5 8.5-9 9-5.5-.5-9-4-9-9V7l9-5z"/><path d="M8 12l3 3 5-6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <h4 class="ht-card-h">Ноль ошибок</h4>
+          </li>
+          <li class="ht-card ht-card-gain" style="--i:4" data-cat="personalization">
+            <svg class="ht-card-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="5" width="14" height="10" rx="2"/><path d="M7 19l3-4M14 19l-3-4"/><rect x="8" y="8" width="4" height="1.5" fill="currentColor"/><rect x="8" y="11" width="6" height="1.5" fill="currentColor"/></svg>
+            <h4 class="ht-card-h">Контекст диалога</h4>
+          </li>
+          <li class="ht-card ht-card-gain" style="--i:5" data-cat="analytics">
+            <svg class="ht-card-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="2"/><rect x="6" y="14" width="3" height="4" fill="currentColor"/><rect x="11" y="10" width="3" height="8" fill="currentColor"/><rect x="16" y="6" width="3" height="12" fill="currentColor"/></svg>
+            <h4 class="ht-card-h">Дашборды + AI</h4>
+          </li>
+        </ul>
+      </div>
+    </div>
+
     <header class="dir-header">
       <div class="section-eyebrow"><span class="dot"></span>Что мы делаем</div>
       <h2 class="section-h2">

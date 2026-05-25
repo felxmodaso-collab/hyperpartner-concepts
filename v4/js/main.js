@@ -840,11 +840,27 @@
     updateNavOver();
   }
 
-  // ====== VIDEO source ======
+  // ====== VIDEO source — with capability detection (3G/saveData → poster only) ======
   function initVideo() {
     const v = $('.hero-video');
     if (!v) return;
     const mobile = window.matchMedia('(max-width: 768px)').matches;
+
+    // Capability detection — skip 17MB video on slow connection / saveData / reduced-motion
+    const conn = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
+    const slowNet = conn && (
+      conn.saveData === true ||
+      conn.effectiveType === '2g' ||
+      conn.effectiveType === 'slow-2g' ||
+      conn.effectiveType === '3g'
+    );
+    const lowEnd = (navigator.hardwareConcurrency || 4) < 4;
+    if (reducedMotion || slowNet || (mobile && lowEnd)) {
+      // Poster-only fallback: hide video element, keep poster bg (CSS-driven)
+      v.remove();
+      return;
+    }
+
     const canHEVC = (() => {
       const t = document.createElement('video');
       return !!t.canPlayType && t.canPlayType('video/mp4; codecs="hvc1"') !== '';
@@ -866,12 +882,16 @@
 
   // ====== HERO INTRO choreography ======
   function initHeroIntro() {
-    if (reducedMotion) return;
+    if (reducedMotion) {
+      // Even without animation, make pills visible
+      document.querySelectorAll('.hero-pill').forEach(el => el.classList.add('is-revealed'));
+      return;
+    }
     const { gsap } = window;
     // Wait until loading screen done before playing intro
     const start = () => {
       gsap.set('.hero-eyebrow, .hero-h1 .h1-line, .hero-lede, .hero-cta .btn, .hero-stat, .hero-scroll-hint', { opacity: 0, y: 18 });
-      gsap.set('.hero-toggle', { opacity: 0, y: 24 });
+      gsap.set('.hero-pills-eyebrow', { opacity: 0, x: 12 });
 
       const tl = gsap.timeline({ defaults: { ease: 'cubic-bezier(0.16, 1, 0.3, 1)' } });
       tl.to('.hero-eyebrow', { opacity: 1, y: 0, duration: 0.55 }, 0.05)
@@ -879,8 +899,13 @@
         .to('.hero-lede', { opacity: 1, y: 0, duration: 0.55 }, 0.55)
         .to('.hero-cta .btn', { opacity: 1, y: 0, duration: 0.5, stagger: 0.08 }, 0.7)
         .to('.hero-stat', { opacity: 1, y: 0, duration: 0.55, stagger: 0.1 }, 0.9)
-        .to('.hero-toggle', { opacity: 1, y: 0, duration: 0.7 }, 0.6)
+        .to('.hero-pills-eyebrow', { opacity: 1, x: 0, duration: 0.45 }, 0.85)
         .to('.hero-scroll-hint', { opacity: 1, y: 0, duration: 0.5 }, 1.2);
+
+      // Pills stagger (CSS-based transition via .is-revealed class)
+      document.querySelectorAll('.hero-pill').forEach((el, i) => {
+        gsap.delayedCall(0.95 + i * 0.06, () => el.classList.add('is-revealed'));
+      });
     };
     // start as soon as loading-screen dismissed
     const screen = $('.ls-screen');
