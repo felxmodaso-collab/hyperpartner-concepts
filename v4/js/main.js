@@ -21,7 +21,8 @@
     initLoadingScreen();  // type-on logo + counter
     initCursor();         // custom cursor (desktop)
     initNav();            // chameleon nav + burger
-    initVideo();          // hero video adaptive sources
+    // initVideo() removed — Canvas hero animation вместо 17MB video
+
     initHeroIntro();      // page-load choreography
     initCounters();       // animated stat numbers
     initMagnetic();       // magnetic CTAs
@@ -32,9 +33,9 @@
     initCarouselProgress(); // cases carousel progress bar
     initForm();           // contact form validation + fake POST
     initScrollChoreo();   // scroll-driven reveals on every section
-    initParallax();       // mockup parallax inside directions
-    initCardTilt();       // 3D mouse-tilt on cards (desktop)
-    initScrollVelocity(); // subtle rotation on fast scroll
+    // initParallax() / initCardTilt() / initScrollVelocity() — disabled Anton 2026-05-25
+    // ("сайт подлагивает жестко"). These were direct .style writes on scroll/mousemove,
+    // главный judder source. Reveals остаются через scroll choreo (one-shot, not scrub).
     initScrollState();    // toggle body.is-scrolling for perf-pause meshes
     initSectionDividers();// cinematic brand-pattern wipes между секциями
   };
@@ -674,15 +675,20 @@
   let lenis = null;
   function initLenis() {
     if (reducedMotion || isMobile()) return;  // native scroll on mobile
+    // Anton Wave4: tuned для smooth — lerp 0.08 (less aggressive smoothing,
+    // не борется с native momentum). lagSmoothing 500 — drops dropped frames без jank.
     lenis = new window.Lenis({
-      duration: 1.15,
-      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      duration: 1.1,
+      easing: (t) => 1 - Math.pow(1 - t, 3),  // cubic-out, проще чем expo
       smoothWheel: true,
-      lerp: 0.1,
+      wheelMultiplier: 1,
+      lerp: 0.08,                              // меньше smoothing = более responsive
+      syncTouch: false,
     });
-    lenis.on('scroll', window.ScrollTrigger?.update);
+    window.lenis = lenis;                       // global для perf-pause hook
+    lenis.on('scroll', () => window.ScrollTrigger?.update());
     window.gsap.ticker.add((time) => lenis.raf(time * 1000));
-    window.gsap.ticker.lagSmoothing(0);
+    window.gsap.ticker.lagSmoothing(500, 33);   // 33ms = 30fps minimum
   }
 
   // ====== LOADING SCREEN ======
