@@ -1,0 +1,78 @@
+Warning: Windows 10 detected. Some UI features like smooth scrolling may be degraded. Windows 11 is recommended for the best experience.
+Warning: True color (24-bit) support not detected. Using a terminal with true color enabled will result in a better visual experience.
+YOLO mode is enabled. All tool calls will be automatically approved.
+YOLO mode is enabled. All tool calls will be automatically approved.
+Ripgrep is not available. Falling back to GrepTool.
+Attempt 1 failed. Retrying with backoff... _GaxiosError: request to https://cloudcode-pa.googleapis.com/v1internal:streamGenerateContent?alt=sse failed, reason: socket hang up
+    at Gaxios._request (file:///C:/Users/Anton/AppData/Roaming/npm/node_modules/@google/gemini-cli/bundle/chunk-7VVHSNDQ.js:8815:66)
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at async _OAuth2Client.requestAsync (file:///C:/Users/Anton/AppData/Roaming/npm/node_modules/@google/gemini-cli/bundle/chunk-7VVHSNDQ.js:10774:16)
+    at async CodeAssistServer.requestStreamingPost (file:///C:/Users/Anton/AppData/Roaming/npm/node_modules/@google/gemini-cli/bundle/chunk-7VVHSNDQ.js:272945:17)
+    at async CodeAssistServer.generateContentStream (file:///C:/Users/Anton/AppData/Roaming/npm/node_modules/@google/gemini-cli/bundle/chunk-7VVHSNDQ.js:272743:23)
+    at async file:///C:/Users/Anton/AppData/Roaming/npm/node_modules/@google/gemini-cli/bundle/chunk-7VVHSNDQ.js:273597:19
+    at async file:///C:/Users/Anton/AppData/Roaming/npm/node_modules/@google/gemini-cli/bundle/chunk-7VVHSNDQ.js:250407:23
+    at async retryWithBackoff (file:///C:/Users/Anton/AppData/Roaming/npm/node_modules/@google/gemini-cli/bundle/chunk-7VVHSNDQ.js:270684:23)
+    at async GeminiChat.makeApiCallAndProcessStream (file:///C:/Users/Anton/AppData/Roaming/npm/node_modules/@google/gemini-cli/bundle/chunk-7VVHSNDQ.js:293631:28)
+    at async GeminiChat.streamWithRetries (file:///C:/Users/Anton/AppData/Roaming/npm/node_modules/@google/gemini-cli/bundle/chunk-7VVHSNDQ.js:293450:29) {
+  config: {
+    proxy: 'http://127.0.0.1:12334',
+    url: 'https://cloudcode-pa.googleapis.com/v1internal:streamGenerateContent?alt=sse',
+    method: 'POST',
+    params: { alt: 'sse' },
+    headers: {
+      'Content-Type': 'application/json',
+      'User-Agent': 'GeminiCLI-tui/0.42.0/gemini-2.5-pro (win32; x64; terminal) google-api-nodejs-client/9.15.1',
+      Authorization: '<<REDACTED> - See `errorRedactor` option in `gaxios` for configuration>.',
+      'x-goog-api-client': 'gl-node/25.8.1'
+    },
+    responseType: 'stream',
+    body: '<<REDACTED> - See `errorRedactor` option in `gaxios` for configuration>.',
+    signal: AbortSignal { aborted: false },
+    retry: false,
+    paramsSerializer: [Function: paramsSerializer],
+    validateStatus: [Function: validateStatus],
+    agent: HttpsProxyAgent {
+      _events: [Object: null prototype],
+      _eventsCount: 2,
+      _maxListeners: undefined,
+      options: [Object],
+      requests: [Object: null prototype] {},
+      sockets: [Object: null prototype],
+      freeSockets: [Object: null prototype] {},
+      keepAliveMsecs: 1000,
+      keepAlive: false,
+      maxSockets: Infinity,
+      maxFreeSockets: 256,
+      scheduling: 'lifo',
+      maxTotalSockets: Infinity,
+      totalSocketCount: 1,
+      agentKeepAliveTimeoutBuffer: 1000,
+      proxy: URL {},
+      proxyHeaders: {},
+      connectOpts: [Object],
+      Symbol(shapeMode): false,
+      Symbol(kCapture): false,
+      Symbol(AgentBaseInternalState): [Object]
+    },
+    errorRedactor: [Function: defaultErrorRedactor]
+  },
+  response: undefined,
+  error: FetchError2: request to https://cloudcode-pa.googleapis.com/v1internal:streamGenerateContent?alt=sse failed, reason: socket hang up
+      at ClientRequest.<anonymous> (file:///C:/Users/Anton/AppData/Roaming/npm/node_modules/@google/gemini-cli/bundle/chunk-7VVHSNDQ.js:7737:18)
+      at ClientRequest.emit (node:events:508:20)
+      at emitErrorEvent (node:_http_client:109:11)
+      at TLSSocket.socketOnEnd (node:_http_client:617:5)
+      at TLSSocket.emit (node:events:520:22)
+      at endReadableNT (node:internal/streams/readable:1729:12)
+      at process.processTicksAndRejections (node:internal/process/task_queues:90:21) {
+    type: 'system',
+    errno: 'ECONNRESET',
+    code: 'ECONNRESET'
+  },
+  code: 'ECONNRESET',
+  Symbol(gaxios-gaxios-error): '6.7.1'
+}
+Error executing tool read_file: File size exceeds the 20MB limit.
+Error executing tool read_file: File size exceeds the 20MB limit.
+[WebFetchTool] Primary fetch failed, falling back: Primary fetch returned no content
+[ERROR] Invalid stream: The model returned an empty response or malformed tool call.
