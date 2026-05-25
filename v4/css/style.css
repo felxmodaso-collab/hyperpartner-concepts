@@ -1760,50 +1760,140 @@ html.has-custom-cursor, html.has-custom-cursor * { cursor: none !important; }
   }
 }
 
-/* Employees direction: 4 floating cards composition */
-.emp-grid {
+/* Workflow demo: input → AI core → output (Anton 2026-05-25: заменил abstract emp-cards) */
+.workflow {
   position: relative;
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 12px;
   width: 100%;
-  max-width: 460px;
+  max-width: 560px;
+  display: grid;
+  grid-template-columns: 1fr 1.4fr 1fr;
+  gap: 0;
+  align-items: center;
+  padding: 1.5rem 0;
 }
-.emp-card {
-  position: relative;
-  padding: 1.25rem;
-  border-radius: 14px;
-  background: var(--bg-surface);
-  border: 1px solid var(--border);
-  display: flex; flex-direction: column; gap: 10px;
-  box-shadow: var(--shadow-card);
-  font-family: var(--f-display);
-  font-weight: var(--w-bold);
-  font-size: 0.875rem;
-  line-height: 1.2;
-  color: var(--text-main);
-  transition: transform .4s var(--ease-out), border-color .35s;
+.wf-col {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  z-index: 2;
 }
-.emp-card svg {
-  width: 28px; height: 28px;
+.wf-tag {
+  font-family: var(--f-mono);
+  font-weight: 700;
+  font-size: 0.625rem;
+  letter-spacing: 0.18em;
+  color: rgba(244,236,221,0.5);
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+.wf-output .wf-tag { text-align: right; color: var(--accent); }
+
+.wf-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px;
+  border-radius: 999px;
+  background: rgba(20, 58, 58, 0.65);
+  border: 1px solid rgba(244, 236, 221, 0.12);
+  font-family: var(--f-mono);
+  font-weight: 600;
+  font-size: 0.7rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--c-cream);
+  white-space: nowrap;
+  animation: wf-flow 3s ease-in-out infinite;
+  animation-delay: calc(var(--d) * 0.2s);
+}
+.wf-item svg {
+  width: 16px; height: 16px;
+  color: rgba(244, 236, 221, 0.55);
+  flex-shrink: 0;
+}
+
+.wf-item-out {
+  border-color: rgba(232, 168, 120, 0.45);
+  background: linear-gradient(135deg, rgba(232,168,120,0.22), rgba(20,58,58,0.6));
+  color: var(--accent);
+  justify-content: flex-end;
+  animation-delay: calc(var(--d) * 0.2s + 0.6s);
+}
+.wf-item-out svg {
   color: var(--accent);
 }
-.emp-card-1 { transform: rotate(-1.5deg); }
-.emp-card-2 { transform: rotate(1deg); margin-top: 24px; }
-.emp-card-3 { transform: rotate(0.5deg); margin-top: -12px; }
-.emp-card-4 { transform: rotate(-0.8deg); }
-.emp-card:hover {
-  transform: rotate(0) translateY(-4px);
-  border-color: var(--accent);
+
+@keyframes wf-flow {
+  0%, 100% { opacity: 0.55; transform: translateX(0); }
+  50%      { opacity: 1; transform: translateX(2px); }
 }
-.emp-pulse {
+
+/* AI Core node */
+.wf-core {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 240px;
+  z-index: 1;
+}
+.wf-lines {
   position: absolute;
-  top: 18px; right: 18px;
-  width: 6px; height: 6px;
-  border-radius: 50%;
-  background: var(--accent);
-  box-shadow: 0 0 0 0 color-mix(in oklab, var(--accent) 60%, transparent);
-  animation: hotspot-pulse 2s var(--ease-out) infinite;
+  inset: 0;
+  width: 100%; height: 100%;
+  color: var(--accent);
+}
+.wf-core-node {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 16px 12px;
+  background: var(--c-teal-2);
+  border: 1.5px solid var(--accent);
+  border-radius: 14px;
+  box-shadow:
+    0 0 40px rgba(232,168,120,0.45),
+    0 0 80px rgba(232,168,120,0.18),
+    inset 0 1px 0 rgba(244,236,221,0.08);
+  z-index: 2;
+}
+.wf-core-node::before {
+  content: '';
+  position: absolute;
+  inset: -3px;
+  border-radius: 16px;
+  border: 1px solid rgba(232,168,120,0.4);
+  animation: wf-core-pulse 2.5s var(--ease-out) infinite;
+}
+@keyframes wf-core-pulse {
+  0%, 100% { opacity: 0.4; transform: scale(1); }
+  50%      { opacity: 0.85; transform: scale(1.08); }
+}
+.wf-core-node svg {
+  width: 38px; height: 28px;
+  color: var(--accent);
+}
+.wf-core-label {
+  font-family: var(--f-mono);
+  font-weight: 700;
+  font-size: 0.625rem;
+  letter-spacing: 0.12em;
+  color: var(--c-cream);
+  text-transform: uppercase;
+}
+
+@media (max-width: 768px) {
+  .workflow {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  .wf-col { flex-direction: row; flex-wrap: wrap; }
+  .wf-output .wf-tag { text-align: left; }
+  .wf-item, .wf-item-out { justify-content: flex-start; }
+  .wf-core { height: 120px; }
+  .wf-lines { display: none; }   /* skip on mobile — perf */
 }
 
 /* =============================================================

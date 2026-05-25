@@ -14,7 +14,7 @@
 <link rel="preload" as="image" href="assets/hero-mobile-poster.jpg" media="(max-width:768px)" fetchpriority="high">
 
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,200..800&family=JetBrains+Mono:wght@400;500;700&family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&display=swap">
-<link rel="stylesheet" href="css/style.css?v=v5stacksec">
+<link rel="stylesheet" href="css/style.css?v=v5workflow">
 
 <!-- Inline critical CSS for loading screen to avoid FOUC -->
 <style>
@@ -331,27 +331,84 @@
         </div>
       </div>
       <div class="dir-visual dir-visual-employees">
-        <!-- Decorative composition for employees: 4 floating mini-cards mimicking robotic tasks -->
-        <div class="emp-grid">
-          <div class="emp-card emp-card-1">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="4" width="18" height="14" rx="2"/><path d="M7 9h10M7 12h7M7 15h5"/></svg>
-            <span>OCR<br>счёт-фактура</span>
-            <div class="emp-pulse"></div>
+        <!-- Workflow demo: input → AI processing → structured output (animated SVG) -->
+        <div class="workflow">
+          <div class="wf-col wf-input" aria-label="Входящий поток">
+            <span class="wf-tag">INPUT</span>
+            <div class="wf-item" style="--d:0">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="5" width="18" height="14" rx="1"/><path d="M3 5l9 7 9-7"/></svg>
+              <span>Письмо</span>
+            </div>
+            <div class="wf-item" style="--d:1">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 5h14a2 2 0 012 2v6a2 2 0 01-2 2H6l-3 3V5z"/><circle cx="9" cy="10" r="1" fill="currentColor"/><circle cx="13" cy="10" r="1" fill="currentColor"/><circle cx="17" cy="10" r="1" fill="currentColor"/></svg>
+              <span>Звонок</span>
+            </div>
+            <div class="wf-item" style="--d:2">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="4" y="3" width="16" height="18" rx="1"/><path d="M8 8h8M8 12h8M8 16h5"/></svg>
+              <span>Документ</span>
+            </div>
+            <div class="wf-item" style="--d:3">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="6" width="18" height="13" rx="2"/><path d="M3 10h18M7 14h4"/></svg>
+              <span>Форма</span>
+            </div>
           </div>
-          <div class="emp-card emp-card-2">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a15 15 0 010 18M12 3a15 15 0 000 18"/></svg>
-            <span>CRM<br>sync</span>
-            <div class="emp-pulse" style="animation-delay:.6s"></div>
+
+          <!-- AI processing core (animated pulse + connection lines) -->
+          <div class="wf-core" aria-label="Цифровой сотрудник">
+            <svg class="wf-lines" viewBox="0 0 200 240" preserveAspectRatio="none" aria-hidden="true">
+              <!-- input → core lines (left, 4 paths) -->
+              <path d="M0 30 Q60 30 100 120" stroke="currentColor" stroke-width="1" fill="none" opacity="0.4" stroke-dasharray="3 3">
+                <animate attributeName="stroke-dashoffset" values="0;-6" dur="1.5s" repeatCount="indefinite"/>
+              </path>
+              <path d="M0 90 Q60 90 100 120" stroke="currentColor" stroke-width="1" fill="none" opacity="0.4" stroke-dasharray="3 3">
+                <animate attributeName="stroke-dashoffset" values="0;-6" dur="1.8s" repeatCount="indefinite"/>
+              </path>
+              <path d="M0 150 Q60 150 100 120" stroke="currentColor" stroke-width="1" fill="none" opacity="0.4" stroke-dasharray="3 3">
+                <animate attributeName="stroke-dashoffset" values="0;-6" dur="1.6s" repeatCount="indefinite"/>
+              </path>
+              <path d="M0 210 Q60 210 100 120" stroke="currentColor" stroke-width="1" fill="none" opacity="0.4" stroke-dasharray="3 3">
+                <animate attributeName="stroke-dashoffset" values="0;-6" dur="1.7s" repeatCount="indefinite"/>
+              </path>
+              <!-- core → output lines (right, 4 paths) -->
+              <path d="M100 120 Q140 30 200 30" stroke="currentColor" stroke-width="1.5" fill="none" opacity="0.6" stroke-dasharray="4 4">
+                <animate attributeName="stroke-dashoffset" values="0;-8" dur="1.4s" repeatCount="indefinite"/>
+              </path>
+              <path d="M100 120 Q140 90 200 90" stroke="currentColor" stroke-width="1.5" fill="none" opacity="0.6" stroke-dasharray="4 4">
+                <animate attributeName="stroke-dashoffset" values="0;-8" dur="1.55s" repeatCount="indefinite"/>
+              </path>
+              <path d="M100 120 Q140 150 200 150" stroke="currentColor" stroke-width="1.5" fill="none" opacity="0.6" stroke-dasharray="4 4">
+                <animate attributeName="stroke-dashoffset" values="0;-8" dur="1.65s" repeatCount="indefinite"/>
+              </path>
+              <path d="M100 120 Q140 210 200 210" stroke="currentColor" stroke-width="1.5" fill="none" opacity="0.6" stroke-dasharray="4 4">
+                <animate attributeName="stroke-dashoffset" values="0;-8" dur="1.45s" repeatCount="indefinite"/>
+              </path>
+            </svg>
+            <div class="wf-core-node">
+              <svg viewBox="0 0 56 40" fill="currentColor" aria-hidden="true">
+                <path d="M0 4 L10 4 L34 20 L10 36 L0 36 L24 20 Z"/>
+              </svg>
+              <span class="wf-core-label">AI&nbsp;Worker</span>
+            </div>
           </div>
-          <div class="emp-card emp-card-3">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 12l4 4L21 6"/></svg>
-            <span>1C<br>проводка</span>
-            <div class="emp-pulse" style="animation-delay:1.2s"></div>
-          </div>
-          <div class="emp-card emp-card-4">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
-            <span>Email<br>ответ</span>
-            <div class="emp-pulse" style="animation-delay:1.8s"></div>
+
+          <div class="wf-col wf-output" aria-label="Структурированный результат">
+            <span class="wf-tag">OUTPUT</span>
+            <div class="wf-item wf-item-out" style="--d:0">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a15 15 0 010 18M12 3a15 15 0 000 18"/></svg>
+              <span>CRM</span>
+            </div>
+            <div class="wf-item wf-item-out" style="--d:1">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><rect x="6" y="13" width="3" height="5" fill="currentColor"/><rect x="11" y="9" width="3" height="9" fill="currentColor"/><rect x="16" y="6" width="3" height="12" fill="currentColor"/></svg>
+              <span>Дашборд</span>
+            </div>
+            <div class="wf-item wf-item-out" style="--d:2">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="4" y="3" width="16" height="18" rx="1"/><path d="M3 12l4 4L21 6"/></svg>
+              <span>Отчёт</span>
+            </div>
+            <div class="wf-item wf-item-out" style="--d:3">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 5h14a2 2 0 012 2v6a2 2 0 01-2 2H6l-3 3V5z"/><path d="M7 9h6M7 12h4"/></svg>
+              <span>SMS</span>
+            </div>
           </div>
         </div>
       </div>
