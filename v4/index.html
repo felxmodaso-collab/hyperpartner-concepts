@@ -14,7 +14,7 @@
 <link rel="preload" as="image" href="assets/hero-mobile-poster.jpg" media="(max-width:768px)" fetchpriority="high">
 
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,200..800&family=JetBrains+Mono:wght@400;500;700&family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&display=swap">
-<link rel="stylesheet" href="css/style.css?v=v6fix2">
+<link rel="stylesheet" href="css/style.css?v=v5brand">
 
 <!-- Inline critical CSS for loading screen to avoid FOUC -->
 <style>
@@ -28,9 +28,14 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/Flip.min.js" defer></script>
 <script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js" defer></script>
-<script src="js/main.js?v=v6fix2" defer></script>
+<script src="js/main.js?v=v5brand" defer></script>
 </head>
 <body>
+
+<!-- ============================================================
+     ANIMATED GRADIENT MESH — переливающийся global overlay
+============================================================ -->
+<div class="gradient-mesh" aria-hidden="true"></div>
 
 <!-- =============================================================
      LOADING SCREEN — type-on logo + counter + chaos→order narrative
@@ -56,11 +61,10 @@
     </div>
 
     <div class="ls-logo" aria-label="HYPERPARTNER">
-      <svg class="ls-chevron" viewBox="0 0 60 40" fill="none">
-        <path class="ls-c-1" d="M0 4 L8 4 L24 20 L8 36 L0 36 L16 20 Z" fill="#E8A878"/>
-        <path class="ls-c-2" d="M14 4 L22 4 L38 20 L22 36 L14 36 L30 20 Z" fill="#E8A878"/>
+      <svg class="ls-chevron" viewBox="0 0 56 40" fill="none" aria-hidden="true">
+        <path class="ls-c-1" d="M0 4 L10 4 L34 20 L10 36 L0 36 L24 20 Z" fill="#E8A878"/>
       </svg>
-      <span class="ls-word">HYPERPARTNER</span>
+      <span class="ls-word"><span class="nw-hyper">HYPER</span><span class="nw-partner">PARTNER</span></span>
     </div>
 
     <div class="ls-label">КАЛИБРОВКА</div>
@@ -101,10 +105,11 @@
 ============================================================= -->
 <header class="nav" data-nav-state="top">
   <a class="nav-logo" href="#hero" aria-label="HyperPartner — на главную">
-    <svg class="nav-chevron" viewBox="0 0 60 40" fill="currentColor">
-      <path d="M0 4 L8 4 L24 20 L8 36 L0 36 L16 20 Z M14 4 L22 4 L38 20 L22 36 L14 36 L30 20 Z"/>
+    <svg class="nav-chevron" viewBox="0 0 56 40" fill="currentColor" aria-hidden="true">
+      <!-- Real client logo: single sharp arrow chevron (peach) — из logo-light.webp -->
+      <path d="M0 4 L10 4 L34 20 L10 36 L0 36 L24 20 Z"/>
     </svg>
-    <span class="nav-word">HYPERPARTNER</span>
+    <span class="nav-word"><span class="nw-hyper">HYPER</span><span class="nw-partner">PARTNER</span></span>
   </a>
   <nav class="nav-links" aria-label="Главная навигация">
     <a href="#directions" data-nav-link>Направления</a>
