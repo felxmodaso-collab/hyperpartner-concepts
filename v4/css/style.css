@@ -6,83 +6,107 @@
    - Lenis smooth scroll + GSAP ticker integration
 ============================================================= */
 
-/* ======================== TOKENS — V5 DARK LUXURY TECH ======================== */
+/* ======================== TOKENS — V6 GALLERY NEON MIDNIGHT ======================== */
+/* Direction: deep midnight navy canvas + warm peach NEON (not gold) + cream warm body +
+   pearl-cool whisper. Inspired by Anton's gallery installation reference:
+   warm peach neon line on deep navy wall — translated to B2B AI/RPA enterprise:
+   "ночной операционный центр, AI работает тёплым свечением в темноте".
+   See DECISION-PALETTE-V6.md */
 :root {
-  /* === RAW palette (OKLCH-tuned, see DECISION-PALETTE-V5.md) === */
-  /* Onyx — warm-tinted dark canvas (60%) */
-  --c-onyx:        #1A1714;        /* oklch(0.16 0.008 60) */
-  --c-onyx-2:      #25201A;        /* elevation +1 */
-  --c-onyx-3:      #322B22;        /* elevation +2, card surface */
-  --c-onyx-4:      #3F3729;        /* elevation +3, hover */
+  /* === RAW palette (OKLCH-tuned) === */
+  /* Midnight — deep navy canvas (60%) */
+  --c-midnight:     #131A2A;       /* oklch(0.18 0.04 250) — dominant dark */
+  --c-midnight-2:   #1B2235;       /* oklch(0.23 0.045 248) — elevation +1 */
+  --c-midnight-3:   #252B40;       /* oklch(0.28 0.05 245) — elevation +2, cards */
+  --c-midnight-4:   #2F3552;       /* oklch(0.33 0.06 245) — elevation +3, hover */
 
-  /* Emerald — deep gem, sections + structure (30%) */
-  --c-emerald-deep: #1B4538;       /* oklch(0.32 0.06 165) — dark gem */
-  --c-emerald:      #2E6A55;       /* oklch(0.45 0.10 162) — structural */
-  --c-emerald-mid:  #4D8C73;       /* oklch(0.58 0.11 160) — accents */
-  --c-emerald-glow: #87C0A4;       /* oklch(0.75 0.13 158) — luminous */
+  /* Petrol — slightly desaturated sapphire (30% structure) */
+  --c-petrol:       #2F3A52;       /* oklch(0.34 0.05 245) — section accent */
+  --c-petrol-mid:   #4A5874;       /* oklch(0.48 0.05 245) — mid-blue accents */
 
-  /* Gold — luxury accent (10%) */
-  --c-gold:         #D4B068;       /* oklch(0.78 0.13 85) — primary accent */
-  --c-gold-deep:    #A6873E;       /* oklch(0.64 0.11 80) — hover */
-  --c-gold-rich:    #8B6920;       /* oklch(0.55 0.13 75) — dark gold */
-  --c-gold-light:   #E5CB94;       /* oklch(0.85 0.10 88) — soft gold */
+  /* Peach Neon — warm coral glow (10% — PRIMARY ACCENT) */
+  --c-peach-neon:   #E8A684;       /* oklch(0.78 0.10 38) — neon line color */
+  --c-peach-soft:   #F0BFA1;       /* oklch(0.85 0.09 42) — softer mid */
+  --c-peach-glow:   #F6D7C1;       /* oklch(0.92 0.06 45) — luminous halo */
+  --c-peach-deep:   #C58661;       /* oklch(0.66 0.10 38) — saturated hover */
 
-  /* Pearl-ice — neon glow under photos (10%) */
-  --c-pearl-ice:    #D5E5F0;       /* oklch(0.94 0.04 230) — cool gem */
-  --c-pearl-bright: #ECF2F8;       /* oklch(0.98 0.02 230) — luminous */
+  /* Cream warm — body text & soft surfaces */
+  --c-cream-warm:   #EFE4CC;       /* oklch(0.94 0.025 75) — primary text */
+  --c-cream-bright: #F8F0DC;       /* oklch(0.97 0.018 75) — bright text */
+  --c-cream-soft:   #E1D4B9;       /* oklch(0.86 0.030 72) — muted warm */
 
-  /* Beige — warm soft secondary */
-  --c-beige:        #E8DEC9;       /* oklch(0.92 0.025 75) — warm cream */
-  --c-beige-deep:   #C4B595;       /* oklch(0.78 0.035 70) — satin */
-  --c-beige-soft:   #D9CCB1;       /* oklch(0.85 0.020 72) — muted */
+  /* Pearl Cool — rare ice accent (3%) */
+  --c-pearl-cool:   #DDE7F0;       /* oklch(0.92 0.025 230) — cold counter */
+  --c-pearl-bright: #ECEFF4;       /* oklch(0.95 0.015 230) — luminous cold */
+
+  /* Gold — DEMOTED to rare luxury accent (used sparingly for premium-signal moments) */
+  --c-gold:         #D4B068;       /* oklch(0.78 0.13 85) — rare luxe */
+  --c-gold-deep:    #A6873E;       /* hover */
+
+  /* Emerald — DEMOTED to rare cool counter (used in 1-2 sections max) */
+  --c-emerald-glow: #87C0A4;       /* rare cool counter for tension */
 
   /* Crisp neutrals */
   --c-white:        #FBFBFB;
   --c-black:        #0D0D0D;
 
-  /* === LEGACY ALIASES — для обратной совместимости с existing classes === */
-  /* Не использовать в новом коде; постепенно мигрировать через семантические переменные */
-  --c-bg:        var(--c-onyx);
-  --c-bg-2:      var(--c-onyx-2);
-  --c-bg-3:      var(--c-onyx-3);
-  --c-bg-4:      var(--c-onyx-4);
-  --c-cream:     var(--c-beige);
-  --c-cream-2:   var(--c-beige-soft);
-  --c-paper:     var(--c-pearl-bright);
-  --c-teal:      var(--c-emerald-deep);
-  --c-teal-2:    var(--c-emerald);
-  --c-peach:     var(--c-gold);         /* peach → gold migration */
-  --c-peach-2:   var(--c-gold-deep);
-  --c-sage:      var(--c-emerald-glow);
-  --c-rose:      var(--c-gold-light);
+  /* === Legacy aliases (keep old vars pointing to V6 equivalents) === */
+  --c-onyx:         var(--c-midnight);
+  --c-onyx-2:       var(--c-midnight-2);
+  --c-onyx-3:       var(--c-midnight-3);
+  --c-onyx-4:       var(--c-midnight-4);
+  --c-emerald-deep: var(--c-petrol);
+  --c-emerald:      var(--c-petrol-mid);
+  --c-emerald-mid:  var(--c-petrol-mid);
+  --c-beige:        var(--c-cream-warm);
+  --c-beige-deep:   var(--c-cream-soft);
+  --c-beige-soft:   var(--c-cream-soft);
+  --c-gold-rich:    var(--c-peach-deep);
+  --c-gold-light:   var(--c-peach-glow);
+  --c-pearl-ice:    var(--c-peach-glow);   /* "glow under photo" теперь PEACH, не pearl */
 
-  /* === SEMANTIC TOKENS — Theme A = Dark Luxury (default) === */
-  --bg-main:     var(--c-onyx);
-  --bg-alt:      var(--c-pearl-bright);
-  --bg-surface:  var(--c-onyx-3);                          /* card bg */
-  --bg-elevated: rgba(255,255,255,0.04);
-  --bg-section:  var(--c-onyx-2);                          /* alt sections */
-  --bg-section-deep: var(--c-emerald-deep);                /* gem-deep sections */
-  --text-main:   var(--c-pearl-bright);
-  --text-soft:   rgba(213,229,240,0.75);
-  --text-muted:  rgba(213,229,240,0.5);
-  --text-warm:   var(--c-beige);                           /* alt body на emerald */
-  --text-on-alt: var(--c-onyx);                            /* text на light surfaces */
-  --text-soft-alt: rgba(26,23,20,0.72);
-  --accent:      var(--c-gold);
-  --accent-hover: var(--c-gold-deep);
-  --accent-2:    var(--c-emerald-glow);
-  --glow-photo:  var(--c-pearl-ice);
-  --border:      rgba(213,229,240,0.08);
-  --border-strong: rgba(212,176,104,0.4);                  /* gold hairline */
-  --border-emerald: rgba(135,192,164,0.25);
-  --shadow-card: 0 2px 0 rgba(212,176,104,0.04);                  /* almost-invisible — depth via hairline */
-  --shadow-card-emphasis: 0 12px 36px rgba(0,0,0,0.45), 0 0 0 1px rgba(212,176,104,0.25);
+  /* === LEGACY V4 ALIASES — старые classes используют их === */
+  --c-bg:        var(--c-midnight);
+  --c-bg-2:      var(--c-midnight-2);
+  --c-bg-3:      var(--c-midnight-3);
+  --c-bg-4:      var(--c-midnight-4);
+  --c-cream:     var(--c-cream-warm);
+  --c-cream-2:   var(--c-cream-soft);
+  --c-paper:     var(--c-cream-bright);
+  --c-teal:      var(--c-petrol);
+  --c-teal-2:    var(--c-petrol-mid);
+  --c-peach:     var(--c-peach-neon);              /* peach restored as NEON */
+  --c-peach-2:   var(--c-peach-deep);
+  --c-sage:      var(--c-emerald-glow);
+  --c-rose:      var(--c-peach-glow);
+
+  /* === SEMANTIC TOKENS — Theme A = Gallery Neon Midnight (default) === */
+  --bg-main:     var(--c-midnight);
+  --bg-alt:      var(--c-cream-bright);
+  --bg-surface:  var(--c-midnight-3);                       /* cards */
+  --bg-elevated: rgba(255,255,255,0.03);
+  --bg-section:  var(--c-midnight-2);                       /* alt sections */
+  --bg-section-deep: var(--c-petrol);                       /* sapphire sections */
+  --text-main:   var(--c-cream-bright);                     /* warm cream body (как в галерее) */
+  --text-soft:   rgba(239,228,204,0.78);
+  --text-muted:  rgba(239,228,204,0.5);
+  --text-warm:   var(--c-cream-warm);
+  --text-on-alt: var(--c-midnight);
+  --text-soft-alt: rgba(19,26,42,0.72);
+  --accent:      var(--c-peach-neon);                       /* PRIMARY = warm peach neon */
+  --accent-hover: var(--c-peach-soft);
+  --accent-2:    var(--c-pearl-cool);                       /* rare cool accent */
+  --glow-photo:  var(--c-peach-glow);                       /* glow halo color (warm, не cold) */
+  --border:      rgba(239,228,204,0.07);
+  --border-strong: rgba(232,166,132,0.42);                  /* peach neon hairline */
+  --border-emerald: rgba(135,192,164,0.22);
+  --shadow-card: 0 2px 0 rgba(232,166,132,0.04);
+  --shadow-card-emphasis: 0 12px 36px rgba(0,0,0,0.5), 0 0 0 1px rgba(232,166,132,0.28);
   --shadow-hero: 0 24px 80px rgba(0,0,0,0.6);
-  --shadow-glow-gold: 0 0 24px rgba(212,176,104,0.35);
-  --shadow-glow-pearl: 0 0 48px rgba(213,229,240,0.35);
-  --hairline-top: 1px solid rgba(212,176,104,0.32);                 /* gold hairline (cards top) */
-  --hairline-bottom: 1px solid rgba(213,229,240,0.06);              /* pearl hairline (cards bottom) */
+  --shadow-glow-peach: 0 0 24px rgba(232,166,132,0.45);     /* main neon glow */
+  --shadow-glow-cool: 0 0 36px rgba(221,231,240,0.25);
+  --hairline-top: 1px solid rgba(232,166,132,0.32);         /* peach neon hairline */
+  --hairline-bottom: 1px solid rgba(239,228,204,0.06);
 
   /* Typography */
   --f-display: 'Bricolage Grotesque', system-ui, -apple-system, sans-serif;
@@ -125,22 +149,22 @@
 
 /* ============== THEME B — EMERALD GEM (deeper, more saturated) ============== */
 html[data-theme="B"] {
-  --bg-main:     var(--c-emerald-deep);
-  --bg-alt:      var(--c-pearl-bright);
+  --bg-main:     #0E1426;                                  /* deepest midnight */
+  --bg-alt:      var(--c-cream-bright);
   --bg-surface:  rgba(255,255,255,0.04);
   --bg-elevated: rgba(255,255,255,0.08);
-  --bg-section:  #143C30;                                  /* slightly darker emerald */
-  --bg-section-deep: var(--c-onyx);
-  --text-main:   var(--c-beige);
-  --text-soft:   rgba(232,222,201,0.75);
-  --text-muted:  rgba(232,222,201,0.5);
-  --text-warm:   var(--c-beige);
-  --accent:      var(--c-gold-light);                      /* lighter gold on green */
-  --accent-hover: var(--c-gold);
-  --accent-2:    var(--c-pearl-ice);
-  --border:      rgba(232,222,201,0.1);
-  --border-strong: rgba(229,203,148,0.4);
-  --shadow-card: 0 14px 50px rgba(0,0,0,0.55);
+  --bg-section:  var(--c-midnight-2);
+  --bg-section-deep: var(--c-petrol);
+  --text-main:   var(--c-cream-warm);
+  --text-soft:   rgba(239,228,204,0.78);
+  --text-muted:  rgba(239,228,204,0.5);
+  --text-warm:   var(--c-cream-warm);
+  --accent:      var(--c-peach-soft);                      /* softer mid-peach */
+  --accent-hover: var(--c-peach-neon);
+  --accent-2:    var(--c-pearl-cool);
+  --border:      rgba(239,228,204,0.1);
+  --border-strong: rgba(232,166,132,0.42);
+  --shadow-card: 0 14px 50px rgba(0,0,0,0.6);
 }
 
 /* ============== THEME C — HYBRID ALTERNATION (onyx ↔ light beige) ============== */
@@ -149,40 +173,40 @@ html[data-theme="C"] {
   --text-main: var(--c-pearl-bright);
 }
 
-/* LIGHT sections in Theme C — beige paper alternative */
+/* LIGHT sections in Theme C — warm cream paper */
 html[data-theme="C"] .section-directions,
 html[data-theme="C"] .section-steps,
 html[data-theme="C"] .section-roi,
 html[data-theme="C"] .section-security,
 html[data-theme="C"] .section-cta {
-  background: var(--c-beige);
-  color: var(--c-onyx);
-  --bg-surface: var(--c-pearl-bright);
-  --bg-elevated: rgba(26,23,20,0.04);
-  --text-main: var(--c-onyx);
-  --text-soft: rgba(26,23,20,0.7);
-  --text-muted: rgba(26,23,20,0.45);
-  --border: rgba(139,105,32,0.12);                          /* gold-rich hairline */
-  --border-strong: rgba(139,105,32,0.35);
-  --shadow-card: 0 8px 28px rgba(26,23,20,0.08);
-  --accent: var(--c-gold-rich);                             /* darker gold on light */
+  background: var(--c-cream-warm);
+  color: var(--c-midnight);
+  --bg-surface: var(--c-cream-bright);
+  --bg-elevated: rgba(19,26,42,0.04);
+  --text-main: var(--c-midnight);
+  --text-soft: rgba(19,26,42,0.7);
+  --text-muted: rgba(19,26,42,0.45);
+  --border: rgba(197,134,97,0.16);                          /* peach-deep hairline */
+  --border-strong: rgba(197,134,97,0.42);
+  --shadow-card: 0 8px 28px rgba(19,26,42,0.08);
+  --accent: var(--c-peach-deep);                            /* darker peach on light */
 }
 
-/* DARK sections in Theme C — onyx alternation */
+/* DARK sections in Theme C — midnight alternation */
 html[data-theme="C"] .section-cases,
 html[data-theme="C"] .section-stack,
 html[data-theme="C"] .section-testimonials {
-  background: var(--c-onyx);
-  color: var(--c-pearl-bright);
-  --bg-surface: var(--c-onyx-3);
-  --bg-elevated: var(--c-onyx-4);
-  --text-main: var(--c-pearl-bright);
-  --text-soft: rgba(213,229,240,0.75);
-  --text-muted: rgba(213,229,240,0.5);
-  --border: rgba(213,229,240,0.08);
-  --border-strong: rgba(212,176,104,0.4);
+  background: var(--c-midnight);
+  color: var(--c-cream-bright);
+  --bg-surface: var(--c-midnight-3);
+  --bg-elevated: var(--c-midnight-4);
+  --text-main: var(--c-cream-bright);
+  --text-soft: rgba(239,228,204,0.75);
+  --text-muted: rgba(239,228,204,0.5);
+  --border: rgba(239,228,204,0.08);
+  --border-strong: rgba(232,166,132,0.42);
   --shadow-card: 0 12px 40px rgba(0,0,0,0.5);
-  --accent: var(--c-gold);
+  --accent: var(--c-peach-neon);
 }
 
 html:not([data-theme="C"]) .section--alt {
@@ -291,7 +315,7 @@ a, button, [role="button"], input, select, textarea { -webkit-tap-highlight-colo
   font-size: 0.75rem;
   letter-spacing: 0.36em;
   text-transform: uppercase;
-  color: rgba(213,229,240,0.55);
+  color: rgba(239,228,204,0.55);
   margin-top: 1rem;
   opacity: 0;
   animation: ls-word-in 0.6s var(--ease-out) 0.9s forwards;
@@ -301,13 +325,13 @@ a, button, [role="button"], input, select, textarea { -webkit-tap-highlight-colo
   font-weight: 500;
   font-size: 1.5rem;
   letter-spacing: var(--ls-mono);
-  color: rgba(213,229,240,0.9);
+  color: rgba(239,228,204,0.9);
   font-variant-numeric: tabular-nums;
 }
 .ls-percent { color: var(--accent); margin-left: 2px; }
 .ls-bar {
   width: 100%; height: 1px;
-  background: rgba(213,229,240,0.12);
+  background: rgba(239,228,204,0.12);
   overflow: hidden;
 }
 .ls-bar-fill {
@@ -321,7 +345,7 @@ a, button, [role="button"], input, select, textarea { -webkit-tap-highlight-colo
   font-size: var(--t-micro);
   letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: rgba(213,229,240,0.55);
+  color: rgba(239,228,204,0.55);
   margin-top: 0.5rem;
 }
 .ls-tagline em {
@@ -346,7 +370,7 @@ a, button, [role="button"], input, select, textarea { -webkit-tap-highlight-colo
   border-radius: 999px;
   box-shadow: 0 6px 30px rgba(0,0,0,0.18);
 }
-html[data-theme="A"] .palette-switcher { background: rgba(26,23,20,0.08); border-color: rgba(26,23,20,0.12); }
+html[data-theme="A"] .palette-switcher { background: rgba(19,26,42,0.08); border-color: rgba(19,26,42,0.12); }
 .ps-dot {
   width: 22px; height: 22px;
   padding: 0;
@@ -432,7 +456,7 @@ html.has-custom-cursor, html.has-custom-cursor * { cursor: none !important; }
 }
 .nav[data-nav-over="dark"] {
   --nav-color: var(--c-cream);
-  --nav-link: rgba(213,229,240,0.85);
+  --nav-link: rgba(239,228,204,0.85);
   color: var(--c-cream);
 }
 .nav[data-nav-over="light"] {
@@ -534,9 +558,9 @@ html.has-custom-cursor, html.has-custom-cursor * { cursor: none !important; }
             letter-spacing: var(--ls-snug); }
 .md-links a { color: var(--c-cream); transition: color .25s; }
 .md-links a:hover { color: var(--accent); }
-.md-cta { color: var(--accent) !important; padding-top: 1rem; border-top: 1px solid rgba(213,229,240,0.12); margin-top: 1rem; }
+.md-cta { color: var(--accent) !important; padding-top: 1rem; border-top: 1px solid rgba(239,228,204,0.12); margin-top: 1rem; }
 .md-contact { display: flex; flex-direction: column; gap: 8px; margin-top: auto;
-              font-family: var(--f-mono); font-size: 0.875rem; color: rgba(213,229,240,0.6); }
+              font-family: var(--f-mono); font-size: 0.875rem; color: rgba(239,228,204,0.6); }
 .md-contact a:hover { color: var(--accent); }
 
 /* ============== HERO ============== */
@@ -571,14 +595,14 @@ html.has-custom-cursor, html.has-custom-cursor * { cursor: none !important; }
 }
 .hero-scrim-left {
   background: linear-gradient(90deg,
-    rgba(26,23,20,0.95) 20%,
-    rgba(26,23,20,0.85) 45%,
-    rgba(26,23,20,0.3) 65%,
-    rgba(26,23,20,0) 80%);
+    rgba(19,26,42,0.95) 20%,
+    rgba(19,26,42,0.85) 45%,
+    rgba(19,26,42,0.3) 65%,
+    rgba(19,26,42,0) 80%);
 }
 .hero-scrim-bottom {
   background: linear-gradient(180deg,
-    rgba(26,23,20,0.55) 0%, rgba(26,23,20,0) 14%, rgba(26,23,20,0) 70%, rgba(26,23,20,0.82) 100%);
+    rgba(19,26,42,0.55) 0%, rgba(19,26,42,0) 14%, rgba(19,26,42,0) 70%, rgba(19,26,42,0.82) 100%);
 }
 @media (max-width: 900px) {
   /* Mobile: video показывает верх (chaos+chevron видны без подавления),
@@ -588,10 +612,10 @@ html.has-custom-cursor, html.has-custom-cursor * { cursor: none !important; }
   }
   .hero-scrim-left {
     background: linear-gradient(180deg,
-      rgba(26,23,20,0.55) 0%,           /* лёгкий top-scrim для nav читаемости */
-      rgba(26,23,20,0) 14%,
-      rgba(26,23,20,0) 70%,             /* видео полностью видимо в центре */
-      rgba(26,23,20,0.85) 88%,
+      rgba(19,26,42,0.55) 0%,           /* лёгкий top-scrim для nav читаемости */
+      rgba(19,26,42,0) 14%,
+      rgba(19,26,42,0) 70%,             /* видео полностью видимо в центре */
+      rgba(19,26,42,0.85) 88%,
       var(--c-bg) 100%               /* плавно к solid bg для transition */
     );
   }
@@ -638,12 +662,12 @@ html.has-custom-cursor, html.has-custom-cursor * { cursor: none !important; }
 .hero-eyebrow .dot {
   width: 6px; height: 6px; border-radius: 50%;
   background: var(--accent);
-  box-shadow: 0 0 0 4px rgba(212,176,104,0.18);
+  box-shadow: 0 0 0 4px rgba(232,166,132,0.18);
   animation: pulse 2.4s var(--ease-out) infinite;
 }
 @keyframes pulse {
-  0%, 100% { box-shadow: 0 0 0 4px rgba(212,176,104,0.18); }
-  50%      { box-shadow: 0 0 0 8px rgba(212,176,104,0); }
+  0%, 100% { box-shadow: 0 0 0 4px rgba(232,166,132,0.18); }
+  50%      { box-shadow: 0 0 0 8px rgba(232,166,132,0); }
 }
 
 .hero-h1 {
@@ -708,10 +732,10 @@ html.has-custom-cursor, html.has-custom-cursor * { cursor: none !important; }
 .btn-ghost {
   background: transparent;
   color: var(--c-cream);
-  border: 1px solid rgba(213,229,240,0.35);
+  border: 1px solid rgba(239,228,204,0.35);
   backdrop-filter: blur(8px);
 }
-.btn-ghost:hover { background: rgba(213,229,240,0.08); border-color: var(--c-cream); }
+.btn-ghost:hover { background: rgba(239,228,204,0.08); border-color: var(--c-cream); }
 
 .hero-stats {
   display: flex;
@@ -744,7 +768,7 @@ html.has-custom-cursor, html.has-custom-cursor * { cursor: none !important; }
   font-size: 0.6875rem;
   text-transform: uppercase;
   letter-spacing: 0.08em;
-  color: rgba(213,229,240,0.6);
+  color: rgba(239,228,204,0.6);
   margin-top: 4px;
 }
 
@@ -778,7 +802,7 @@ html.has-custom-cursor, html.has-custom-cursor * { cursor: none !important; }
   font-size: 0.625rem;
   letter-spacing: var(--ls-wide);
   text-transform: uppercase;
-  color: rgba(213,229,240,0.65);
+  color: rgba(239,228,204,0.65);
   margin-bottom: 6px;
   display: flex;
   align-items: center;
@@ -796,8 +820,8 @@ html.has-custom-cursor, html.has-custom-cursor * { cursor: none !important; }
   gap: 9px;
   padding: 8px 16px 8px 12px;
   border-radius: 999px;
-  border: 1px solid rgba(212,176,104,0.45);              /* gold hairline */
-  background: rgba(26,23,20,0.5);
+  border: 1px solid rgba(232,166,132,0.45);              /* gold hairline */
+  background: rgba(19,26,42,0.5);
   backdrop-filter: blur(10px) saturate(140%);
   -webkit-backdrop-filter: blur(10px) saturate(140%);
   font-family: var(--f-mono);
@@ -817,10 +841,10 @@ html.has-custom-cursor, html.has-custom-cursor * { cursor: none !important; }
 }
 .hero-pill:hover {
   border-color: var(--c-gold);
-  background: rgba(212,176,104,0.16);
+  background: rgba(232,166,132,0.16);
   color: var(--c-gold-light);
   transform: translateX(-4px);
-  box-shadow: 0 0 24px rgba(212,176,104,0.32);
+  box-shadow: 0 0 24px rgba(232,166,132,0.32);
 }
 .hero-pill::before {
   content: '';
@@ -829,7 +853,7 @@ html.has-custom-cursor, html.has-custom-cursor * { cursor: none !important; }
   border-radius: 50%;
   background: var(--c-gold);
   flex-shrink: 0;
-  box-shadow: 0 0 10px rgba(212,176,104,0.7), 0 0 4px rgba(229,203,148,0.9);
+  box-shadow: 0 0 10px rgba(232,166,132,0.7), 0 0 4px rgba(246,215,193,0.9);
 }
 
 /* ============== PHOTO GLOW — neon pearl halo под фото ============== */
@@ -838,43 +862,57 @@ html.has-custom-cursor, html.has-custom-cursor * { cursor: none !important; }
   isolation: isolate;
 }
 .photo-glow::before {
+  /* V6 Gallery Neon Midnight — peach WARM glow (как в галерее Anton'а) */
   content: '';
   position: absolute;
   inset: -10% -8%;
   background: radial-gradient(
     ellipse at center,
-    var(--c-pearl-ice) 0%,
-    rgba(213, 229, 240, 0.45) 25%,
-    rgba(213, 229, 240, 0.12) 55%,
+    var(--c-peach-glow) 0%,
+    rgba(232, 166, 132, 0.55) 22%,
+    rgba(232, 166, 132, 0.20) 50%,
     transparent 75%
   );
-  filter: blur(56px);
+  filter: blur(64px);
   z-index: -1;
-  opacity: 0.48;
+  opacity: 0.62;
   pointer-events: none;
-  animation: pearl-breathe 7s ease-in-out infinite;
+  animation: peach-breathe 7s ease-in-out infinite;
 }
-@keyframes pearl-breathe {
-  0%, 100% { opacity: 0.42; transform: scale(1); }
-  50%      { opacity: 0.62; transform: scale(1.04); }
+@keyframes peach-breathe {
+  0%, 100% { opacity: 0.55; transform: scale(1); }
+  50%      { opacity: 0.75; transform: scale(1.05); }
 }
+/* iridescent variant — peach + emerald whisper + cool pearl whisper */
 .photo-glow-iridescent::before {
   background: conic-gradient(
     from 220deg at 50% 50%,
-    rgba(213, 229, 240, 0.50),
-    rgba(135, 192, 164, 0.32),
-    rgba(212, 176, 104, 0.28),
-    rgba(213, 229, 240, 0.50)
+    rgba(232, 166, 132, 0.60),
+    rgba(135, 192, 164, 0.24),
+    rgba(246, 215, 193, 0.32),
+    rgba(232, 166, 132, 0.60)
   );
-  filter: blur(72px);
-  opacity: 0.55;
+  filter: blur(78px);
+  opacity: 0.65;
 }
+/* cool variant — pearl-cool glow, rare use (1-2 places для tension) */
+.photo-glow-cool::before {
+  background: radial-gradient(
+    ellipse at center,
+    var(--c-pearl-cool) 0%,
+    rgba(221, 231, 240, 0.40) 25%,
+    rgba(221, 231, 240, 0.12) 55%,
+    transparent 75%
+  );
+  opacity: 0.45;
+}
+/* legacy aliases */
 .photo-glow-gold::before {
   background: radial-gradient(
     ellipse at center,
-    var(--c-gold-light) 0%,
-    rgba(229, 203, 148, 0.40) 25%,
-    rgba(212, 176, 104, 0.15) 55%,
+    var(--c-peach-glow) 0%,
+    rgba(246, 215, 193, 0.45) 25%,
+    rgba(232, 166, 132, 0.18) 55%,
     transparent 75%
   );
 }
@@ -970,8 +1008,8 @@ html.has-custom-cursor, html.has-custom-cursor * { cursor: none !important; }
   display: inline-flex;
   align-items: center;
   padding: 4px;
-  background: rgba(213,229,240,0.06);
-  border: 1px solid rgba(213,229,240,0.15);
+  background: rgba(239,228,204,0.06);
+  border: 1px solid rgba(239,228,204,0.15);
   border-radius: 999px;
   backdrop-filter: blur(14px) saturate(180%);
   -webkit-backdrop-filter: blur(14px) saturate(180%);
@@ -998,7 +1036,7 @@ html.has-custom-cursor, html.has-custom-cursor * { cursor: none !important; }
   font-weight: var(--w-bold);
   font-size: 0.875rem;
   letter-spacing: -0.005em;
-  color: rgba(213,229,240,0.7);
+  color: rgba(239,228,204,0.7);
   transition: color .35s var(--ease-out);
   display: inline-flex;
   align-items: baseline;
@@ -1038,7 +1076,7 @@ html.has-custom-cursor, html.has-custom-cursor * { cursor: none !important; }
 .ht-card {
   padding: 14px 12px;
   background: rgba(20,58,58,0.4);
-  border: 1px solid rgba(213,229,240,0.08);
+  border: 1px solid rgba(239,228,204,0.08);
   border-radius: 12px;
   display: flex; flex-direction: column; gap: 6px;
   backdrop-filter: blur(10px);
@@ -1052,15 +1090,15 @@ html.has-custom-cursor, html.has-custom-cursor * { cursor: none !important; }
   border-color: var(--accent);
   background: rgba(20,58,58,0.55);
 }
-.ht-card-pain { color: rgba(213,229,240,0.88); }
-.ht-card-gain { color: rgba(213,229,240,0.95);
-                background: linear-gradient(135deg, rgba(212,176,104,0.16), rgba(20,58,58,0.35)); }
+.ht-card-pain { color: rgba(239,228,204,0.88); }
+.ht-card-gain { color: rgba(239,228,204,0.95);
+                background: linear-gradient(135deg, rgba(232,166,132,0.16), rgba(20,58,58,0.35)); }
 .ht-card-ico {
   width: 18px; height: 18px;
   color: var(--accent);
   margin-bottom: 2px;
 }
-.ht-card-pain .ht-card-ico { color: rgba(212,176,104,0.6); }
+.ht-card-pain .ht-card-ico { color: rgba(232,166,132,0.6); }
 .ht-card-h {
   font-family: var(--f-display);
   font-weight: var(--w-bold);
@@ -1074,7 +1112,7 @@ html.has-custom-cursor, html.has-custom-cursor * { cursor: none !important; }
   font-weight: var(--w-light);
   font-size: 0.75rem;
   line-height: 1.4;
-  color: rgba(213,229,240,0.68);
+  color: rgba(239,228,204,0.68);
 }
 
 /* ============== SCROLL HINT ============== */
@@ -1086,12 +1124,12 @@ html.has-custom-cursor, html.has-custom-cursor * { cursor: none !important; }
   font-family: var(--f-mono);
   font-size: 0.625rem;
   letter-spacing: 0.18em;
-  color: rgba(213,229,240,0.5);
+  color: rgba(239,228,204,0.5);
   text-transform: uppercase;
 }
 .hero-scroll-line {
   width: 40px; height: 1px;
-  background: linear-gradient(to right, rgba(213,229,240,0.6), transparent);
+  background: linear-gradient(to right, rgba(239,228,204,0.6), transparent);
   position: relative;
 }
 .hero-scroll-line::after {
@@ -1115,7 +1153,7 @@ html.has-custom-cursor, html.has-custom-cursor * { cursor: none !important; }
   bottom: calc(env(safe-area-inset-bottom, 0px) + 12px);
   padding: 8px;
   border-radius: 999px;
-  background: rgba(213,229,240,0.94);
+  background: rgba(239,228,204,0.94);
   backdrop-filter: blur(20px) saturate(180%);
   -webkit-backdrop-filter: blur(20px) saturate(180%);
   display: none;
@@ -1137,7 +1175,7 @@ html.has-custom-cursor, html.has-custom-cursor * { cursor: none !important; }
   letter-spacing: -0.005em;
 }
 .mcta-primary { background: var(--c-bg); color: var(--c-cream); }
-.mcta-ghost { border: 1px solid rgba(26,23,20,0.18); color: var(--c-bg); }
+.mcta-ghost { border: 1px solid rgba(19,26,42,0.18); color: var(--c-bg); }
 @media (max-width: 900px) {
   .mobile-cta-bar { display: flex; }
 }
@@ -1457,22 +1495,22 @@ html.has-custom-cursor, html.has-custom-cursor * { cursor: none !important; }
   will-change: transform;
 }
 .browser-mockup::before {
-  /* pearl-ice glow halo под фото — neon под фото as Anton requested */
+  /* V6: peach WARM neon glow под фото (как в галерейном референсе Anton'а) */
   content: '';
   position: absolute;
   inset: -4% -6%;
   background: radial-gradient(
     ellipse at center,
-    var(--c-pearl-ice) 0%,
-    rgba(213, 229, 240, 0.42) 28%,
-    rgba(213, 229, 240, 0.10) 58%,
+    var(--c-peach-glow) 0%,
+    rgba(232, 166, 132, 0.50) 28%,
+    rgba(232, 166, 132, 0.15) 58%,
     transparent 78%
   );
   filter: blur(64px);
   z-index: -1;
-  opacity: 0.55;
+  opacity: 0.62;
   pointer-events: none;
-  animation: pearl-breathe 7s ease-in-out infinite;
+  animation: peach-breathe 7s ease-in-out infinite;
 }
 .browser-mockup:hover { transform: translateY(-4px); }
 /* Hide old mockup chrome */
@@ -2439,14 +2477,14 @@ html[data-theme="B"] .cf-field input, html[data-theme="B"] .cf-field textarea {
   margin-top: 1rem;
   font-family: var(--f-mono);
   font-size: 0.8125rem;
-  color: rgba(213,229,240,0.55);
+  color: rgba(239,228,204,0.55);
   max-width: 32ch;
   line-height: 1.5;
 }
 .ftr-col { display: flex; flex-direction: column; gap: 6px; }
-.ftr-col a { color: rgba(213,229,240,0.78); transition: color .25s; }
+.ftr-col a { color: rgba(239,228,204,0.78); transition: color .25s; }
 .ftr-col a:hover { color: var(--c-peach); }
-.ftr-col span { color: rgba(213,229,240,0.6); font-size: 0.875rem; line-height: 1.5; }
+.ftr-col span { color: rgba(239,228,204,0.6); font-size: 0.875rem; line-height: 1.5; }
 .ftr-h {
   font-family: var(--f-mono) !important;
   font-size: 0.625rem !important;
@@ -2457,12 +2495,12 @@ html[data-theme="B"] .cf-field input, html[data-theme="B"] .cf-field textarea {
 }
 .ftr-bottom {
   padding: 1.5rem 0;
-  border-top: 1px solid rgba(213,229,240,0.08);
+  border-top: 1px solid rgba(239,228,204,0.08);
   display: flex; justify-content: space-between;
   font-family: var(--f-mono);
   font-size: 0.6875rem;
   letter-spacing: 0.1em;
-  color: rgba(213,229,240,0.4);
+  color: rgba(239,228,204,0.4);
   text-transform: uppercase;
   position: relative;
   z-index: 2;
@@ -2477,12 +2515,12 @@ html[data-theme="B"] .cf-field input, html[data-theme="B"] .cf-field textarea {
   font-size: clamp(8rem, 22vw, 18rem);
   line-height: 0.85;
   letter-spacing: -0.05em;
-  color: rgba(212,176,104,0.07);
+  color: rgba(232,166,132,0.07);
   white-space: nowrap;
   pointer-events: none;
   z-index: 0;
   user-select: none;
-  background: linear-gradient(135deg, rgba(212,176,104,0.08), rgba(135,192,164,0.04) 60%, rgba(213,229,240,0.06));
+  background: linear-gradient(135deg, rgba(232,166,132,0.08), rgba(135,192,164,0.04) 60%, rgba(239,228,204,0.06));
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;

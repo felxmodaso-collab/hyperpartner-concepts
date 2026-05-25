@@ -614,42 +614,41 @@
     update();
   }
 
-  // ====== HERO EXIT pin+scrub (single-progress choreography) ======
+  // ====== HERO EXIT — natural scroll-linked fade (NO pin, NO scroll-jacking) ======
+  // Anton's feedback 2026-05-25: pin делал "сначала анимация, потом scroll" — невыносимо.
+  // Решение: scrub без pin. Hero fades по мере того как пользователь scroll'ит,
+  // без блокировки реального скролла. Effect = natural parallax fade.
   function initHeroExit() {
     if (reducedMotion) return;
     const { gsap, ScrollTrigger } = window;
     if (!ScrollTrigger) return;
     const hero = $('.hero');
     if (!hero) return;
-    // Skip pin on mobile (touch + URL-bar collapse instability)
     if (window.matchMedia('(max-width: 900px)').matches) return;
 
     const videoWrap = $('.hero-video-wrap');
     const heroContent = $('.hero-content');
-    const heroToggle = $('.hero-toggle');
+    const heroPills = $('.hero-pills');
 
     ScrollTrigger.create({
       trigger: hero,
       start: 'top top',
-      end: '+=100%',
-      pin: true,         // ENABLED — pin hero на 100% scroll для dramatic exit
-      pinSpacing: true,
-      scrub: 1,
+      end: 'bottom top',     // fade завершается когда hero полностью прокручен
+      scrub: 0.6,            // small smoothing, не блокирует
+      // NO pin — реальный scroll идёт всегда natural
       onUpdate: (self) => {
         const p = self.progress;
-        // Video fades + slight scale (zoom-out feeling)
         if (videoWrap) {
-          videoWrap.style.opacity = 1 - p * 0.6;
-          videoWrap.style.transform = `scale(${1 + p * 0.06})`;
+          videoWrap.style.opacity = String(1 - p * 0.5);
+          videoWrap.style.transform = `scale(${1 + p * 0.04})`;
         }
-        // Hero content slides up + fades
         if (heroContent) {
-          heroContent.style.opacity = Math.max(0, 1 - p * 1.3);
-          heroContent.style.transform = `translateY(${p * -32}px)`;
+          heroContent.style.opacity = String(Math.max(0, 1 - p * 1.2));
+          heroContent.style.transform = `translateY(${p * -24}px)`;
         }
-        if (heroToggle) {
-          heroToggle.style.opacity = Math.max(0, 1 - p * 1.5);
-          heroToggle.style.transform = `translateY(calc(-50% + ${p * -24}px))`;
+        if (heroPills) {
+          heroPills.style.opacity = String(Math.max(0, 1 - p * 1.4));
+          heroPills.style.transform = `translateY(calc(-50% + ${p * -16}px))`;
         }
       },
     });
