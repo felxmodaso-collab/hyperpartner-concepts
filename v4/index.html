@@ -14,7 +14,7 @@
 <link rel="preload" as="image" href="assets/hero-mobile-poster.jpg" media="(max-width:768px)" fetchpriority="high">
 
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,200..800&family=JetBrains+Mono:wght@400;500;700&family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&display=swap">
-<link rel="stylesheet" href="css/style.css?v=v5polish">
+<link rel="stylesheet" href="css/style.css?v=v5stacksec">
 
 <!-- Inline critical CSS for loading screen to avoid FOUC -->
 <style>
@@ -28,7 +28,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/Flip.min.js" defer></script>
 <script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js" defer></script>
-<script src="js/main.js?v=v5polish" defer></script>
+<script src="js/main.js?v=v5stack3d" defer></script>
 </head>
 <body>
 
@@ -695,75 +695,101 @@
       <p class="section-lede">Внедряем слои автоматизации вокруг вашего IT-ландшафта. Не&nbsp;ломаем то, что работает — встраиваем то, что усиливает.</p>
     </header>
 
-    <div class="stack-layers">
-      <article class="layer-row" data-layer="deploy">
-        <span class="layer-h">Развёртывание</span>
-        <span class="layer-w">Облако · гибрид · локально в&nbsp;периметре заказчика</span>
-        <span class="layer-v">Соответствие требованиям безопасности, инфраструктуры и&nbsp;регуляторов</span>
-      </article>
-      <article class="layer-row" data-layer="integration">
-        <span class="layer-h">Интеграция</span>
-        <span class="layer-w">CRM · ERP · 1C · SAP · документооборот · HR · телефония · BI · API · файлы</span>
-        <span class="layer-v">Встраивает автоматизацию в&nbsp;текущий ландшафт без&nbsp;нарушения ключевых систем</span>
-      </article>
-      <article class="layer-row" data-layer="ai">
-        <span class="layer-h">AI-компоненты</span>
-        <span class="layer-w">LLM · поиск по&nbsp;знаниям · OCR · речь · CV · анализ тона/намерений · правила</span>
-        <span class="layer-v">Автоматизирует интерпретацию, классификацию, резюме, генерацию и&nbsp;рекомендации</span>
-      </article>
-      <article class="layer-row" data-layer="rpa">
-        <span class="layer-h">Цифровые сотрудники</span>
-        <span class="layer-w">Оркестрация · перенос данных · парсеры · проверки человеком · SLA · аудит</span>
-        <span class="layer-v">Надёжно выполняют рутину между системами, даже если API неполные</span>
-      </article>
-      <article class="layer-row" data-layer="bi">
-        <span class="layer-h">Дашборды и&nbsp;контроль</span>
-        <span class="layer-w">Воронки · качество · экономия · конверсии · маржа · использование роботов</span>
-        <span class="layer-v">Делает эффект видимым и&nbsp;поддерживает постоянные улучшения</span>
-      </article>
-      <article class="layer-row layer-platform" data-layer="hyper">
-        <span class="layer-h">HyperPlatform <span class="layer-badge">Наш продукт</span></span>
-        <span class="layer-w">Корпоративный мессенджер для&nbsp;чатов с&nbsp;AI, приёма задач, согласований, дашбордов</span>
-        <span class="layer-v">Привычное место для&nbsp;управления цифровыми сотрудниками внутри команд</span>
-      </article>
-    </div>
+    <!-- 6-layer 3D architectural stack — каждый слой = horizontal plate с real logos в perspective -->
+    <div class="stack-3d">
 
-    <div class="stack-logos">
-      <span class="stack-logos-h">Наш&nbsp;стек</span>
-      <div class="logo-groups">
-        <div class="logo-group">
-          <span class="lg-cat">Цифровые сотрудники</span>
-          <div class="lg-pills">
-            <span class="lg-pill"><svg class="lg-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="3"/><circle cx="12" cy="12" r="9"/><path d="M12 3v3M12 18v3M3 12h3M18 12h3M5.6 5.6l2.1 2.1M16.3 16.3l2.1 2.1M5.6 18.4l2.1-2.1M16.3 7.7l2.1-2.1"/></svg>Sherpa&nbsp;Robotics</span>
-            <span class="lg-pill"><svg class="lg-ico" viewBox="0 0 24 24" fill="currentColor"><path d="M2 0 L8 0 L17 12 L8 24 L2 24 L11 12 Z M11 0 L17 0 L24 12 L17 24 L11 24 L18 12 Z"/></svg>HyperPlatform</span>
-          </div>
+      <!-- L6 — Apps & Interfaces (top, ближайший к user) -->
+      <article class="sl" style="--depth: 0">
+        <span class="sl-tag">L6</span>
+        <div class="sl-info">
+          <h3 class="sl-h">Приложения и&nbsp;интерфейсы</h3>
+          <p class="sl-d">Дашборды, корпоративный мессенджер, мобильные клиенты — всё для&nbsp;ежедневной работы</p>
         </div>
-        <div class="logo-group">
-          <span class="lg-cat">AI</span>
-          <div class="lg-pills">
-            <span class="lg-pill"><svg class="lg-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 2L4 7v10l8 5 8-5V7l-8-5z"/><path d="M12 12L4 7M12 12l8-5M12 12v10"/></svg>TensorFlow</span>
-            <span class="lg-pill"><svg class="lg-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M12 2c5.5 0 10 4.5 10 10s-4.5 10-10 10S2 17.5 2 12 6.5 2 12 2z"/><path d="M8 12c0-2.2 1.8-4 4-4M16 12c0 2.2-1.8 4-4 4M12 8v8M8 12h8"/></svg>OpenAI</span>
-            <span class="lg-pill"><svg class="lg-ico" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2 4 4 2-4 2-2 4-2-4-4-2 4-2zM18 14l1 2 2 1-2 1-1 2-1-2-2-1 2-1zM5 14l1 2 2 1-2 1-1 2-1-2-2-1 2-1z"/></svg>Claude</span>
-            <span class="lg-pill"><svg class="lg-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 12c4-5 14-5 18 0M3 12c4 5 14 5 18 0"/><circle cx="5" cy="12" r="1.5" fill="currentColor"/><circle cx="19" cy="12" r="1.5" fill="currentColor"/></svg>LangChain</span>
-          </div>
+        <div class="sl-logos">
+          <span class="sl-l" title="Веб-дашборды"><svg viewBox="0 0 24 24" fill="currentColor"><rect x="3" y="3" width="18" height="14" rx="2"/><rect x="6" y="6" width="4" height="3"/><rect x="11" y="6" width="7" height="3"/><rect x="6" y="11" width="12" height="2"/><path d="M9 20h6"/></svg></span>
+          <span class="sl-l" title="Мессенджер"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M4 4h16a2 2 0 012 2v10a2 2 0 01-2 2H8l-4 4V6a2 2 0 012-2z"/></svg></span>
+          <span class="sl-l" title="Мобильные"><svg viewBox="0 0 24 24" fill="currentColor"><rect x="7" y="2" width="10" height="20" rx="2"/><circle cx="12" cy="18" r="1" fill="#143A3A"/></svg></span>
         </div>
-        <div class="logo-group">
-          <span class="lg-cat">BI</span>
-          <div class="lg-pills">
-            <span class="lg-pill"><svg class="lg-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="2"/><rect x="6" y="14" width="3" height="4" fill="currentColor"/><rect x="11" y="10" width="3" height="8" fill="currentColor"/><rect x="16" y="6" width="3" height="12" fill="currentColor"/></svg>Apache&nbsp;Superset</span>
-            <span class="lg-pill"><svg class="lg-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="6" width="18" height="12" rx="2"/><path d="M3 10h18M7 14h4"/></svg>SAP&nbsp;BW</span>
-            <span class="lg-pill"><svg class="lg-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="6" cy="6" r="3"/><circle cx="18" cy="6" r="3"/><circle cx="12" cy="18" r="3"/><path d="M9 6h6M7 9l4 6M17 9l-4 6"/></svg>Neo4j</span>
-          </div>
+      </article>
+
+      <!-- L5 — HyperPlatform (highlighted — own product) -->
+      <article class="sl sl-platform" style="--depth: 1">
+        <span class="sl-tag">L5 · ПРОДУКТ</span>
+        <div class="sl-info">
+          <h3 class="sl-h">HyperPlatform <span class="sl-badge">наш продукт</span></h3>
+          <p class="sl-d">Оркестратор цифровых сотрудников и&nbsp;центр управления автоматизацией</p>
         </div>
-        <div class="logo-group">
-          <span class="lg-cat">Разработка</span>
-          <div class="lg-pills">
-            <span class="lg-pill"><svg class="lg-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 3c-4 0-4 2-4 2v3h5v1H6s-3 0-3 4 3 4 3 4h2v-3c0-2 1-3 3-3h4c2 0 3-1 3-3V5s0-2-4-2zM10 5h1v1h-1zM12 21c4 0 4-2 4-2v-3h-5v-1h7s3 0 3-4-3-4-3-4h-2v3c0 2-1 3-3 3h-4c-2 0-3 1-3 3v5s0 2 4 2zM14 19h1v1h-1z"/></svg>Python</span>
-            <span class="lg-pill"><svg class="lg-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><path d="M3 12c2-3 6-5 9-5s7 2 9 5"/><path d="M12 7v10"/></svg>LightRAG</span>
-            <span class="lg-pill"><svg class="lg-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M8 8l4 4-4 4M14 16h4"/></svg>Keras</span>
-          </div>
+        <div class="sl-logos sl-logos-own">
+          <span class="sl-l-own">
+            <svg viewBox="0 0 56 40" fill="currentColor"><path d="M0 4 L10 4 L34 20 L10 36 L0 36 L24 20 Z"/></svg>
+            HyperPlatform
+          </span>
+          <span class="sl-l" title="Sherpa Robotics — Russian RPA"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><circle cx="12" cy="12" r="9"/><path d="M12 3v3M12 18v3M3 12h3M18 12h3"/></svg></span>
         </div>
-      </div>
+      </article>
+
+      <!-- L4 — AI/ML (real tech logos через simpleicons CDN) -->
+      <article class="sl" style="--depth: 2">
+        <span class="sl-tag">L4 · AI</span>
+        <div class="sl-info">
+          <h3 class="sl-h">AI &amp; ML компоненты</h3>
+          <p class="sl-d">LLM, OCR, поиск по&nbsp;знаниям, речь, компьютерное зрение, классификация и&nbsp;генерация</p>
+        </div>
+        <div class="sl-logos sl-logos-real">
+          <img class="sl-real" src="https://cdn.simpleicons.org/openai/F4ECDD" alt="OpenAI" loading="lazy" width="48" height="48">
+          <img class="sl-real" src="https://cdn.simpleicons.org/anthropic/F4ECDD" alt="Claude" loading="lazy" width="48" height="48">
+          <img class="sl-real" src="https://cdn.simpleicons.org/tensorflow/F4ECDD" alt="TensorFlow" loading="lazy" width="48" height="48">
+          <img class="sl-real" src="https://cdn.simpleicons.org/langchain/F4ECDD" alt="LangChain" loading="lazy" width="48" height="48">
+          <img class="sl-real" src="https://cdn.simpleicons.org/keras/F4ECDD" alt="Keras" loading="lazy" width="48" height="48">
+        </div>
+      </article>
+
+      <!-- L3 — Цифровые сотрудники / RPA -->
+      <article class="sl" style="--depth: 3">
+        <span class="sl-tag">L3 · RPA</span>
+        <div class="sl-info">
+          <h3 class="sl-h">Цифровые сотрудники</h3>
+          <p class="sl-d">Оркестрация рутины, парсеры, проверки человеком, SLA, аудит действий между системами</p>
+        </div>
+        <div class="sl-logos sl-logos-real">
+          <img class="sl-real" src="https://cdn.simpleicons.org/uipath/F4ECDD" alt="UiPath" loading="lazy" width="48" height="48">
+          <img class="sl-real" src="https://cdn.simpleicons.org/python/F4ECDD" alt="Python" loading="lazy" width="48" height="48">
+          <img class="sl-real" src="https://cdn.simpleicons.org/docker/F4ECDD" alt="Docker" loading="lazy" width="48" height="48">
+          <img class="sl-real" src="https://cdn.simpleicons.org/celery/F4ECDD" alt="Celery" loading="lazy" width="48" height="48">
+        </div>
+      </article>
+
+      <!-- L2 — Data, BI -->
+      <article class="sl" style="--depth: 4">
+        <span class="sl-tag">L2 · Data</span>
+        <div class="sl-info">
+          <h3 class="sl-h">Данные и&nbsp;аналитика</h3>
+          <p class="sl-d">Графовые и&nbsp;колоночные БД, BI-дашборды, потоковая обработка событий</p>
+        </div>
+        <div class="sl-logos sl-logos-real">
+          <img class="sl-real" src="https://cdn.simpleicons.org/postgresql/F4ECDD" alt="PostgreSQL" loading="lazy" width="48" height="48">
+          <img class="sl-real" src="https://cdn.simpleicons.org/clickhouse/F4ECDD" alt="ClickHouse" loading="lazy" width="48" height="48">
+          <img class="sl-real" src="https://cdn.simpleicons.org/neo4j/F4ECDD" alt="Neo4j" loading="lazy" width="48" height="48">
+          <img class="sl-real" src="https://cdn.simpleicons.org/apachesuperset/F4ECDD" alt="Apache Superset" loading="lazy" width="48" height="48">
+          <img class="sl-real" src="https://cdn.simpleicons.org/apachekafka/F4ECDD" alt="Apache Kafka" loading="lazy" width="48" height="48">
+        </div>
+      </article>
+
+      <!-- L1 — Infrastructure (deepest) -->
+      <article class="sl" style="--depth: 5">
+        <span class="sl-tag">L1 · Infra</span>
+        <div class="sl-info">
+          <h3 class="sl-h">Инфраструктура</h3>
+          <p class="sl-d">Облако, гибрид, локально в&nbsp;периметре заказчика — соответствие 152-ФЗ и&nbsp;ГОСТ</p>
+        </div>
+        <div class="sl-logos sl-logos-real">
+          <img class="sl-real" src="https://cdn.simpleicons.org/yandexcloud/F4ECDD" alt="Yandex Cloud" loading="lazy" width="48" height="48">
+          <img class="sl-real" src="https://cdn.simpleicons.org/kubernetes/F4ECDD" alt="Kubernetes" loading="lazy" width="48" height="48">
+          <img class="sl-real" src="https://cdn.simpleicons.org/linux/F4ECDD" alt="Linux" loading="lazy" width="48" height="48">
+          <img class="sl-real" src="https://cdn.simpleicons.org/nginx/F4ECDD" alt="Nginx" loading="lazy" width="48" height="48">
+        </div>
+      </article>
+
     </div>
   </div>
 </section>
@@ -783,33 +809,94 @@
 
     <div class="sec-grid">
       <article class="sec-card">
-        <svg class="sec-ico" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2">
-          <path d="M32 4l24 10v18c0 14-10 24-24 28C18 56 8 46 8 32V14L32 4z"/>
-          <path d="M32 18v14M32 38v2" stroke-linecap="round"/>
-          <circle cx="32" cy="34" r="1.5" fill="currentColor"/>
+        <!-- Bespoke "perimeter shield": сервер-блок внутри щита с pulse внутри -->
+        <svg class="sec-ico-art" viewBox="0 0 120 120" aria-hidden="true">
+          <!-- outer shield (peach line) -->
+          <path d="M60 8 L106 24 V60 C106 86 86 104 60 112 C34 104 14 86 14 60 V24 Z"
+                fill="none" stroke="currentColor" stroke-width="2" opacity="0.85"/>
+          <!-- inner shield reinforcement -->
+          <path d="M60 18 L96 30 V58 C96 80 80 94 60 100 C40 94 24 80 24 58 V30 Z"
+                fill="none" stroke="currentColor" stroke-width="1" opacity="0.4"/>
+          <!-- server rack inside (peach filled) -->
+          <rect x="44" y="42" width="32" height="44" rx="3" fill="currentColor" opacity="0.18"/>
+          <rect x="44" y="42" width="32" height="44" rx="3" fill="none" stroke="currentColor" stroke-width="2"/>
+          <!-- server unit lines -->
+          <line x1="48" y1="50" x2="72" y2="50" stroke="currentColor" stroke-width="1.5" opacity="0.7"/>
+          <line x1="48" y1="58" x2="72" y2="58" stroke="currentColor" stroke-width="1.5" opacity="0.7"/>
+          <line x1="48" y1="66" x2="72" y2="66" stroke="currentColor" stroke-width="1.5" opacity="0.7"/>
+          <line x1="48" y1="74" x2="72" y2="74" stroke="currentColor" stroke-width="1.5" opacity="0.7"/>
+          <!-- status light pulse -->
+          <circle cx="68" cy="50" r="1.5" fill="currentColor">
+            <animate attributeName="opacity" values="0.3;1;0.3" dur="2s" repeatCount="indefinite"/>
+          </circle>
+          <circle cx="68" cy="74" r="1.5" fill="currentColor">
+            <animate attributeName="opacity" values="1;0.3;1" dur="2.4s" repeatCount="indefinite"/>
+          </circle>
         </svg>
         <h3>Закрытый контур</h3>
         <p>Критичные данные остаются внутри инфраструктуры клиента. Развёртывание в&nbsp;периметре заказчика, без&nbsp;отправки в&nbsp;публичные облака.</p>
       </article>
 
       <article class="sec-card">
-        <svg class="sec-ico" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2">
-          <circle cx="32" cy="22" r="8"/>
-          <path d="M14 56c2-10 9-16 18-16s16 6 18 16"/>
-          <rect x="36" y="14" width="14" height="3" rx="1.5" fill="currentColor" stroke="none"/>
-          <rect x="36" y="20" width="10" height="3" rx="1.5" fill="currentColor" stroke="none"/>
-          <rect x="36" y="26" width="12" height="3" rx="1.5" fill="currentColor" stroke="none"/>
+        <!-- Bespoke "data masking": original data → mask layer → AI access -->
+        <svg class="sec-ico-art" viewBox="0 0 120 120" aria-hidden="true">
+          <!-- raw data block (left) -->
+          <rect x="10" y="34" width="36" height="52" rx="4" fill="currentColor" opacity="0.18"/>
+          <rect x="10" y="34" width="36" height="52" rx="4" fill="none" stroke="currentColor" stroke-width="2"/>
+          <!-- raw fields с PII значениями -->
+          <text x="16" y="48" font-family="JetBrains Mono" font-size="6" fill="currentColor" opacity="0.9">Иванов И.</text>
+          <text x="16" y="58" font-family="JetBrains Mono" font-size="6" fill="currentColor" opacity="0.9">+7 985</text>
+          <text x="16" y="68" font-family="JetBrains Mono" font-size="6" fill="currentColor" opacity="0.9">12345...</text>
+          <text x="16" y="78" font-family="JetBrains Mono" font-size="6" fill="currentColor" opacity="0.9">PII</text>
+          <!-- mask layer (middle, diagonal hatching) -->
+          <pattern id="mask-hatch" x="0" y="0" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+            <line x1="0" y1="0" x2="0" y2="6" stroke="currentColor" stroke-width="1.2" opacity="0.55"/>
+          </pattern>
+          <rect x="50" y="40" width="20" height="40" rx="2" fill="url(#mask-hatch)" stroke="currentColor" stroke-width="1.5" opacity="0.95"/>
+          <!-- arrow → -->
+          <path d="M50 60 H44 M50 60 L46 56 M50 60 L46 64" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+          <path d="M70 60 H76 M76 60 L72 56 M76 60 L72 64" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+          <!-- AI/output block (right) — only "****" -->
+          <rect x="78" y="34" width="32" height="52" rx="4" fill="none" stroke="currentColor" stroke-width="2" opacity="0.85"/>
+          <text x="82" y="50" font-family="JetBrains Mono" font-size="7" fill="currentColor" opacity="0.7">****</text>
+          <text x="82" y="60" font-family="JetBrains Mono" font-size="7" fill="currentColor" opacity="0.7">****</text>
+          <text x="82" y="70" font-family="JetBrains Mono" font-size="7" fill="currentColor" opacity="0.7">****</text>
+          <text x="82" y="80" font-family="JetBrains Mono" font-size="7" fill="currentColor" opacity="0.7">SAFE</text>
         </svg>
         <h3>Маскирование данных</h3>
         <p>Чувствительные поля скрываются до&nbsp;внешних AI-сервисов. PII, финансовые данные, коммерческая тайна — никогда не&nbsp;покидают периметр.</p>
       </article>
 
       <article class="sec-card">
-        <svg class="sec-ico" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2">
-          <circle cx="32" cy="32" r="20"/>
-          <circle cx="32" cy="32" r="10"/>
-          <path d="M32 12v8M32 44v8M12 32h8M44 32h8" stroke-linecap="round"/>
-          <circle cx="32" cy="32" r="3" fill="currentColor" stroke="none"/>
+        <!-- Bespoke "audit trail": линия времени с проверками + checkmarks + eye -->
+        <svg class="sec-ico-art" viewBox="0 0 120 120" aria-hidden="true">
+          <!-- horizontal timeline base -->
+          <line x1="10" y1="60" x2="110" y2="60" stroke="currentColor" stroke-width="2" opacity="0.6"/>
+          <!-- timeline points -->
+          <circle cx="20" cy="60" r="5" fill="currentColor" opacity="0.85"/>
+          <circle cx="42" cy="60" r="5" fill="currentColor" opacity="0.85"/>
+          <circle cx="64" cy="60" r="6" fill="currentColor"/>
+          <circle cx="86" cy="60" r="5" fill="currentColor" opacity="0.85"/>
+          <circle cx="108" cy="60" r="5" fill="currentColor" opacity="0.6"/>
+          <!-- check marks above -->
+          <path d="M16 44l3 3 5-6" stroke="currentColor" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M38 44l3 3 5-6" stroke="currentColor" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M60 44l3 3 5-6" stroke="currentColor" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M82 44l3 3 5-6" stroke="currentColor" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+          <!-- eye (audit) above center -->
+          <path d="M52 30c4-6 16-6 20 0c-4 6-16 6-20 0z" fill="none" stroke="currentColor" stroke-width="2"/>
+          <circle cx="62" cy="30" r="3" fill="currentColor"/>
+          <!-- labels below -->
+          <text x="14" y="80" font-family="JetBrains Mono" font-size="5" fill="currentColor" opacity="0.7">PARSE</text>
+          <text x="36" y="80" font-family="JetBrains Mono" font-size="5" fill="currentColor" opacity="0.7">RULE</text>
+          <text x="58" y="80" font-family="JetBrains Mono" font-size="5" fill="currentColor" opacity="0.9">HUMAN</text>
+          <text x="80" y="80" font-family="JetBrains Mono" font-size="5" fill="currentColor" opacity="0.7">EXEC</text>
+          <text x="102" y="80" font-family="JetBrains Mono" font-size="5" fill="currentColor" opacity="0.6">LOG</text>
+          <!-- pulse on center -->
+          <circle cx="64" cy="60" r="6" fill="none" stroke="currentColor" stroke-width="1.5">
+            <animate attributeName="r" values="6;14;6" dur="2.4s" repeatCount="indefinite"/>
+            <animate attributeName="opacity" values="0.7;0;0.7" dur="2.4s" repeatCount="indefinite"/>
+          </circle>
         </svg>
         <h3>Полный контроль</h3>
         <p>AI и&nbsp;цифровые сотрудники работают по&nbsp;правилам, ролям и&nbsp;логике согласований. Никакой импровизации — прозрачные логи, аудит, проверки человеком.</p>
